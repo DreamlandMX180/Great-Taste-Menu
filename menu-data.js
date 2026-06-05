@@ -107,12 +107,12 @@ window.menuData = [
     categoryZh: "捞面",
     note: "Soft egg noodles.",
     items: [
-      { number: "48", nameEn: "Vegetable Lo Mein", nameZh: "蔬菜捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }], needsReview: true },
-      { number: "49", nameEn: "Roast Pork Lo Mein", nameZh: "叉烧捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], needsReview: true },
-      { number: "50", nameEn: "Chicken Lo Mein", nameZh: "鸡肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], needsReview: true },
-      { number: "51", nameEn: "Shrimp Lo Mein", nameZh: "虾捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }], needsReview: true },
-      { number: "52", nameEn: "Beef Lo Mein", nameZh: "牛肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }], needsReview: true },
-      { number: "53", nameEn: "House Special Lo Mein", nameZh: "本楼捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "9.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], needsReview: true }
+      { number: "48", nameEn: "Vegetable Lo Mein", nameZh: "蔬菜捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "49", nameEn: "Roast Pork Lo Mein", nameZh: "叉烧捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "50", nameEn: "Chicken Lo Mein", nameZh: "鸡肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "51", nameEn: "Shrimp Lo Mein", nameZh: "虾捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "52", nameEn: "Beef Lo Mein", nameZh: "牛肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "53", nameEn: "House Special Lo Mein", nameZh: "本楼捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "9.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] }
     ]
   },
   {
