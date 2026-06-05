@@ -65,17 +65,15 @@ window.menuData = [
     categoryEn: "Fried Rice",
     categoryZh: "炒饭",
     items: [
-      { number: "27", nameEn: "Plain Fried Rice", nameZh: "素炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.00" }], needsReview: true },
-      { number: "28", nameEn: "Vegetable Fried Rice", nameZh: "蔬菜炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.00" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }], needsReview: true },
-      { number: "29", nameEn: "Roast Pork Fried Rice", nameZh: "叉烧炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.25" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }], needsReview: true },
-      { number: "30", nameEn: "Ham Fried Rice", nameZh: "火腿炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.00" }, { labelEn: "Qt", labelZh: "大", amount: "8.75" }], needsReview: true },
-      { number: "31", nameEn: "Shrimp Fried Rice", nameZh: "虾炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }], needsReview: true },
-      { number: "32", nameEn: "Chicken Fried Rice", nameZh: "鸡肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], needsReview: true },
-      { number: "33", nameEn: "Beef Fried Rice", nameZh: "牛肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }], needsReview: true },
+      { number: "27", nameEn: "Plain Fried Rice", nameZh: "素炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.00" }] },
+      { number: "28", nameEn: "Vegetable Fried Rice", nameZh: "蔬菜炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }] },
+      { number: "29", nameEn: "Roast Pork Fried Rice", nameZh: "叉烧炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.25" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "31", nameEn: "Shrimp Fried Rice", nameZh: "虾炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "32", nameEn: "Chicken Fried Rice", nameZh: "鸡肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "33", nameEn: "Beef Fried Rice", nameZh: "牛肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
       { number: "34", nameEn: "House Special Fried Rice", nameZh: "本楼炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.50" }] },
-      { number: "35", nameEn: "Crab Meat Fried Rice", nameZh: "蟹肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.25" }, { labelEn: "Qt", labelZh: "大", amount: "9.50" }], needsReview: true },
-      { number: "36", nameEn: "White Rice", nameZh: "白饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "3.00" }, { labelEn: "Qt", labelZh: "大", amount: "5.00" }], needsReview: true },
-      { number: "37", nameEn: "White Rice with Gravy", nameZh: "白饭加卤汁", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }], needsReview: true }
+      { number: "36", nameEn: "White Rice", nameZh: "白饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "3.00" }, { labelEn: "Qt", labelZh: "大", amount: "5.00" }] },
+      { number: "37", nameEn: "White Rice with Gravy", nameZh: "白饭加卤汁", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] }
     ]
   },
   {
