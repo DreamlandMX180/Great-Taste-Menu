@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Great Taste bilingual Chinese-American takeout menu.">
+    <title>Great Taste Menu | 中英文菜单</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Great Taste menu home">
+          <span class="brand-mark" aria-hidden="true">味</span>
+          <span>
+            <span class="brand-name">Great Taste</span>
+            <span class="brand-subtitle">English / 中文菜单</span>
+          </span>
+        </a>
+        <div class="menu-meta">
+          <span>Digital Menu</span>
+          <span>中英文</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="menu-hero" aria-labelledby="menu-title">
+        <div class="hero-copy">
+          <p class="hero-chinese">好味菜单</p>
+          <h1 id="menu-title">Great Taste Menu</h1>
+          <p class="hero-note">Prices are entered from the latest handwritten menu notes. Items marked “Review” need final price confirmation.</p>
+          <p class="hero-note zh">价格按手写改价录入；标有“需校对”的项目请上线前再次确认。</p>
+        </div>
+
+        <form class="search-panel" role="search">
+          <label for="menu-search">Search menu / 搜索菜单</label>
+          <div class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="menu-search" type="search" autocomplete="off" placeholder="Chicken, 炒饭, C12, Lo Mein">
+          </div>
+        </form>
+      </section>
+
+      <nav class="category-shell" aria-label="Menu categories">
+        <div id="category-tabs" class="category-tabs"></div>
+      </nav>
+
+      <section class="results-summary" aria-live="polite">
+        <p id="result-count"></p>
+        <button id="clear-search" class="text-button" type="button" hidden>Clear / 清除</button>
+      </section>
+
+      <section id="menu-root" class="menu-root" aria-label="Great Taste menu items"></section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Great Taste · Bilingual digital menu / 中英文数字菜单</p>
+      <p>Some handwritten prices are marked for review before publication. / 部分手写价格已标记待校对。</p>
+    </footer>
+
+    <script src="menu-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
