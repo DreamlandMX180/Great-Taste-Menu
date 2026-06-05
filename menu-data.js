@@ -28,7 +28,7 @@ window.menuData = [
       { number: "1", nameEn: "Spring Roll", nameZh: "春卷", prices: [{ amount: "2.00" }] },
       { number: "2", nameEn: "Pizza Roll", nameZh: "披萨卷", prices: [{ amount: "2.00" }] },
       { number: "3", nameEn: "Shrimp Egg Roll", nameZh: "虾蛋卷", prices: [{ amount: "2.00" }] },
-      { number: "4", nameEn: "Egg Roll", nameZh: "鸡蛋卷", prices: [{ amount: "2.00" }], needsReview: true },
+      { number: "4", nameEn: "Egg Roll", nameZh: "鸡蛋卷", prices: [{ amount: "2.00" }] },
       { number: "5", nameEn: "Cheese Steak Egg Roll", nameZh: "乳酪牛排蛋卷", prices: [{ amount: "2.00" }] },
       { number: "6", nameEn: "Chinese Donuts (10)", nameZh: "甜甜圈", prices: [{ amount: "4.00" }] },
       { number: "7", nameEn: "French Fries", nameZh: "炸薯条", prices: [{ labelEn: "Sm", labelZh: "小", amount: "2.25" }, { labelEn: "Lg", labelZh: "大", amount: "4.50" }] },
@@ -48,16 +48,16 @@ window.menuData = [
     categoryZh: "汤",
     note: "Served with crispy noodles.",
     items: [
-      { number: "17", nameEn: "Wonton Soup", nameZh: "云吞汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }], needsReview: true },
-      { number: "18", nameEn: "Wonton Egg Drop Soup", nameZh: "云吞蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }], needsReview: true },
-      { number: "19", nameEn: "Subgum Wonton Soup", nameZh: "杂菜云吞汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.50" }], needsReview: true },
-      { number: "20", nameEn: "Egg Drop Soup", nameZh: "蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }], needsReview: true },
-      { number: "21", nameEn: "Chicken Egg Drop Soup", nameZh: "鸡蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "7.00" }], needsReview: true },
-      { number: "22", nameEn: "Chicken Noodle Soup", nameZh: "鸡肉面汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "3.25" }, { labelEn: "Qt", labelZh: "大", amount: "5.50" }] },
-      { number: "23", nameEn: "Hot & Sour Soup", nameZh: "酸辣汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "3.75" }, { labelEn: "Qt", labelZh: "大", amount: "6.25" }], spicy: true },
-      { number: "24", nameEn: "Mixed Vegetable Soup", nameZh: "什锦蔬菜汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "3.50" }, { labelEn: "Qt", labelZh: "大", amount: "5.75" }] },
-      { number: "25", nameEn: "House Special Soup", nameZh: "本楼汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.25" }, { labelEn: "Qt", labelZh: "大", amount: "6.75" }] },
-      { number: "26", nameEn: "Seafood Soup", nameZh: "海鲜汤", note: "Shrimp, crabmeat, scallop", prices: [{ amount: "8.50" }], needsReview: true }
+      { number: "17", nameEn: "Wonton Soup", nameZh: "云吞汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
+      { number: "18", nameEn: "Wonton Egg Drop Soup", nameZh: "云吞蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
+      { number: "19", nameEn: "Subgum Wonton Soup", nameZh: "杂菜云吞汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.50" }] },
+      { number: "20", nameEn: "Egg Drop Soup", nameZh: "蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
+      { number: "21", nameEn: "Chicken Egg Drop Soup", nameZh: "鸡蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
+      { number: "22", nameEn: "Chicken Noodle Soup", nameZh: "鸡肉面汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "7.00" }] },
+      { number: "23", nameEn: "Hot & Sour Soup", nameZh: "酸辣汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }], spicy: true },
+      { number: "24", nameEn: "Mixed Vegetable Soup", nameZh: "什锦蔬菜汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
+      { number: "25", nameEn: "House Special Soup", nameZh: "本楼汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.50" }] },
+      { number: "26", nameEn: "Seafood Soup", nameZh: "海鲜汤", note: "Shrimp, crabmeat, scallop", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.50" }] }
     ]
   },
   {
