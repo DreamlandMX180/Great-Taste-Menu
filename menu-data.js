@@ -134,13 +134,12 @@ window.menuData = [
     categoryZh: "芙蓉蛋",
     note: "Served with rice.",
     items: [
-      { number: "59", nameEn: "Vegetable Egg Foo Young", nameZh: "蔬菜芙蓉蛋", prices: [{ amount: "9.00" }], needsReview: true },
-      { number: "60", nameEn: "Mushroom Egg Foo Young", nameZh: "蘑菇芙蓉蛋", prices: [{ amount: "8.00" }], needsReview: true },
-      { number: "61", nameEn: "Roast Pork Egg Foo Young", nameZh: "叉烧芙蓉蛋", prices: [{ amount: "11.00" }], needsReview: true },
-      { number: "62", nameEn: "Chicken Egg Foo Young", nameZh: "鸡肉芙蓉蛋", prices: [{ amount: "11.00" }], needsReview: true },
-      { number: "63", nameEn: "Shrimp Egg Foo Young", nameZh: "虾芙蓉蛋", prices: [{ amount: "11.00" }], needsReview: true },
-      { number: "64", nameEn: "Beef Egg Foo Young", nameZh: "牛肉芙蓉蛋", prices: [{ amount: "11.00" }], needsReview: true },
-      { number: "65", nameEn: "House Special Egg Foo Young", nameZh: "本楼芙蓉蛋", prices: [{ amount: "12.00" }], needsReview: true }
+      { number: "59", nameEn: "Vegetable Egg Foo Young", nameZh: "蔬菜芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }] },
+      { number: "61", nameEn: "Roast Pork Egg Foo Young", nameZh: "叉烧芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "62", nameEn: "Chicken Egg Foo Young", nameZh: "鸡肉芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "63", nameEn: "Shrimp Egg Foo Young", nameZh: "虾芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "64", nameEn: "Beef Egg Foo Young", nameZh: "牛肉芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "65", nameEn: "House Special Egg Foo Young", nameZh: "本楼芙蓉蛋", prices: [{ amount: "11.00" }] }
     ]
   },
   {
