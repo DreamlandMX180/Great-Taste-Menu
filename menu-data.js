@@ -148,11 +148,11 @@ window.menuData = [
     categoryZh: "甜酸",
     note: "Served with rice.",
     items: [
-      { number: "66", nameEn: "Sweet & Sour Pork", nameZh: "甜酸肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.25" }, { labelEn: "Qt", labelZh: "大", amount: "10.50" }] },
-      { number: "67", nameEn: "Sweet & Sour Shrimp", nameZh: "甜酸虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "68", nameEn: "Sweet & Sour Chicken", nameZh: "甜酸鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.25" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "69", nameEn: "Triple Sweet & Sour", nameZh: "三拼甜酸", prices: [{ amount: "9.50" }] },
-      { number: "70", nameEn: "Sweet & Sour Spare Rib Tips", nameZh: "甜酸排骨尖", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.25" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }] }
+      { number: "66", nameEn: "Sweet & Sour Pork", nameZh: "甜酸肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "67", nameEn: "Sweet & Sour Shrimp", nameZh: "甜酸虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "68", nameEn: "Sweet & Sour Chicken", nameZh: "甜酸鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "69", nameEn: "Triple Sweet & Sour", nameZh: "三拼甜酸", prices: [{ amount: "11.00" }] },
+      { number: "70", nameEn: "Sweet & Sour Spare Rib Tips", nameZh: "甜酸排骨尖", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] }
     ]
   },
   {
