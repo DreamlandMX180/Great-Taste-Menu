@@ -82,11 +82,11 @@ window.menuData = [
     categoryZh: "炒面",
     note: "Served with rice crispy noodles.",
     items: [
-      { number: "38", nameEn: "Vegetable Chow Mein", nameZh: "蔬菜炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], needsReview: true },
-      { number: "39", nameEn: "Chicken Chow Mein", nameZh: "鸡肉炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], needsReview: true },
-      { number: "40", nameEn: "Roast Pork Chow Mein", nameZh: "叉烧炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], needsReview: true },
-      { number: "41", nameEn: "Shrimp Chow Mein", nameZh: "虾炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }], needsReview: true },
-      { number: "42", nameEn: "Beef Chow Mein", nameZh: "牛肉炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }], needsReview: true }
+      { number: "38", nameEn: "Vegetable Chow Mein", nameZh: "蔬菜炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "39", nameEn: "Chicken Chow Mein", nameZh: "鸡肉炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "40", nameEn: "Roast Pork Chow Mein", nameZh: "叉烧炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "41", nameEn: "Shrimp Chow Mein", nameZh: "虾炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "42", nameEn: "Beef Chow Mein", nameZh: "牛肉炒面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] }
     ]
   },
   {
