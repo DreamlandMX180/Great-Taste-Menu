@@ -94,11 +94,11 @@ window.menuData = [
     categoryEn: "Chow Mei Fun",
     categoryZh: "炒米粉",
     items: [
-      { number: "43", nameEn: "Chicken Chow Mei Fun", nameZh: "鸡肉炒米粉", prices: [{ amount: "10.00" }], needsReview: true },
-      { number: "44", nameEn: "Shrimp Chow Mei Fun", nameZh: "虾炒米粉", prices: [{ amount: "11.00" }], needsReview: true },
-      { number: "45", nameEn: "Beef Chow Mei Fun", nameZh: "牛肉炒米粉", prices: [{ amount: "11.00" }], needsReview: true },
+      { number: "43", nameEn: "Chicken Chow Mei Fun", nameZh: "鸡肉炒米粉", prices: [{ amount: "10.00" }] },
+      { number: "44", nameEn: "Shrimp Chow Mei Fun", nameZh: "虾炒米粉", prices: [{ amount: "11.00" }] },
+      { number: "45", nameEn: "Beef Chow Mei Fun", nameZh: "牛肉炒米粉", prices: [{ amount: "12.00" }] },
       { number: "46", nameEn: "House Special Chow Mei Fun", nameZh: "本楼炒米粉", prices: [{ amount: "12.00" }], needsReview: true },
-      { number: "47", nameEn: "Singapore Chow Mei Fun", nameZh: "星洲炒米粉", prices: [{ amount: "12.00" }], spicy: true, needsReview: true }
+      { number: "47", nameEn: "Singapore Chow Mei Fun", nameZh: "星洲炒米粉", prices: [{ amount: "11.00" }], spicy: true }
     ]
   },
   {
