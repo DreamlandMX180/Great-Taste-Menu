@@ -161,11 +161,11 @@ window.menuData = [
     categoryZh: "本楼蔬菜",
     note: "Served with rice.",
     items: [
-      { number: "71", nameEn: "Mixed Vegetables", nameZh: "什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.75" }, { labelEn: "Qt", labelZh: "大", amount: "9.25" }] },
-      { number: "72", nameEn: "Bean Curd with Mixed Vegetables", nameZh: "豆腐什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "9.50" }] },
-      { number: "73", nameEn: "Sauteed Broccoli", nameZh: "炒西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.50" }] },
-      { number: "74", nameEn: "Broccoli with Garlic Sauce", nameZh: "鱼香西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.75" }, { labelEn: "Qt", labelZh: "大", amount: "9.25" }], spicy: true },
-      { number: "75", nameEn: "Bean Curd Szechuan Style", nameZh: "四川豆腐", prices: [{ amount: "9.25" }], spicy: true }
+      { number: "71", nameEn: "Mixed Vegetables", nameZh: "什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "72", nameEn: "Bean Curd with Mixed Vegetables", nameZh: "豆腐什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "73", nameEn: "Sauteed Broccoli", nameZh: "炒西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "74", nameEn: "Broccoli with Garlic Sauce", nameZh: "鱼香西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], spicy: true },
+      { number: "75", nameEn: "Bean Curd Szechuan Style", nameZh: "四川豆腐", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], spicy: true }
     ]
   },
   {
@@ -174,9 +174,9 @@ window.menuData = [
     categoryZh: "健康餐",
     note: "Served without salt, sugar, corn starch.",
     items: [
-      { number: "D1", nameEn: "Steamed Mixed Vegetables", nameZh: "清蒸什锦蔬菜", prices: [{ amount: "9.00" }] },
-      { number: "D2", nameEn: "Steamed Chicken with Broccoli", nameZh: "清蒸鸡肉西兰花", prices: [{ amount: "10.00" }] },
-      { number: "D3", nameEn: "Steamed Shrimp with Broccoli", nameZh: "清蒸虾西兰花", prices: [{ amount: "10.75" }] }
+      { number: "D1", nameEn: "Steamed Mixed Vegetables", nameZh: "清蒸什锦蔬菜", prices: [{ amount: "10.00" }] },
+      { number: "D2", nameEn: "Steamed Chicken with Broccoli", nameZh: "清蒸鸡肉西兰花", prices: [{ amount: "11.00" }] },
+      { number: "D3", nameEn: "Steamed Shrimp with Broccoli", nameZh: "清蒸虾西兰花", prices: [{ amount: "11.00" }] }
     ]
   },
   {
@@ -185,8 +185,8 @@ window.menuData = [
     categoryZh: "猪肉",
     note: "Served with rice.",
     items: [
-      { number: "76", nameEn: "Roast Pork with Mixed Vegetables", nameZh: "叉烧什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.25" }, { labelEn: "Qt", labelZh: "大", amount: "11.25" }] },
-      { number: "77", nameEn: "Roast Pork with Broccoli", nameZh: "叉烧西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.25" }, { labelEn: "Qt", labelZh: "大", amount: "11.25" }] }
+      { number: "76", nameEn: "Roast Pork with Mixed Vegetables", nameZh: "叉烧什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
+      { number: "77", nameEn: "Roast Pork with Broccoli", nameZh: "叉烧西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] }
     ]
   },
   {
@@ -194,8 +194,8 @@ window.menuData = [
     categoryEn: "Sandwiches",
     categoryZh: "三明治",
     items: [
-      { number: "", nameEn: "Fried Whiting Fish (2 pcs)", nameZh: "炸鳕鱼三明治", prices: [{ amount: "5.50" }] },
-      { number: "", nameEn: "Pork Chop (1 pc)", nameZh: "炸猪排三明治", prices: [{ amount: "4.50" }] }
+      { number: "", nameEn: "Fried Whiting Fish (2 pcs)", nameZh: "炸鳕鱼三明治", prices: [{ amount: "6.00" }] },
+      { number: "", nameEn: "Pork Chop (1 pc)", nameZh: "炸猪排三明治", prices: [{ amount: "6.00" }] }
     ]
   },
   {
@@ -203,12 +203,11 @@ window.menuData = [
     categoryEn: "Steaks & Burgers",
     categoryZh: "牛排与汉堡",
     items: [
-      { number: "", nameEn: "Plain Steak", nameZh: "原味牛排", prices: [{ amount: "5.50" }] },
-      { number: "", nameEn: "Cheese Steak", nameZh: "乳酪牛排", prices: [{ amount: "6.00" }] },
-      { number: "", nameEn: "Hamburger", nameZh: "汉堡", prices: [{ amount: "3.00" }] },
-      { number: "", nameEn: "Cheeseburger", nameZh: "乳酪汉堡", prices: [{ amount: "3.25" }] },
-      { number: "", nameEn: "Cheese Fries", nameZh: "乳酪薯条", prices: [{ labelEn: "Sm", labelZh: "小", amount: "3.00" }, { labelEn: "Lg", labelZh: "大", amount: "5.00" }] },
-      { number: "", nameEn: "Cheese Pretzels", nameZh: "乳酪椒盐卷饼", prices: [{ amount: "2.00" }] }
+      { number: "", nameEn: "Plain Steak", nameZh: "原味牛排", prices: [{ amount: "6.00" }] },
+      { number: "", nameEn: "Cheese Steak", nameZh: "乳酪牛排", prices: [{ amount: "6.50" }] },
+      { number: "", nameEn: "Hamburger", nameZh: "汉堡", prices: [{ amount: "3.50" }] },
+      { number: "", nameEn: "Cheeseburger", nameZh: "乳酪汉堡", prices: [{ amount: "4.00" }] },
+      { number: "", nameEn: "Cheese Fries", nameZh: "乳酪薯条", prices: [{ labelEn: "Sm", labelZh: "小", amount: "3.50" }, { labelEn: "Lg", labelZh: "大", amount: "6.00" }] }
     ]
   },
   {
