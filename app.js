@@ -38,7 +38,7 @@ const formatPrice = (price) => {
 
 const renderItem = (item) => {
   const number = item.number ? `<span class="item-number">${item.number}</span>` : "";
-  const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣</span>` : "";
+  const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
   const note = item.note ? `<p class="item-note">${item.note}</p>` : "";
   const review = item.needsReview ? `<span class="review-badge">Review / 需校对</span>` : "";
 

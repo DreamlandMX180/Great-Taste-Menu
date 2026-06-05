@@ -344,15 +344,16 @@ h1 {
 }
 
 .spicy-mark {
-  display: inline-grid;
-  place-items: center;
-  min-width: 18px;
-  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
   color: #fff;
   background: var(--red);
+  padding: 2px 6px;
   font-size: 0.78rem;
   font-weight: 900;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .item-name-zh {
