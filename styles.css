@@ -872,7 +872,7 @@ a.featured-card:hover {
 }
 
 @media (max-width: 820px) {
-  .item-list > .menu-item:nth-child(even) {
+  .item-list > article.menu-item:nth-of-type(even) {
     background: rgba(255, 253, 248, 0.55);
     border-radius: 6px;
     margin-left: -6px;
@@ -999,7 +999,7 @@ a.featured-card:hover {
   padding-bottom: 12px;
 }
 
-#platters .item-list > .menu-item:nth-child(even) {
+#platters .item-list > article.menu-item:nth-of-type(even) {
   background: rgba(255, 253, 248, 0.42);
   border-radius: 6px;
   margin-left: -6px;
