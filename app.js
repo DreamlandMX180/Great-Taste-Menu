@@ -119,6 +119,12 @@ const featuredSpecials = [
     number: "89",
     imageSrc: "assets/general-tso-chicken.jpg",
     imageAlt: "General Tso's chicken plate"
+  },
+  {
+    categoryId: "appetizers",
+    number: "14",
+    imageSrc: "assets/salt-pepper-wings.jpg",
+    imageAlt: "Salt and pepper chicken wings"
   }
 ];
 

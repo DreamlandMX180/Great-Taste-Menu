@@ -50,6 +50,16 @@ window.menuData = [
       { number: "11", nameEn: "Teriyaki Chicken", nameZh: "照烧鸡", prices: [{ amount: "2.00" }] },
       { number: "12", nameEn: "Buffalo Wings", nameZh: "辣味鸡翅", prices: [{ amount: "8.00" }], spicy: true },
       { number: "13", nameEn: "Steamed Shrimp (20)", nameZh: "蒸虾", prices: [{ amount: "7.00" }] },
+      {
+        number: "14",
+        nameEn: "Salt and Pepper Wings",
+        nameZh: "椒盐鸡翅",
+        note: "$1 per wing. Minimum 3 wings. / 每只$1，三只起售。",
+        prices: [
+          { labelEn: "3 pcs min", labelZh: "三只起", amount: "3.00" },
+          { labelEn: "Per wing", labelZh: "每只", amount: "1.00" }
+        ]
+      },
       { number: "15", nameEn: "Shrimp on the Stick (5)", nameZh: "串烧虾", prices: [{ amount: "2.00" }] },
       { number: "16", nameEn: "Jumbo Shrimp on the Stick (5)", nameZh: "串烧大虾", prices: [{ amount: "5.00" }] }
     ]

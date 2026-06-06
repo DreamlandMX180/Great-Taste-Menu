@@ -634,11 +634,12 @@ a.featured-card:focus-visible {
 
 .featured-card {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
+  /* Percent-based photo track so copy never collides when cards sit in a 2-col row */
+  grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
   grid-template-areas:
     "photo copy"
     "photo prices";
-  gap: 12px 30px;
+  gap: 12px clamp(12px, 2.5vw, 24px);
   align-items: stretch;
   min-height: 190px;
   border: 1px solid var(--line);
@@ -1087,8 +1088,8 @@ a.featured-card:hover {
   }
 
   .featured-card {
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 12px 22px;
+    grid-template-columns: minmax(0, 40%) minmax(0, 1fr);
+    gap: 12px 14px;
   }
 
   .featured-name-line h3 {
