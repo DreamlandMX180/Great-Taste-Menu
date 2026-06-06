@@ -21,6 +21,17 @@ window.menuData = [
     ]
   },
   {
+    id: "platters",
+    categoryEn: "Platters",
+    categoryZh: "鸡翅拼盘",
+    items: [
+      { number: "WP1", nameEn: "Chicken Wings (3)", nameZh: "三只翅", prices: [{ labelEn: "Fried rice or French fries", labelZh: "炒饭或薯条", amount: "6.50" }, { labelEn: "Chicken or pork fried rice", labelZh: "鸡/叉烧炒饭", amount: "8.00" }, { labelEn: "Beef or shrimp fried rice", labelZh: "牛/虾炒饭", amount: "8.50" }, { labelEn: "Plain lo mein", labelZh: "净捞面", amount: "8.50" }] },
+      { number: "WP2", nameEn: "Chicken Wings (4)", nameZh: "四只翅", prices: [{ labelEn: "Fried rice or French fries", labelZh: "炒饭或薯条", amount: "8.00" }, { labelEn: "Chicken or pork fried rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef or shrimp fried rice", labelZh: "牛/虾炒饭", amount: "10.00" }, { labelEn: "Plain lo mein", labelZh: "净捞面", amount: "9.50" }] },
+      { number: "WP3", nameEn: "Chicken Wings (5)", nameZh: "五只翅", prices: [{ labelEn: "Fried rice or French fries", labelZh: "炒饭或薯条", amount: "9.50" }, { labelEn: "Chicken or pork fried rice", labelZh: "鸡/叉烧炒饭", amount: "11.00" }, { labelEn: "Beef or shrimp fried rice", labelZh: "牛/虾炒饭", amount: "11.25" }, { labelEn: "Plain lo mein", labelZh: "净捞面", amount: "11.00" }] },
+      { number: "WP4", nameEn: "Chicken Wings (6)", nameZh: "六只翅", prices: [{ labelEn: "Fried rice or French fries", labelZh: "炒饭或薯条", amount: "11.00" }, { labelEn: "Chicken or pork fried rice", labelZh: "鸡/叉烧炒饭", amount: "12.50" }, { labelEn: "Beef or shrimp fried rice", labelZh: "牛/虾炒饭", amount: "12.75" }, { labelEn: "Plain lo mein", labelZh: "净捞面", amount: "12.75" }] }
+    ]
+  },
+  {
     id: "appetizers",
     categoryEn: "Appetizers",
     categoryZh: "头盘",
