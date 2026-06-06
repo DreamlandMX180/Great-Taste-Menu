@@ -3,14 +3,27 @@ const categoryTabs = document.querySelector("#category-tabs");
 const searchInput = document.querySelector("#menu-search");
 const resultCount = document.querySelector("#result-count");
 const clearSearch = document.querySelector("#clear-search");
+const featuredRoot = document.querySelector("#featured-specials-root");
 
 let activeCategory = "all";
+
+const featuredSpecials = [
+  { categoryId: "seafood", number: "111" },
+  { categoryId: "chicken", number: "89" }
+];
 
 const normalize = (value) => String(value || "").trim().toLowerCase();
 
 const getAllItems = () => window.menuData.flatMap((category) =>
   category.items.map((item) => ({ ...item, categoryId: category.id }))
 );
+
+const findMenuItem = ({ categoryId, number }) => {
+  const category = window.menuData.find((entry) => entry.id === categoryId);
+  if (!category) return null;
+  const item = category.items.find((entry) => entry.number === number);
+  return item ? { item, category } : null;
+};
 
 const matchesSearch = (item, category, query) => {
   if (!query) return true;
@@ -59,6 +72,32 @@ const renderItem = (item) => {
       </div>
     </article>
   `;
+};
+
+const renderFeaturedItem = ({ item, category }) => {
+  const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
+
+  return `
+    <article class="featured-card">
+      <div class="featured-copy">
+        <span class="featured-kicker">${category.categoryEn} / ${category.categoryZh}</span>
+        <div class="featured-name-line">
+          <h3>${item.nameEn}</h3>
+          ${spicy}
+        </div>
+        <p>${item.nameZh}</p>
+      </div>
+      <div class="featured-prices" aria-label="Featured prices for ${item.nameEn}">
+        ${item.prices.map(formatPrice).join("")}
+      </div>
+    </article>
+  `;
+};
+
+const renderFeaturedSpecials = () => {
+  if (!featuredRoot) return;
+  const items = featuredSpecials.map(findMenuItem).filter(Boolean);
+  featuredRoot.innerHTML = items.map(renderFeaturedItem).join("");
 };
 
 const renderCategories = () => {
@@ -139,4 +178,5 @@ clearSearch.addEventListener("click", () => {
 });
 
 renderCategories();
+renderFeaturedSpecials();
 renderMenu();

@@ -264,7 +264,8 @@ window.menuData = [
       { number: "107", nameEn: "Shrimp in Garlic Sauce", nameZh: "鱼香虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
       { number: "108", nameEn: "Szechuan Shrimp", nameZh: "四川虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
       { number: "109", nameEn: "Hunan Shrimp", nameZh: "湖南虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "110", nameEn: "Hot & Spicy Shrimp", nameZh: "香辣虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true }
+      { number: "110", nameEn: "Hot & Spicy Shrimp", nameZh: "香辣虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
+      { number: "111", nameEn: "General Tso's Shrimp", nameZh: "左宗虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true }
     ]
   },
   {

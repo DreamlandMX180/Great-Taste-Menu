@@ -225,6 +225,108 @@ h1 {
   padding: 0 13px;
 }
 
+.featured-specials {
+  margin: 4px 0 18px;
+  padding: 14px 10px 16px;
+  border-block: 4px double var(--red);
+  background:
+    linear-gradient(90deg, rgba(247, 234, 208, 0.84), rgba(255, 255, 255, 0.92) 46%, rgba(247, 234, 208, 0.62)),
+    var(--paper);
+}
+
+.featured-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.featured-heading p {
+  margin: 0;
+  color: var(--gold);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.featured-heading h2 {
+  margin: 0;
+  color: var(--red);
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.featured-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.featured-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, auto);
+  align-items: center;
+  gap: 14px;
+  min-height: 112px;
+  padding: 14px;
+  border: 1px solid var(--line-strong);
+  border-left: 5px solid var(--red);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.featured-kicker {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.featured-name-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+}
+
+.featured-name-line h3 {
+  margin: 0;
+  color: var(--red-deep);
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.featured-copy p {
+  margin: 3px 0 0;
+  color: #4b3b36;
+  font-family: "Noto Serif SC", serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.featured-copy {
+  min-width: 0;
+}
+
+.featured-prices {
+  display: grid;
+  gap: 4px;
+  justify-items: end;
+}
+
+.featured-prices .price-chip {
+  min-width: 116px;
+}
+
+.featured-prices .price-value {
+  font-size: 1.12rem;
+}
+
 .restaurant-strip {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(260px, 1fr) minmax(160px, 0.65fr);
@@ -538,6 +640,10 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .featured-list {
+    grid-template-columns: 1fr;
+  }
+
   .item-list {
     grid-template-columns: 1fr;
   }
@@ -596,6 +702,44 @@ h1 {
     margin-bottom: 14px;
     padding: 0;
     gap: 0;
+  }
+
+  .featured-specials {
+    margin-bottom: 14px;
+    padding: 12px 10px;
+  }
+
+  .featured-heading {
+    display: grid;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .featured-heading h2 {
+    font-size: 1.42rem;
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+
+  .featured-card {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    min-height: 0;
+    min-width: 0;
+    padding: 12px 10px;
+  }
+
+  .featured-prices {
+    width: 100%;
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+
+  .featured-prices .price-chip {
+    width: auto;
+    min-width: 0;
+    grid-template-columns: auto auto;
+    justify-content: start;
   }
 
   .info-panel {
