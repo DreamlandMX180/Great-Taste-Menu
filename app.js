@@ -123,7 +123,7 @@ const featuredSpecials = [
   {
     categoryId: "appetizers",
     number: "14",
-    imageSrc: "assets/salt-pepper-wings.jpg",
+    imageSrc: "assets/salt and peper wings.png",
     imageAlt: "Salt and pepper chicken wings"
   }
 ];
@@ -231,20 +231,22 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
   const href = `#${itemAnchorId(category.id, item.number)}`;
 
   return `
-    <a class="featured-card" href="${href}">
+    <a class="featured-card" href="${href}" data-featured-category="${category.id}" data-featured-number="${item.number}">
       <div class="featured-photo">
         <img src="${imageSrc}" alt="${imageAlt}" width="640" height="480" loading="lazy" decoding="async">
       </div>
-      <div class="featured-copy">
-        <div class="featured-name-line">
-          <h3>${item.nameEn}</h3>
-          ${spicy}
+      <div class="featured-body">
+        <div class="featured-copy">
+          <div class="featured-name-line">
+            <h3>${item.nameEn}</h3>
+            ${spicy}
+          </div>
+          <p>${item.nameZh}</p>
+          <div class="featured-rule" aria-hidden="true"></div>
         </div>
-        <p>${item.nameZh}</p>
-        <div class="featured-rule" aria-hidden="true"></div>
-      </div>
-      <div class="featured-prices" aria-label="Featured prices for ${item.nameEn}">
-        ${item.prices.map(formatFeaturedPrice).join("")}
+        <div class="featured-prices" aria-label="Featured prices for ${item.nameEn}">
+          ${item.prices.map(formatFeaturedPrice).join("")}
+        </div>
       </div>
     </a>
   `;

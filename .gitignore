@@ -9,6 +9,3 @@ worktrees/
 # Generated exports and local QA/browser artifacts
 .codex-temp/
 outputs/
-
-# Local image variants not referenced by the published site
-assets/salt and peper wings.png
