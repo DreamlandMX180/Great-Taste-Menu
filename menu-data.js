@@ -132,7 +132,7 @@ window.menuData = [
     id: "egg-foo-young",
     categoryEn: "Egg Foo Young",
     categoryZh: "芙蓉蛋",
-    note: "Served with rice.",
+    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
     items: [
       { number: "59", nameEn: "Vegetable Egg Foo Young", nameZh: "蔬菜芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }] },
       { number: "61", nameEn: "Roast Pork Egg Foo Young", nameZh: "叉烧芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
@@ -146,7 +146,7 @@ window.menuData = [
     id: "sweet-sour",
     categoryEn: "Sweet & Sour",
     categoryZh: "甜酸",
-    note: "Served with rice.",
+    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
     items: [
       { number: "66", nameEn: "Sweet & Sour Pork", nameZh: "甜酸肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
       { number: "67", nameEn: "Sweet & Sour Shrimp", nameZh: "甜酸虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
@@ -159,7 +159,7 @@ window.menuData = [
     id: "vegetables",
     categoryEn: "House Special Vegetables",
     categoryZh: "本楼蔬菜",
-    note: "Served with rice.",
+    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
     items: [
       { number: "71", nameEn: "Mixed Vegetables", nameZh: "什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
       { number: "72", nameEn: "Bean Curd with Mixed Vegetables", nameZh: "豆腐什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
@@ -183,7 +183,7 @@ window.menuData = [
     id: "pork",
     categoryEn: "Pork",
     categoryZh: "猪肉",
-    note: "Served with rice.",
+    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
     items: [
       { number: "76", nameEn: "Roast Pork with Mixed Vegetables", nameZh: "叉烧什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
       { number: "77", nameEn: "Roast Pork with Broccoli", nameZh: "叉烧西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] }
