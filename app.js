@@ -175,6 +175,7 @@ const renderItem = (item, category) => {
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
   const note = item.note ? `<p class="item-note">${item.note}</p>` : "";
   const review = item.needsReview ? `<span class="review-badge">Review / 需校对</span>` : "";
+  const nameZhLine = item.nameZh ? `<p class="item-name-zh">${item.nameZh}</p>` : "";
 
   return `
     <article class="menu-item" id="${anchor}">
@@ -184,7 +185,7 @@ const renderItem = (item, category) => {
           <span class="item-name-en">${item.nameEn}</span>
           ${spicy}
         </div>
-        <p class="item-name-zh">${item.nameZh}</p>
+        ${nameZhLine}
         ${note}
         ${review}
       </div>
@@ -234,6 +235,9 @@ const renderCategories = () => {
   categoryTabs.innerHTML = tabs.map((category) => {
     const selected = category.id === activeCategory;
     const panelId = category.id === "all" ? "menu-root" : category.id;
+    const tabLabel = category.categoryZh
+      ? `${category.categoryEn} / ${category.categoryZh}`
+      : category.categoryEn;
     return `
     <button
       class="category-tab"
@@ -245,7 +249,7 @@ const renderCategories = () => {
       aria-selected="${selected}"
       aria-controls="${panelId}"
     >
-      ${category.categoryEn} / ${category.categoryZh}
+      ${tabLabel}
     </button>
   `;
   }).join("");
@@ -266,12 +270,20 @@ const renderMenu = () => {
 
     visibleCount += items.length;
 
+    const subtitle = category.categoryZh
+      ? `${category.categoryZh}${category.note ? ` · ${category.note}` : ""}`
+      : category.note || "";
+
+    const subtitleHtml = subtitle
+      ? `<p class="section-subtitle">${subtitle}</p>`
+      : "";
+
     return `
       <section class="menu-section" id="${category.id}" role="region" aria-labelledby="tab-${category.id}">
         <div class="section-header">
           <div>
             <h2 class="section-title">${category.categoryEn}</h2>
-            <p class="section-subtitle">${category.categoryZh}${category.note ? ` · ${category.note}` : ""}</p>
+            ${subtitleHtml}
           </div>
           <span class="section-count">${items.length}</span>
         </div>
