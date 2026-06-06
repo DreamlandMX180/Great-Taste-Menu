@@ -9,7 +9,7 @@ window.menuData = [
       { number: "B", nameEn: "Fried Chicken Gizzards", nameZh: "炸鸡肫", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.00" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.00" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
       { number: "C", nameEn: "Chicken Wings (4)", nameZh: "鸡翅", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
       { number: "D", nameEn: "Spare Ribs Tips", nameZh: "排骨尖", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
-      { number: "E", nameEn: "Whiting Fish (2 pcs)", nameZh: "炸牙鳕", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
+      { number: "E", nameEn: "Whiting Fish (2 pcs)", nameZh: "炸鳕鱼", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
       { number: "F", nameEn: "Chicken Finger (4)", nameZh: "炸鸡柳", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
       { number: "G", nameEn: "Boneless Spare Ribs", nameZh: "无骨排", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "9.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "11.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "12.00" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "12.00" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "11.00" }] },
       { number: "H", nameEn: "Fried Shrimp in Basket", nameZh: "炸虾篮", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
@@ -30,7 +30,7 @@ window.menuData = [
       { number: "3", nameEn: "Shrimp Egg Roll", nameZh: "虾蛋卷", prices: [{ amount: "2.00" }] },
       { number: "4", nameEn: "Egg Roll", nameZh: "鸡蛋卷", prices: [{ amount: "2.00" }] },
       { number: "5", nameEn: "Cheese Steak Egg Roll", nameZh: "乳酪牛排蛋卷", prices: [{ amount: "2.00" }] },
-      { number: "6", nameEn: "Chinese Donuts (10)", nameZh: "中式甜油条", prices: [{ amount: "4.00" }] },
+      { number: "6", nameEn: "Chinese Donuts (10)", nameZh: "甜甜圈", prices: [{ amount: "4.00" }] },
       { number: "7", nameEn: "French Fries", nameZh: "炸薯条", prices: [{ labelEn: "Sm", labelZh: "小", amount: "2.25" }, { labelEn: "Lg", labelZh: "大", amount: "4.50" }] },
       { number: "8", nameEn: "Fried Scallops (10)", nameZh: "炸干贝", prices: [{ amount: "6.00" }] },
       { number: "9", nameEn: "Onion Rings (10)", nameZh: "洋葱圈", prices: [{ amount: "3.00" }] },
@@ -194,7 +194,7 @@ window.menuData = [
     categoryEn: "Sandwiches",
     categoryZh: "三明治",
     items: [
-      { number: "", nameEn: "Fried Whiting Fish (2 pcs)", nameZh: "炸牙鳕三明治", prices: [{ amount: "6.00" }] },
+      { number: "", nameEn: "Fried Whiting Fish (2 pcs)", nameZh: "炸鳕鱼三明治", prices: [{ amount: "6.00" }] },
       { number: "", nameEn: "Pork Chop (1 pc)", nameZh: "炸猪排三明治", prices: [{ amount: "6.00" }] }
     ]
   },
@@ -302,7 +302,7 @@ window.menuData = [
       { number: "4", nameEn: "Triple Delight", nameZh: "大三元", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "5", nameEn: "Double Delight", nameZh: "炒双鲜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "6", nameEn: "Four Seasons", nameZh: "炒四季", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
-      { number: "7", nameEn: "Mandarin Combination", nameZh: "精选拼盘", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
+      { number: "7", nameEn: "Mandarin Combination", nameZh: "三及第", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "8", nameEn: "Sesame Chicken", nameZh: "芝麻鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "9", nameEn: "Beef & Scallops", nameZh: "干贝牛", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "10", nameEn: "Seafood Delight", nameZh: "海鲜大会", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
