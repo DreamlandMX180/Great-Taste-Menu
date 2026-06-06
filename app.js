@@ -11,13 +11,13 @@ const featuredSpecials = [
   {
     categoryId: "seafood",
     number: "111",
-    imageSrc: "assets/general-tso-shrimp.svg",
+    imageSrc: "assets/general-tso-shrimp.jpg",
     imageAlt: "General Tso's shrimp over rice"
   },
   {
     categoryId: "chicken",
     number: "89",
-    imageSrc: "assets/general-tso-chicken.svg",
+    imageSrc: "assets/general-tso-chicken.jpg",
     imageAlt: "General Tso's chicken plate"
   }
 ];
