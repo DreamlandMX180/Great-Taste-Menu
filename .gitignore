@@ -5,3 +5,7 @@ dist/
 .cache/
 .worktrees/
 worktrees/
+
+# Local QA/browser artifacts
+.codex-temp/
+outputs/page-check/
