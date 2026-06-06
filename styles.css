@@ -745,6 +745,33 @@ a.featured-card:hover {
   gap: 0 28px;
 }
 
+.item-list > .item-group {
+  grid-column: 1 / -1;
+}
+
+.item-group {
+  margin: 0;
+  padding: 0;
+}
+
+.item-group-title {
+  margin: 0;
+  padding: 14px 0 6px;
+  border-top: 1px solid rgba(234, 216, 204, 0.85);
+  color: var(--muted);
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.item-list > .item-group:first-child .item-group-title {
+  padding-top: 2px;
+  border-top: none;
+}
+
 .menu-item {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(100px, 36%);

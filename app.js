@@ -142,6 +142,7 @@ const matchesSearch = (item, category, query) => {
     item.nameEn,
     item.nameZh,
     item.note,
+    item.groupEn || "",
     category.categoryEn,
     category.categoryZh,
     ...item.prices.map((price) => `${price.labelEn || ""} ${price.labelZh || ""} ${price.amount}`)
@@ -194,6 +195,29 @@ const renderItem = (item, category) => {
       </div>
     </article>
   `;
+};
+
+const escapeHtml = (value) =>
+  String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+const renderItemsWithGroupHeadings = (items, category) => {
+  let lastGroup = null;
+  const chunks = [];
+  for (const item of items) {
+    const g = item.groupEn;
+    if (g && g !== lastGroup) {
+      chunks.push(
+        `<div class="item-group" role="presentation"><h3 class="item-group-title">${escapeHtml(g)}</h3></div>`
+      );
+      lastGroup = g;
+    }
+    chunks.push(renderItem(item, category));
+  }
+  return chunks.join("");
 };
 
 const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
@@ -288,7 +312,7 @@ const renderMenu = () => {
           <span class="section-count">${items.length}</span>
         </div>
         <div class="item-list">
-          ${items.map((item) => renderItem(item, category)).join("")}
+          ${renderItemsWithGroupHeadings(items, category)}
         </div>
       </section>
     `;
