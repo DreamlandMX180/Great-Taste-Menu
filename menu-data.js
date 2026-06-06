@@ -23,7 +23,7 @@ window.menuData = [
   {
     id: "appetizers",
     categoryEn: "Appetizers",
-    categoryZh: "头台",
+    categoryZh: "头盘",
     items: [
       { number: "1", nameEn: "Spring Roll", nameZh: "春卷", prices: [{ amount: "2.00" }] },
       { number: "2", nameEn: "Pizza Roll", nameZh: "披萨卷", prices: [{ amount: "2.00" }] },
@@ -52,7 +52,7 @@ window.menuData = [
       { number: "18", nameEn: "Wonton Egg Drop Soup", nameZh: "云吞蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
       { number: "19", nameEn: "Subgum Wonton Soup", nameZh: "杂菜云吞汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.50" }] },
       { number: "20", nameEn: "Egg Drop Soup", nameZh: "蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
-      { number: "21", nameEn: "Chicken Egg Drop Soup", nameZh: "鸡蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
+      { number: "21", nameEn: "Chicken Egg Drop Soup", nameZh: "鸡肉蛋花汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
       { number: "22", nameEn: "Chicken Noodle Soup", nameZh: "鸡肉面汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "7.00" }] },
       { number: "23", nameEn: "Hot & Sour Soup", nameZh: "酸辣汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }], spicy: true },
       { number: "24", nameEn: "Mixed Vegetable Soup", nameZh: "什锦蔬菜汤", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] },
@@ -121,11 +121,11 @@ window.menuData = [
     categoryZh: "伊面",
     note: "Thick noodles with gravy and onions.",
     items: [
-      { number: "54", nameEn: "Plain Yat", nameZh: "原味鸭面", prices: [{ amount: "7.00" }] },
-      { number: "55", nameEn: "Pork Yat", nameZh: "叉烧鸭面", prices: [{ amount: "8.00" }] },
-      { number: "56", nameEn: "Chicken Yat", nameZh: "鸡肉鸭面", prices: [{ amount: "8.00" }] },
-      { number: "57", nameEn: "Shrimp Yat", nameZh: "虾鸭面", prices: [{ amount: "9.00" }] },
-      { number: "58", nameEn: "Beef Yat", nameZh: "牛肉鸭面", prices: [{ amount: "9.00" }] }
+      { number: "54", nameEn: "Plain Yat", nameZh: "原味伊面", prices: [{ amount: "7.00" }] },
+      { number: "55", nameEn: "Pork Yat", nameZh: "叉烧伊面", prices: [{ amount: "8.00" }] },
+      { number: "56", nameEn: "Chicken Yat", nameZh: "鸡肉伊面", prices: [{ amount: "8.00" }] },
+      { number: "57", nameEn: "Shrimp Yat", nameZh: "鲜虾伊面", prices: [{ amount: "9.00" }] },
+      { number: "58", nameEn: "Beef Yat", nameZh: "牛肉伊面", prices: [{ amount: "9.00" }] }
     ]
   },
   {
@@ -328,7 +328,7 @@ window.menuData = [
       { number: "L8", nameEn: "Sweet & Sour Pork or Chicken", nameZh: "甜酸肉或甜酸鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "L9", nameEn: "Roast Pork, Chicken, Shrimp or Beef Lo Mein", nameZh: "叉烧、鸡、虾或牛捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "L10", nameEn: "BBQ Spare Rib Tips", nameZh: "烤排骨尖", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
-      { number: "L11", nameEn: "Chicken or Pork with Garlic Sauce", nameZh: "鱼香鸡或肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
+      { number: "L11", nameEn: "Chicken or Pork with Garlic Sauce", nameZh: "鱼香鸡或叉烧", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
       { number: "L12", nameEn: "Hot & Spicy Beef or Shrimp", nameZh: "香辣牛或虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
       { number: "L13", nameEn: "Hunan Chicken", nameZh: "湖南鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
       { number: "L14", nameEn: "General Tso's Chicken", nameZh: "左宗鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
