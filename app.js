@@ -7,16 +7,134 @@ const featuredRoot = document.querySelector("#featured-specials-root");
 
 let activeCategory = "all";
 
+let scrollSpyObserver = null;
+let scrollSpyRaf = 0;
+
 const scrollMotionBehavior = () =>
   (window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
 
-const updateScrollMargin = () => {
+const getStickyOverlapPx = () => {
   const header = document.querySelector(".site-header");
   const tools = document.querySelector(".menu-tools");
-  const headerH = header?.offsetHeight ?? 72;
-  const toolsH = tools?.offsetHeight ?? 120;
-  const px = headerH + toolsH + 8;
-  document.documentElement.style.setProperty("--menu-scroll-margin", `${px}px`);
+  return (header?.offsetHeight ?? 72) + (tools?.offsetHeight ?? 120) + 8;
+};
+
+const updateScrollMargin = () => {
+  document.documentElement.style.setProperty("--menu-scroll-margin", `${getStickyOverlapPx()}px`);
+};
+
+const itemAnchorId = (categoryId, number) => {
+  const safe = String(number ?? "").replace(/[^a-zA-Z0-9_-]/g, "_");
+  return `dish-${categoryId}__${safe}`;
+};
+
+const parseHash = () => {
+  if (!window.menuData?.length) return { mode: "all" };
+  const raw = decodeURIComponent(String(location.hash || "").replace(/^#/, "")).trim();
+  if (!raw || raw === "all") return { mode: "all" };
+  if (raw.startsWith("dish-")) {
+    const sep = "__";
+    const i = raw.indexOf(sep, 5);
+    if (i > 5) {
+      const categoryId = raw.slice(5, i);
+      const number = raw.slice(i + sep.length);
+      const cat = window.menuData.find((c) => c.id === categoryId);
+      if (cat && cat.items.some((it) => String(it.number) === number)) {
+        return { mode: "item", categoryId, number };
+      }
+    }
+  }
+  if (window.menuData.some((c) => c.id === raw)) return { mode: "category", categoryId: raw };
+  return { mode: "all" };
+};
+
+/** @returns {{ scrollTargetId: string | null, kind: "section" | "dish" | "menu-root" | null }} */
+const applyHashToState = () => {
+  const p = parseHash();
+  if (p.mode === "category") {
+    activeCategory = p.categoryId;
+    return { scrollTargetId: p.categoryId, kind: "section" };
+  }
+  if (p.mode === "item") {
+    activeCategory = "all";
+    searchInput.value = "";
+    return { scrollTargetId: itemAnchorId(p.categoryId, p.number), kind: "dish" };
+  }
+  activeCategory = "all";
+  return { scrollTargetId: null, kind: null };
+};
+
+const scrollToHashTarget = (scroll) => {
+  if (!scroll.scrollTargetId || !scroll.kind) return;
+  updateScrollMargin();
+  const behavior = scrollMotionBehavior();
+  const run = () => {
+    let el = null;
+    if (scroll.kind === "section") el = document.getElementById(scroll.scrollTargetId);
+    if (scroll.kind === "dish") el = document.getElementById(scroll.scrollTargetId);
+    if (scroll.kind === "menu-root") el = menuRoot;
+    if (!el) return;
+    el.scrollIntoView({ behavior, block: "start" });
+  };
+  requestAnimationFrame(() => requestAnimationFrame(run));
+};
+
+const clearScrollSpyInViewClasses = () => {
+  categoryTabs?.querySelectorAll(".category-tab--in-view").forEach((b) => b.classList.remove("category-tab--in-view"));
+};
+
+const updateScrollSpyInView = (sectionId) => {
+  if (!categoryTabs || activeCategory !== "all") return;
+  categoryTabs.querySelectorAll(".category-tab").forEach((btn) => {
+    const id = btn.dataset.category;
+    btn.classList.toggle("category-tab--in-view", id === sectionId && id !== "all");
+  });
+};
+
+const setupScrollSpy = () => {
+  if (scrollSpyObserver) {
+    scrollSpyObserver.disconnect();
+    scrollSpyObserver = null;
+  }
+  clearScrollSpyInViewClasses();
+  if (activeCategory !== "all" || !menuRoot) return;
+  const sections = [...menuRoot.querySelectorAll(".menu-section")];
+  if (!sections.length) return;
+  const overlap = getStickyOverlapPx();
+  scrollSpyObserver = new IntersectionObserver(
+    (entries) => {
+      cancelAnimationFrame(scrollSpyRaf);
+      scrollSpyRaf = requestAnimationFrame(() => {
+        let best = null;
+        let bestRatio = 0;
+        for (const e of entries) {
+          if (e.intersectionRatio > bestRatio) {
+            bestRatio = e.intersectionRatio;
+            best = e.target.id;
+          }
+        }
+        if (best) updateScrollSpyInView(best);
+      });
+    },
+    { root: null, rootMargin: `-${overlap}px 0px -35% 0px`, threshold: [0, 0.05, 0.15, 0.25, 0.35, 0.5, 0.75, 1] }
+  );
+  sections.forEach((s) => scrollSpyObserver.observe(s));
+};
+
+const syncUrlHashFromFilter = () => {
+  const base = `${location.pathname}${location.search}`;
+  const nextHash = activeCategory === "all" ? "#all" : `#${activeCategory}`;
+  if (location.hash !== nextHash) history.replaceState(null, "", `${base}${nextHash}`);
+};
+
+const handleRouteFromHash = () => {
+  const scroll = applyHashToState();
+  renderCategories();
+  renderFeaturedSpecials();
+  renderMenu();
+  setupScrollSpy();
+  updateScrollMargin();
+  scrollToHashTarget(scroll);
 };
 
 const scrollToCategory = (categoryId) => {
@@ -97,14 +215,15 @@ const formatFeaturedPrice = (price) => {
   `;
 };
 
-const renderItem = (item) => {
+const renderItem = (item, category) => {
+  const anchor = itemAnchorId(category.id, item.number);
   const number = item.number ? `<span class="item-number">${item.number}</span>` : "";
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
   const note = item.note ? `<p class="item-note">${item.note}</p>` : "";
   const review = item.needsReview ? `<span class="review-badge">Review / 需校对</span>` : "";
 
   return `
-    <article class="menu-item">
+    <article class="menu-item" id="${anchor}">
       <div class="item-main">
         <div class="item-line">
           ${number}
@@ -124,9 +243,10 @@ const renderItem = (item) => {
 
 const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
+  const href = `#${itemAnchorId(category.id, item.number)}`;
 
   return `
-    <article class="featured-card">
+    <a class="featured-card" href="${href}">
       <div class="featured-photo">
         <img src="${imageSrc}" alt="${imageAlt}" loading="lazy">
       </div>
@@ -141,7 +261,7 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
       <div class="featured-prices" aria-label="Featured prices for ${item.nameEn}">
         ${item.prices.map(formatFeaturedPrice).join("")}
       </div>
-    </article>
+    </a>
   `;
 };
 
@@ -157,16 +277,27 @@ const renderCategories = () => {
     ...window.menuData
   ];
 
-  categoryTabs.innerHTML = tabs.map((category) => `
+  categoryTabs.innerHTML = tabs.map((category) => {
+    const selected = category.id === activeCategory;
+    const panelId = category.id === "all" ? "menu-root" : category.id;
+    return `
     <button
       class="category-tab"
       type="button"
+      role="tab"
+      tabindex="${selected ? "0" : "-1"}"
+      id="tab-${category.id}"
       data-category="${category.id}"
-      aria-selected="${category.id === activeCategory}"
+      aria-selected="${selected}"
+      aria-controls="${panelId}"
     >
       ${category.categoryEn} / ${category.categoryZh}
     </button>
-  `).join("");
+  `;
+  }).join("");
+
+  categoryTabs.setAttribute("role", "tablist");
+  categoryTabs.setAttribute("aria-label", "Menu categories / 菜单分类");
 };
 
 const renderMenu = () => {
@@ -182,7 +313,7 @@ const renderMenu = () => {
     visibleCount += items.length;
 
     return `
-      <section class="menu-section" id="${category.id}">
+      <section class="menu-section" id="${category.id}" role="region" aria-labelledby="tab-${category.id}">
         <div class="section-header">
           <div>
             <h2 class="section-title">${category.categoryEn}</h2>
@@ -191,7 +322,7 @@ const renderMenu = () => {
           <span class="section-count">${items.length}</span>
         </div>
         <div class="item-list">
-          ${items.map(renderItem).join("")}
+          ${items.map((item) => renderItem(item, category)).join("")}
         </div>
       </section>
     `;
@@ -216,7 +347,32 @@ categoryTabs.addEventListener("click", (event) => {
   activeCategory = button.dataset.category;
   renderCategories();
   renderMenu();
+  setupScrollSpy();
+  syncUrlHashFromFilter();
   scrollToCategory(activeCategory);
+});
+
+categoryTabs.addEventListener("keydown", (event) => {
+  const tabs = [...categoryTabs.querySelectorAll(".category-tab")];
+  const i = tabs.indexOf(document.activeElement);
+  if (i < 0) return;
+  let next = i;
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+    event.preventDefault();
+    next = (i + 1) % tabs.length;
+  } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    event.preventDefault();
+    next = (i - 1 + tabs.length) % tabs.length;
+  } else if (event.key === "Home") {
+    event.preventDefault();
+    next = 0;
+  } else if (event.key === "End") {
+    event.preventDefault();
+    next = tabs.length - 1;
+  } else {
+    return;
+  }
+  tabs[next].focus();
 });
 
 menuRoot?.addEventListener("click", (event) => {
@@ -229,18 +385,36 @@ menuRoot?.addEventListener("click", (event) => {
   section.scrollIntoView({ behavior, block: "start" });
 });
 
-searchInput.addEventListener("input", renderMenu);
+featuredRoot?.addEventListener("click", (event) => {
+  const a = event.target.closest("a.featured-card");
+  if (!a?.hash) return;
+  event.preventDefault();
+  history.pushState(null, "", a.hash);
+  handleRouteFromHash();
+});
+
+searchInput.addEventListener("input", () => {
+  renderMenu();
+  setupScrollSpy();
+});
 
 clearSearch.addEventListener("click", () => {
   activeCategory = "all";
   searchInput.value = "";
+  const base = `${location.pathname}${location.search}`;
+  history.replaceState(null, "", `${base}#all`);
   renderCategories();
   renderMenu();
+  setupScrollSpy();
+  updateScrollMargin();
   searchInput.focus();
 });
 
-renderCategories();
-renderFeaturedSpecials();
-renderMenu();
-updateScrollMargin();
-window.addEventListener("resize", updateScrollMargin);
+window.addEventListener("hashchange", handleRouteFromHash);
+
+window.addEventListener("resize", () => {
+  updateScrollMargin();
+  setupScrollSpy();
+});
+
+handleRouteFromHash();
