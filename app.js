@@ -7,6 +7,34 @@ const featuredRoot = document.querySelector("#featured-specials-root");
 
 let activeCategory = "all";
 
+const scrollMotionBehavior = () =>
+  (window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
+
+const updateScrollMargin = () => {
+  const header = document.querySelector(".site-header");
+  const tools = document.querySelector(".menu-tools");
+  const headerH = header?.offsetHeight ?? 72;
+  const toolsH = tools?.offsetHeight ?? 120;
+  const px = headerH + toolsH + 8;
+  document.documentElement.style.setProperty("--menu-scroll-margin", `${px}px`);
+};
+
+const scrollToCategory = (categoryId) => {
+  updateScrollMargin();
+  const behavior = scrollMotionBehavior();
+  const run = () => {
+    if (categoryId === "all") {
+      menuRoot?.scrollIntoView({ behavior, block: "start" });
+      return;
+    }
+    const el = document.getElementById(categoryId);
+    if (el?.classList?.contains("menu-section")) {
+      el.scrollIntoView({ behavior, block: "start" });
+    }
+  };
+  requestAnimationFrame(() => requestAnimationFrame(run));
+};
+
 const featuredSpecials = [
   {
     categoryId: "seafood",
@@ -188,6 +216,17 @@ categoryTabs.addEventListener("click", (event) => {
   activeCategory = button.dataset.category;
   renderCategories();
   renderMenu();
+  scrollToCategory(activeCategory);
+});
+
+menuRoot?.addEventListener("click", (event) => {
+  const header = event.target.closest(".section-header");
+  if (!header) return;
+  const section = header.closest(".menu-section");
+  if (!section) return;
+  updateScrollMargin();
+  const behavior = scrollMotionBehavior();
+  section.scrollIntoView({ behavior, block: "start" });
 });
 
 searchInput.addEventListener("input", renderMenu);
@@ -203,3 +242,5 @@ clearSearch.addEventListener("click", () => {
 renderCategories();
 renderFeaturedSpecials();
 renderMenu();
+updateScrollMargin();
+window.addEventListener("resize", updateScrollMargin);

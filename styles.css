@@ -684,6 +684,11 @@ h1 em::after {
   padding: 8px 0 58px;
 }
 
+#menu-root,
+.menu-section {
+  scroll-margin-top: var(--menu-scroll-margin, 200px);
+}
+
 .menu-section {
   padding-top: 14px;
   border-top: 2px solid var(--red);
@@ -695,6 +700,7 @@ h1 em::after {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .section-title {
