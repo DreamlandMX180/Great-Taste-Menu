@@ -6,6 +6,9 @@ dist/
 .worktrees/
 worktrees/
 
-# Local QA/browser artifacts
+# Generated exports and local QA/browser artifacts
 .codex-temp/
-outputs/page-check/
+outputs/
+
+# Local image variants not referenced by the published site
+assets/salt and peper wings.png
