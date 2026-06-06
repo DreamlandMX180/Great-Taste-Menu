@@ -59,6 +59,16 @@ const formatPrice = (price) => {
   `;
 };
 
+const formatFeaturedPrice = (price) => {
+  const label = price.labelEn ? `${price.labelEn}${price.labelZh ? ` / ${price.labelZh}` : ""}` : "Price / 价格";
+  return `
+    <span class="featured-price-chip">
+      <span>${label}</span>
+      <strong>$${price.amount}</strong>
+    </span>
+  `;
+};
+
 const renderItem = (item) => {
   const number = item.number ? `<span class="item-number">${item.number}</span>` : "";
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
@@ -93,15 +103,15 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
         <img src="${imageSrc}" alt="${imageAlt}" loading="lazy">
       </div>
       <div class="featured-copy">
-        <span class="featured-kicker">${category.categoryEn} / ${category.categoryZh}</span>
         <div class="featured-name-line">
           <h3>${item.nameEn}</h3>
           ${spicy}
         </div>
         <p>${item.nameZh}</p>
+        <div class="featured-rule" aria-hidden="true"></div>
       </div>
       <div class="featured-prices" aria-label="Featured prices for ${item.nameEn}">
-        ${item.prices.map(formatPrice).join("")}
+        ${item.prices.map(formatFeaturedPrice).join("")}
       </div>
     </article>
   `;
