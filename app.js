@@ -5,9 +5,6 @@ const resultCount = document.querySelector("#result-count");
 const clearSearch = document.querySelector("#clear-search");
 const featuredRoot = document.querySelector("#featured-specials-root");
 
-/** Max tab buttons in the primary row before overflow moves into "More / 更多". */
-const INLINE_TAB_CAP = 6;
-
 let activeCategory = "all";
 
 const scrollMotionBehavior = () =>
@@ -253,12 +250,19 @@ const renderFeaturedSpecials = () => {
   featuredRoot.innerHTML = items.map(renderFeaturedItem).join("");
 };
 
-const tabButtonHtml = (category, selected) => {
-  const panelId = category.id === "all" ? "menu-root" : category.id;
-  const tabLabel = category.categoryZh
-    ? `${category.categoryEn} / ${category.categoryZh}`
-    : category.categoryEn;
-  return `
+const renderCategories = () => {
+  const tabs = [
+    { id: "all", categoryEn: "All", categoryZh: "全部" },
+    ...window.menuData
+  ];
+
+  categoryTabs.innerHTML = tabs.map((category) => {
+    const selected = category.id === activeCategory;
+    const panelId = category.id === "all" ? "menu-root" : category.id;
+    const tabLabel = category.categoryZh
+      ? `${category.categoryEn} / ${category.categoryZh}`
+      : category.categoryEn;
+    return `
     <button
       class="category-tab"
       type="button"
@@ -272,39 +276,9 @@ const tabButtonHtml = (category, selected) => {
       ${tabLabel}
     </button>
   `;
-};
+  }).join("");
 
-const renderCategories = () => {
-  const tabs = [
-    { id: "all", categoryEn: "All", categoryZh: "全部" },
-    ...window.menuData
-  ];
-
-  if (tabs.length <= INLINE_TAB_CAP) {
-    categoryTabs.innerHTML = tabs.map((c) => tabButtonHtml(c, c.id === activeCategory)).join("");
-    categoryTabs.setAttribute("role", "tablist");
-    categoryTabs.removeAttribute("data-split-tabs");
-    categoryTabs.setAttribute("aria-label", "Menu categories / 菜单分类");
-    return;
-  }
-
-  const inline = tabs.slice(0, INLINE_TAB_CAP);
-  const overflow = tabs.slice(INLINE_TAB_CAP);
-  const selectedInOverflow = overflow.some((c) => c.id === activeCategory);
-
-  categoryTabs.innerHTML = `
-    <div class="category-tabs-primary" role="tablist" aria-label="Menu categories / 菜单分类">
-      ${inline.map((c) => tabButtonHtml(c, c.id === activeCategory)).join("")}
-    </div>
-    <details class="category-more"${selectedInOverflow ? " open" : ""}>
-      <summary class="category-more-summary">More / 更多</summary>
-      <div class="category-more-panel" role="tablist" aria-label="More menu categories / 更多分类">
-        ${overflow.map((c) => tabButtonHtml(c, c.id === activeCategory)).join("")}
-      </div>
-    </details>
-  `;
-  categoryTabs.removeAttribute("role");
-  categoryTabs.setAttribute("data-split-tabs", "true");
+  categoryTabs.setAttribute("role", "tablist");
   categoryTabs.setAttribute("aria-label", "Menu categories / 菜单分类");
 };
 

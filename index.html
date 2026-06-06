@@ -14,36 +14,21 @@
     <title>Great Taste Menu | 中英文菜单</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=11">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=9">
   </head>
   <body>
-    <div class="page-decor" aria-hidden="true">
-      <svg class="page-decor-mountains" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" preserveAspectRatio="xMinYMax slice" width="420" height="210">
-        <path fill="rgba(113,16,20,0.06)" d="M0 200 L60 120 L100 150 L160 80 L220 130 L280 60 L340 100 L400 40 L400 200 Z"/>
-        <path fill="rgba(201,148,53,0.08)" d="M0 200 L80 140 L140 170 L200 100 L260 150 L320 90 L400 120 L400 200 Z"/>
-      </svg>
-      <svg class="page-decor-clouds" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
-        <ellipse cx="80" cy="60" rx="52" ry="22" fill="rgba(201,148,53,0.12)"/>
-        <ellipse cx="130" cy="58" rx="40" ry="18" fill="rgba(201,148,53,0.1)"/>
-        <ellipse cx="240" cy="70" rx="58" ry="24" fill="rgba(162,15,20,0.06)"/>
-        <ellipse cx="290" cy="68" rx="36" ry="16" fill="rgba(162,15,20,0.05)"/>
-      </svg>
-    </div>
-
     <header class="site-header">
       <div class="header-inner">
         <a class="brand" href="#top" aria-label="Great Taste menu home">
-          <span class="brand-mark" aria-hidden="true">好</span>
-          <span class="brand-text">
-            <span class="brand-name-en" lang="en">Great Taste</span>
-            <span class="brand-tagline" lang="zh">好味 · 好菜 · 好心意</span>
+          <span class="brand-mark" aria-hidden="true">饕</span>
+          <span>
+            <span class="brand-name">Great Taste</span>
           </span>
         </a>
         <div class="menu-meta">
           <span class="pickup-pill">Pickup Only / 仅限自取</span>
-          <a class="header-view-order" href="#all">View Order / 查看订单</a>
-          <a class="header-call" href="tel:+12152228880">Call to Order / 电话订餐</a>
+          <a class="header-call" href="tel:+12152228880">Call 215-222-8880</a>
         </div>
       </div>
     </header>
@@ -52,56 +37,36 @@
       <section class="menu-hero" aria-labelledby="menu-title">
         <div class="hero-copy">
           <h1 id="menu-title">
-            <span class="hero-title-en" lang="en">Great Taste</span>
+            <span>Great Taste</span>
             <em>Menu</em>
           </h1>
           <p class="hero-tagline">Chinese-American Take Out Menu<br>中美式外卖菜单</p>
           <dl class="hero-facts" aria-label="Restaurant details">
-            <div class="hero-fact">
-              <dt class="visually-hidden">Address</dt>
-              <dd>
-                <span class="hero-fact-icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </span>
-                <span class="hero-fact-text">4101 Lancaster Ave. Philadelphia, PA 19104</span>
-              </dd>
+            <div>
+              <dt>Address</dt>
+              <dd>4101 Lancaster Ave. Philadelphia, PA 19104</dd>
             </div>
-            <div class="hero-fact">
-              <dt class="visually-hidden">Hours</dt>
-              <dd>
-                <span class="hero-fact-icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                </span>
-                <span class="hero-fact-text">
-                  <span class="hero-fact-line">Mon - Sat 12:00 PM - 11:30 PM</span>
-                  <span class="hero-fact-line">Sunday 3:00 PM - 10:00 PM</span>
-                </span>
-              </dd>
+            <div>
+              <dt>Hours</dt>
+              <dd>Mon - Sat 12:00 PM - 11:30 PM</dd>
+              <dd>Sunday 3:00 PM - 10:00 PM</dd>
             </div>
           </dl>
         </div>
 
-        <div class="hero-media" aria-label="Featured dishes">
-          <span class="hero-chopsticks" aria-hidden="true"></span>
+        <div class="hero-media" aria-label="Featured General Tso dishes">
           <figure class="hero-photo hero-photo-main">
             <img src="assets/general-tso-chicken.jpg" alt="General Tso's Chicken / 左宗鸡" width="960" height="720" fetchpriority="high" decoding="async">
-            <figcaption class="hero-dish-caption">
+            <figcaption>
               <span>General Tso's Chicken</span>
               <strong>左宗鸡</strong>
             </figcaption>
           </figure>
           <figure class="hero-photo hero-photo-side">
             <img src="assets/general-tso-shrimp.jpg" alt="General Tso's Shrimp / 左宗虾" width="640" height="480" loading="lazy" decoding="async">
-            <figcaption class="hero-dish-caption">
+            <figcaption>
               <span>General Tso's Shrimp</span>
               <strong>左宗虾</strong>
-            </figcaption>
-          </figure>
-          <figure class="hero-photo hero-photo-wings">
-            <img src="assets/salt-pepper-wings.svg" alt="Salt &amp; Pepper Wings / 盐酥鸡翅" width="640" height="480" loading="lazy" decoding="async">
-            <figcaption class="hero-dish-caption">
-              <span>Salt &amp; Pepper Wings</span>
-              <strong>盐酥鸡翅</strong>
             </figcaption>
           </figure>
         </div>
@@ -150,6 +115,6 @@
     </footer>
 
     <script src="menu-data.js?v=17"></script>
-    <script src="app.js?v=10"></script>
+    <script src="app.js?v=7"></script>
   </body>
 </html>
