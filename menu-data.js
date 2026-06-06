@@ -1,9 +1,9 @@
 window.menuData = [
   {
     id: "specialties",
-    categoryEn: "Specialties & Platters",
+    categoryEn: "Specialties & Sides",
     categoryZh: "特色拼盘",
-    note: "Priced by side choice. / 按配餐选项计价。",
+    note: "Letter items A–M, priced by side. / 字母项 A–M，按配餐选项计价。",
     items: [
       { number: "A", nameEn: "Fried Crab Sticks (5)", nameZh: "炸蟹棒", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.00" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.00" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
       { number: "B", nameEn: "Fried Chicken Gizzards", nameZh: "炸鸡胗", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.00" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.00" }, { labelEn: "Plain Lo Mein", labelZh: "净捞面", amount: "9.50" }] },
@@ -22,8 +22,9 @@ window.menuData = [
   },
   {
     id: "platters",
-    categoryEn: "Platters",
+    categoryEn: "Wing Platters",
     categoryZh: "鸡翅拼盘",
+    note: "By wing count; pick one side each. / 按翅数，每项选一种配餐。",
     items: [
       { number: "WP1", nameEn: "Chicken Wings (3)", nameZh: "三只翅", prices: [{ labelEn: "Fried rice or French fries", labelZh: "炒饭或薯条", amount: "6.50" }, { labelEn: "Chicken or pork fried rice", labelZh: "鸡/叉烧炒饭", amount: "8.00" }, { labelEn: "Beef or shrimp fried rice", labelZh: "牛/虾炒饭", amount: "8.50" }, { labelEn: "Plain lo mein", labelZh: "净捞面", amount: "8.50" }] },
       { number: "WP2", nameEn: "Chicken Wings (4)", nameZh: "四只翅", prices: [{ labelEn: "Fried rice or French fries", labelZh: "炒饭或薯条", amount: "8.00" }, { labelEn: "Chicken or pork fried rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef or shrimp fried rice", labelZh: "牛/虾炒饭", amount: "10.00" }, { labelEn: "Plain lo mein", labelZh: "净捞面", amount: "9.50" }] },

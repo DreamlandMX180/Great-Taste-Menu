@@ -4,11 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Great Taste bilingual Chinese-American takeout menu.">
+    <meta name="theme-color" content="#711014">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Great Taste Menu | 中英文菜单">
+    <meta property="og:description" content="Chinese-American takeout menu — Great Taste, Philadelphia.">
+    <meta property="og:url" content="https://dreamlandmx180.github.io/Great-Taste-Menu/">
+    <meta property="og:image" content="https://dreamlandmx180.github.io/Great-Taste-Menu/assets/general-tso-chicken.jpg">
+    <link rel="canonical" href="https://dreamlandmx180.github.io/Great-Taste-Menu/">
     <title>Great Taste Menu | 中英文菜单</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Source+Sans+3:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=7">
   </head>
   <body>
     <header class="site-header">
@@ -49,14 +56,14 @@
 
         <div class="hero-media" aria-label="Featured General Tso dishes">
           <figure class="hero-photo hero-photo-main">
-            <img src="assets/general-tso-chicken.jpg" alt="General Tso's Chicken / 左宗鸡">
+            <img src="assets/general-tso-chicken.jpg" alt="General Tso's Chicken / 左宗鸡" width="960" height="720" fetchpriority="high" decoding="async">
             <figcaption>
               <span>General Tso's Chicken</span>
               <strong>左宗鸡</strong>
             </figcaption>
           </figure>
           <figure class="hero-photo hero-photo-side">
-            <img src="assets/general-tso-shrimp.jpg" alt="General Tso's Shrimp / 左宗虾">
+            <img src="assets/general-tso-shrimp.jpg" alt="General Tso's Shrimp / 左宗虾" width="640" height="480" loading="lazy" decoding="async">
             <figcaption>
               <span>General Tso's Shrimp</span>
               <strong>左宗虾</strong>
@@ -86,7 +93,10 @@
             <h2 id="featured-title">Featured Specials / 特色推荐</h2>
             <p>Customer Favorites / 人气必点</p>
           </div>
-          <a href="#chef-specialties">View All Specials</a>
+          <div class="featured-links">
+            <a href="#chef-specialties">Chef's Specialties</a>
+            <a href="#platters">Wing Platters</a>
+          </div>
         </div>
         <div id="featured-specials-root" class="featured-list"></div>
       </section>
@@ -100,11 +110,11 @@
     </main>
 
     <footer class="site-footer">
-      <p><strong>Great Taste</strong> · 215-222-8880 · 4101 Lancaster Ave. Philadelphia, PA 19104</p>
+      <p><strong>Great Taste</strong> · <a href="tel:+12152228880">215-222-8880</a> · 4101 Lancaster Ave. Philadelphia, PA 19104</p>
       <p>Pickup Only / 仅限自取 · Mon - Sat 12:00 PM - 11:30 PM · Sunday 3:00 PM - 10:00 PM</p>
     </footer>
 
-    <script src="menu-data.js?v=16"></script>
-    <script src="app.js?v=6"></script>
+    <script src="menu-data.js?v=17"></script>
+    <script src="app.js?v=7"></script>
   </body>
 </html>

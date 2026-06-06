@@ -227,7 +227,7 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
   return `
     <a class="featured-card" href="${href}">
       <div class="featured-photo">
-        <img src="${imageSrc}" alt="${imageAlt}" loading="lazy">
+        <img src="${imageSrc}" alt="${imageAlt}" width="640" height="480" loading="lazy" decoding="async">
       </div>
       <div class="featured-copy">
         <div class="featured-name-line">
@@ -361,7 +361,15 @@ categoryTabs.addEventListener("keydown", (event) => {
   } else {
     return;
   }
-  tabs[next].focus();
+  const nextTab = tabs[next];
+  nextTab.focus();
+  nextTab.scrollIntoView({ block: "nearest", inline: "nearest" });
+});
+
+categoryTabs.addEventListener("focusin", (event) => {
+  const tab = event.target.closest(".category-tab");
+  if (!tab || !categoryTabs.contains(tab)) return;
+  tab.scrollIntoView({ block: "nearest", inline: "nearest" });
 });
 
 menuRoot?.addEventListener("click", (event) => {
