@@ -487,13 +487,6 @@ h1 em::after {
   box-shadow: 0 8px 18px rgba(162, 15, 20, 0.18);
 }
 
-.category-tab.category-tab--in-view:not([aria-selected="true"]) {
-  border-color: var(--gold);
-  color: var(--red-deep);
-  background: var(--gold-soft);
-  box-shadow: 0 4px 14px rgba(201, 148, 53, 0.22);
-}
-
 .featured-specials {
   margin: 12px 0 28px;
   padding: 6px 0 0;

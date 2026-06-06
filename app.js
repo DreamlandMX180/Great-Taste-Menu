@@ -7,9 +7,6 @@ const featuredRoot = document.querySelector("#featured-specials-root");
 
 let activeCategory = "all";
 
-let scrollSpyObserver = null;
-let scrollSpyRaf = 0;
-
 const scrollMotionBehavior = () =>
   (window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
 
@@ -79,48 +76,6 @@ const scrollToHashTarget = (scroll) => {
   requestAnimationFrame(() => requestAnimationFrame(run));
 };
 
-const clearScrollSpyInViewClasses = () => {
-  categoryTabs?.querySelectorAll(".category-tab--in-view").forEach((b) => b.classList.remove("category-tab--in-view"));
-};
-
-const updateScrollSpyInView = (sectionId) => {
-  if (!categoryTabs || activeCategory !== "all") return;
-  categoryTabs.querySelectorAll(".category-tab").forEach((btn) => {
-    const id = btn.dataset.category;
-    btn.classList.toggle("category-tab--in-view", id === sectionId && id !== "all");
-  });
-};
-
-const setupScrollSpy = () => {
-  if (scrollSpyObserver) {
-    scrollSpyObserver.disconnect();
-    scrollSpyObserver = null;
-  }
-  clearScrollSpyInViewClasses();
-  if (activeCategory !== "all" || !menuRoot) return;
-  const sections = [...menuRoot.querySelectorAll(".menu-section")];
-  if (!sections.length) return;
-  const overlap = getStickyOverlapPx();
-  scrollSpyObserver = new IntersectionObserver(
-    (entries) => {
-      cancelAnimationFrame(scrollSpyRaf);
-      scrollSpyRaf = requestAnimationFrame(() => {
-        let best = null;
-        let bestRatio = 0;
-        for (const e of entries) {
-          if (e.intersectionRatio > bestRatio) {
-            bestRatio = e.intersectionRatio;
-            best = e.target.id;
-          }
-        }
-        if (best) updateScrollSpyInView(best);
-      });
-    },
-    { root: null, rootMargin: `-${overlap}px 0px -35% 0px`, threshold: [0, 0.05, 0.15, 0.25, 0.35, 0.5, 0.75, 1] }
-  );
-  sections.forEach((s) => scrollSpyObserver.observe(s));
-};
-
 const syncUrlHashFromFilter = () => {
   const base = `${location.pathname}${location.search}`;
   const nextHash = activeCategory === "all" ? "#all" : `#${activeCategory}`;
@@ -132,7 +87,6 @@ const handleRouteFromHash = () => {
   renderCategories();
   renderFeaturedSpecials();
   renderMenu();
-  setupScrollSpy();
   updateScrollMargin();
   scrollToHashTarget(scroll);
 };
@@ -347,7 +301,6 @@ categoryTabs.addEventListener("click", (event) => {
   activeCategory = button.dataset.category;
   renderCategories();
   renderMenu();
-  setupScrollSpy();
   syncUrlHashFromFilter();
   scrollToCategory(activeCategory);
 });
@@ -395,7 +348,6 @@ featuredRoot?.addEventListener("click", (event) => {
 
 searchInput.addEventListener("input", () => {
   renderMenu();
-  setupScrollSpy();
 });
 
 clearSearch.addEventListener("click", () => {
@@ -405,7 +357,6 @@ clearSearch.addEventListener("click", () => {
   history.replaceState(null, "", `${base}#all`);
   renderCategories();
   renderMenu();
-  setupScrollSpy();
   updateScrollMargin();
   searchInput.focus();
 });
@@ -414,7 +365,6 @@ window.addEventListener("hashchange", handleRouteFromHash);
 
 window.addEventListener("resize", () => {
   updateScrollMargin();
-  setupScrollSpy();
 });
 
 handleRouteFromHash();
