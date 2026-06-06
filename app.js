@@ -8,8 +8,18 @@ const featuredRoot = document.querySelector("#featured-specials-root");
 let activeCategory = "all";
 
 const featuredSpecials = [
-  { categoryId: "seafood", number: "111" },
-  { categoryId: "chicken", number: "89" }
+  {
+    categoryId: "seafood",
+    number: "111",
+    imageSrc: "assets/general-tso-shrimp.svg",
+    imageAlt: "General Tso's shrimp over rice"
+  },
+  {
+    categoryId: "chicken",
+    number: "89",
+    imageSrc: "assets/general-tso-chicken.svg",
+    imageAlt: "General Tso's chicken plate"
+  }
 ];
 
 const normalize = (value) => String(value || "").trim().toLowerCase();
@@ -18,11 +28,11 @@ const getAllItems = () => window.menuData.flatMap((category) =>
   category.items.map((item) => ({ ...item, categoryId: category.id }))
 );
 
-const findMenuItem = ({ categoryId, number }) => {
+const findMenuItem = ({ categoryId, number, imageSrc, imageAlt }) => {
   const category = window.menuData.find((entry) => entry.id === categoryId);
   if (!category) return null;
   const item = category.items.find((entry) => entry.number === number);
-  return item ? { item, category } : null;
+  return item ? { item, category, imageSrc, imageAlt } : null;
 };
 
 const matchesSearch = (item, category, query) => {
@@ -74,11 +84,14 @@ const renderItem = (item) => {
   `;
 };
 
-const renderFeaturedItem = ({ item, category }) => {
+const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
 
   return `
     <article class="featured-card">
+      <div class="featured-photo">
+        <img src="${imageSrc}" alt="${imageAlt}" loading="lazy">
+      </div>
       <div class="featured-copy">
         <span class="featured-kicker">${category.categoryEn} / ${category.categoryZh}</span>
         <div class="featured-name-line">

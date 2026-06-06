@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-label="General Tso chicken plate">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8ead5"/>
+      <stop offset="1" stop-color="#3b211b"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" x2="1">
+      <stop offset="0" stop-color="#fffdf7"/>
+      <stop offset="1" stop-color="#eadfd2"/>
+    </linearGradient>
+    <linearGradient id="sauce" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffb03a"/>
+      <stop offset=".38" stop-color="#d83b18"/>
+      <stop offset="1" stop-color="#77170d"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#230d08" flood-opacity=".32"/>
+    </filter>
+  </defs>
+  <rect width="720" height="520" fill="url(#bg)"/>
+  <path d="M98 326c44-106 463-126 562-23 29 30 14 61-38 82-119 49-392 54-519 6-51-19-66-44-5-65z" fill="url(#plate)" filter="url(#shadow)"/>
+  <path d="M166 315c108-50 363-61 487-11-35 80-442 95-487 11z" fill="#fff8ef"/>
+  <g fill="url(#sauce)" stroke="#7f170e" stroke-width="4">
+    <path d="M220 286c15-33 58-38 82-14 18 18 12 50-18 64-33 16-79 1-64-50z"/>
+    <path d="M311 260c23-32 70-23 80 10 8 27-18 55-54 55-33-1-54-33-26-65z"/>
+    <path d="M429 258c32-24 75-2 74 34-1 32-41 48-74 32-32-16-33-50 0-66z"/>
+    <path d="M519 293c33-15 73 8 70 41-3 35-54 51-82 25-22-21-16-43 12-66z"/>
+    <path d="M250 348c26-24 71-18 84 13 11 27-12 55-50 55-43 0-68-36-34-68z"/>
+    <path d="M376 344c37-24 86-5 88 31 1 31-36 52-77 43-40-8-49-49-11-74z"/>
+  </g>
+  <g fill="#4da94e">
+    <path d="M572 268c38 4 64 29 68 67-42 2-72-12-88-42 7-11 14-19 20-25z"/>
+    <path d="M594 339c35-5 62 11 80 43-40 12-72 5-96-21 3-9 8-16 16-22z"/>
+  </g>
+  <g fill="#e8f2c6">
+    <circle cx="597" cy="293" r="20"/><circle cx="623" cy="303" r="18"/><circle cx="579" cy="318" r="19"/>
+    <circle cx="610" cy="334" r="20"/><circle cx="647" cy="350" r="18"/>
+  </g>
+  <g fill="#fff2c6" opacity=".95">
+    <circle cx="235" cy="279" r="4"/><circle cx="274" cy="304" r="4"/><circle cx="330" cy="270" r="4"/>
+    <circle cx="367" cy="296" r="4"/><circle cx="450" cy="278" r="4"/><circle cx="486" cy="312" r="4"/>
+    <circle cx="536" cy="318" r="4"/><circle cx="566" cy="346" r="4"/><circle cx="270" cy="365" r="4"/>
+    <circle cx="314" cy="386" r="4"/><circle cx="410" cy="359" r="4"/><circle cx="437" cy="399" r="4"/>
+  </g>
+  <g stroke="#2c1711" stroke-width="7" stroke-linecap="round" opacity=".55">
+    <path d="M188 212h236"/>
+    <path d="M201 231h226"/>
+  </g>
+</svg>
