@@ -15,26 +15,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="styles.css?v=11">
   </head>
   <body>
     <header class="site-header">
       <div class="header-inner">
         <a class="brand" href="#top" aria-label="Great Taste menu home">
-          <span class="brand-mark" aria-hidden="true">饕</span>
+          <span class="brand-mark" aria-hidden="true">好</span>
           <span>
             <span class="brand-name">Great Taste</span>
+            <span class="brand-slogan">好味 · 好菜 · 好心意</span>
           </span>
         </a>
         <div class="menu-meta">
           <span class="pickup-pill">Pickup Only / 仅限自取</span>
-          <a class="header-call" href="tel:+12152228880">Call 215-222-8880</a>
+          <a class="header-call" href="tel:+12152228880">Call to Order</a>
         </div>
       </div>
     </header>
 
     <main id="top">
       <section class="menu-hero" aria-labelledby="menu-title">
+        <div class="plum-branch" aria-hidden="true"></div>
+        <div class="ink-mountain" aria-hidden="true"></div>
         <div class="hero-copy">
           <h1 id="menu-title">
             <span>Great Taste</span>
@@ -54,21 +57,8 @@
           </dl>
         </div>
 
-        <div class="hero-media" aria-label="Featured General Tso dishes">
-          <figure class="hero-photo hero-photo-main">
-            <img src="assets/general-tso-chicken.jpg" alt="General Tso's Chicken / 左宗鸡" width="960" height="720" fetchpriority="high" decoding="async">
-            <figcaption>
-              <span>General Tso's Chicken</span>
-              <strong>左宗鸡</strong>
-            </figcaption>
-          </figure>
-          <figure class="hero-photo hero-photo-side">
-            <img src="assets/general-tso-shrimp.jpg" alt="General Tso's Shrimp / 左宗虾" width="640" height="480" loading="lazy" decoding="async">
-            <figcaption>
-              <span>General Tso's Shrimp</span>
-              <strong>左宗虾</strong>
-            </figcaption>
-          </figure>
+        <div class="hero-media" aria-label="Featured dishes">
+          <img class="hero-dishes-img" src="assets/menu-hero-dishes.png" alt="General Tso's Chicken, General Tso's Shrimp, and Salt & Pepper Chicken Wings" width="1472" height="1056" fetchpriority="high" decoding="async">
         </div>
       </section>
 
