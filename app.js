@@ -178,6 +178,17 @@ const formatFeaturedPrice = (price) => {
   `;
 };
 
+const formatOption = (price) => {
+  const zh = price.labelZh ? `<span class="opt-zh">${price.labelZh}</span>` : "";
+  const label = price.labelEn || "Price / 价格";
+  return `
+    <span class="opt-row">
+      <span class="opt-label">${label}${zh}</span>
+      <span class="opt-price">$${price.amount}</span>
+    </span>
+  `;
+};
+
 const renderItem = (item, category) => {
   const anchor = itemAnchorId(category.id, item.number);
   const number = item.number ? `<span class="item-number">${item.number}</span>` : "";
@@ -186,8 +197,17 @@ const renderItem = (item, category) => {
   const review = item.needsReview ? `<span class="review-badge">Review / 需校对</span>` : "";
   const nameZhLine = item.nameZh ? `<p class="item-name-zh">${item.nameZh}</p>` : "";
 
+  const isOptions = ["specialties", "platters"].includes(category.id) && item.prices.length >= 3;
+  const priceList = isOptions
+    ? `<div class="price-list price-options" aria-label="Side options and prices for ${item.nameEn}">
+        ${item.prices.map(formatOption).join("")}
+      </div>`
+    : `<div class="price-list" aria-label="Prices for ${item.nameEn}">
+        ${item.prices.map(formatPrice).join("")}
+      </div>`;
+
   return `
-    <article class="menu-item" id="${anchor}">
+    <article class="menu-item${isOptions ? " menu-item--options" : ""}" id="${anchor}">
       <div class="item-main">
         <div class="item-line">
           ${number}
@@ -198,9 +218,7 @@ const renderItem = (item, category) => {
         ${note}
         ${review}
       </div>
-      <div class="price-list" aria-label="Prices for ${item.nameEn}">
-        ${item.prices.map(formatPrice).join("")}
-      </div>
+      ${priceList}
     </article>
   `;
 };

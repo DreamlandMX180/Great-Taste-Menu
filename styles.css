@@ -1020,39 +1020,59 @@ a.featured-card:hover .featured-photo img {
   white-space: nowrap;
 }
 
-/* Wing platters: long side labels read better stacked under the dish name */
-#platters .item-list {
-  grid-template-columns: 1fr;
+/* Pick-a-side items (Specialties & Sides, Wing Platters):
+   stacked dish name with a clean bilingual option list below */
+.menu-item--options {
+  display: block;
+  padding: 11px 0 14px;
 }
 
-#platters .menu-item {
-  grid-template-columns: 1fr;
-  gap: 8px;
-  padding-bottom: 12px;
+.menu-item--options .item-main {
+  margin-bottom: 7px;
 }
 
-#platters .item-list > article.menu-item:nth-of-type(even) {
-  background: rgba(255, 253, 248, 0.42);
-  border-radius: 6px;
-  margin-left: -6px;
-  margin-right: -6px;
-  padding-left: 6px;
-  padding-right: 6px;
-}
-
-#platters .price-list {
-  justify-items: stretch;
+.price-options {
+  display: flex;
+  flex-direction: column;
   margin-left: 36px;
-  padding-right: var(--space-xs);
 }
 
-#platters .price-label {
-  font-size: 0.64rem;
-  line-height: 1.18;
-  text-align: left;
-  text-transform: none;
-  white-space: normal;
-  word-break: break-word;
+.opt-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 5px 0;
+  border-top: 1px dashed var(--row-dash);
+}
+
+.opt-row:first-child {
+  border-top: none;
+  padding-top: 1px;
+}
+
+.opt-label {
+  min-width: 0;
+  color: #342f37;
+  font-size: 0.87rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.opt-zh {
+  color: var(--muted-2);
+  font-size: 0.76rem;
+  font-weight: 600;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.opt-price {
+  color: var(--red-deep);
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  white-space: nowrap;
 }
 
 .no-results {
@@ -1400,6 +1420,14 @@ a.featured-card:hover .featured-photo img {
 
   .price-label {
     text-align: left;
+  }
+
+  .price-options {
+    margin-left: 30px;
+  }
+
+  .opt-zh {
+    white-space: normal;
   }
 }
 
