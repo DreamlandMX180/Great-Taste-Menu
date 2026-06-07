@@ -1026,6 +1026,54 @@ a.featured-card:hover .featured-photo img {
   white-space: nowrap;
 }
 
+.price-chip-end {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+
+.price-add-btn {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 2px solid var(--gold);
+  color: var(--red-deep);
+  background: var(--gold-soft);
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(110, 60, 25, 0.12);
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.price-add-btn:hover {
+  background: #ffe8bc;
+  border-color: #b88328;
+}
+
+.price-add-btn:active {
+  transform: scale(0.94);
+}
+
+.price-add-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.menu-item--add-flash {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+  transition: outline 0.15s ease;
+}
+
 /* Pick-a-side items (Specialties & Sides, Wing Platters):
    stacked dish name with a clean bilingual option list below */
 .menu-item--options {
@@ -1079,6 +1127,13 @@ a.featured-card:hover .featured-photo img {
   font-size: 1.05rem;
   font-weight: 900;
   white-space: nowrap;
+}
+
+.opt-price-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 .no-results {
@@ -2214,7 +2269,8 @@ main {
 }
 
 .header-view,
-.header-call {
+.header-call,
+.header-price-list {
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -2226,6 +2282,37 @@ main {
   text-decoration: none;
   white-space: nowrap;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.header-price-list {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+  white-space: normal;
+  border: 1px solid rgba(150, 95, 40, 0.34);
+  color: #6a3d12;
+  background: rgba(255, 248, 236, 0.88);
+  box-shadow: 0 6px 16px rgba(110, 60, 25, 0.12);
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1.15;
+}
+
+.header-price-list:hover {
+  background: #fff3df;
+  transform: translateY(-1px);
+}
+
+.price-list-toggle-label {
+  white-space: nowrap;
+}
+
+.price-list-toggle-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--red-deep);
+  letter-spacing: 0.02em;
 }
 
 .header-view {
@@ -2253,7 +2340,8 @@ main {
 }
 
 .header-view:focus-visible,
-.header-call:focus-visible {
+.header-call:focus-visible,
+.header-price-list:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
@@ -2471,7 +2559,8 @@ main {
 }
 
 .site-header--scrolled .header-view,
-.site-header--scrolled .header-call {
+.site-header--scrolled .header-call,
+.site-header--scrolled .header-price-list {
   min-height: 44px !important;
   padding: 10px 18px !important;
   font-size: 0.92rem !important;
@@ -2543,5 +2632,302 @@ main {
 
   .back-top:hover {
     transform: none;
+  }
+}
+
+/* ---- Price list / 算价 (estimate-only session list) ---- */
+.price-list-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: rgba(33, 24, 26, 0.42);
+  cursor: pointer;
+}
+
+.price-list-backdrop[hidden] {
+  display: none;
+}
+
+.price-list-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(440px, 100vw);
+  height: 100%;
+  max-height: 100dvh;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  background: var(--ivory-2);
+  border-left: 1px solid var(--line-strong);
+  box-shadow: -16px 0 48px rgba(82, 35, 22, 0.18);
+}
+
+.price-list-panel[hidden] {
+  display: none;
+}
+
+.price-list-panel-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  padding: 0 0 16px;
+}
+
+.price-list-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 12px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 253, 248, 0.96);
+}
+
+.price-list-header h2 {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 850;
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 32ch;
+}
+
+.price-list-close {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.price-list-close:hover {
+  border-color: var(--gold);
+  color: var(--red-deep);
+}
+
+.price-list-close:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.price-list-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 10px 16px 8px;
+}
+
+.price-list-empty {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.price-list-line {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px dashed rgba(218, 200, 188, 0.45);
+}
+
+.price-list-line:last-child {
+  border-bottom: none;
+}
+
+.price-list-line-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.price-list-line-title {
+  font-weight: 800;
+  color: var(--ink);
+  font-size: 0.98rem;
+  line-height: 1.3;
+}
+
+.price-list-line-detail {
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--muted-2);
+}
+
+.price-list-line-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+
+.price-list-qty-btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--red-deep);
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.price-list-qty-btn:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.price-list-qty-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.price-list-line-qty {
+  font-weight: 800;
+  color: var(--muted);
+  min-width: 3.2em;
+  text-align: center;
+}
+
+.price-list-line-sub {
+  margin-left: auto;
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.12rem;
+  font-weight: 900;
+  color: var(--red-deep);
+}
+
+.price-list-remove {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px dashed var(--line-strong);
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.price-list-remove:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-soft);
+}
+
+.price-list-footer {
+  padding: 14px 18px 0;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.5) 0%, var(--ivory-2) 40%);
+}
+
+.price-list-total-row {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.price-list-total-row strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: 0.02em;
+}
+
+.price-list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.price-list-copy,
+.price-list-clear {
+  flex: 1 1 auto;
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: 11px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid rgba(150, 95, 40, 0.28);
+  font-family: inherit;
+}
+
+.price-list-copy {
+  color: #5c3410;
+  background: var(--gold-soft);
+}
+
+.price-list-copy:hover {
+  background: #ffe8bc;
+}
+
+.price-list-clear {
+  color: var(--muted);
+  background: var(--surface);
+}
+
+.price-list-clear:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-soft);
+}
+
+.price-list-copy:focus-visible,
+.price-list-clear:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .price-list-panel {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    max-height: min(78vh, 100dvh - 24px);
+    border-left: none;
+    border-radius: 20px 20px 0 0;
+    border-top: 1px solid var(--line-strong);
+    box-shadow: 0 -12px 40px rgba(82, 35, 22, 0.2);
+  }
+
+  .price-list-line-controls {
+    justify-content: flex-start;
+  }
+
+  .price-list-line-sub {
+    margin-left: 0;
+    width: 100%;
+    text-align: right;
+  }
+}
+
+@media print {
+  .price-list-backdrop,
+  .price-list-panel {
+    display: none !important;
   }
 }

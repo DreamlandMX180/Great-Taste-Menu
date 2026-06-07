@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="assets/logo-mark.webp?v=3" type="image/webp">
-    <link rel="stylesheet" href="styles.css?v=20">
+    <link rel="stylesheet" href="styles.css?v=21">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -66,6 +66,10 @@
             <svg class="hb-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
             View Menu / 查看菜单
           </a>
+          <button type="button" class="header-price-list" id="price-list-toggle" aria-expanded="false" aria-controls="price-list-panel" aria-haspopup="dialog">
+            <span class="price-list-toggle-label">Price List / 算价</span>
+            <span class="price-list-toggle-badge" id="price-list-badge" hidden>$0.00 · 0</span>
+          </button>
           <a class="header-call" href="tel:+12152228880">
             <svg class="hb-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 6.2 2 2 0 0 1 6.5 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
             Call to Order
@@ -145,6 +149,35 @@
       <section id="menu-root" class="menu-root" aria-label="Great Taste menu items"></section>
     </main>
 
+    <div class="price-list-backdrop" id="price-list-backdrop" hidden aria-hidden="true"></div>
+    <div
+      class="price-list-panel"
+      id="price-list-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="price-list-title"
+      hidden
+    >
+      <div class="price-list-panel-inner">
+        <header class="price-list-header">
+          <h2 id="price-list-title">Price List — estimate only / 算价清单（仅供参考）</h2>
+          <button type="button" class="price-list-close" id="price-list-close" aria-label="Close / 关闭">
+            <span aria-hidden="true">×</span>
+          </button>
+        </header>
+        <div class="price-list-body" id="price-list-lines"></div>
+        <footer class="price-list-footer">
+          <p class="price-list-total-row">
+            Subtotal / 合计 <strong id="price-list-total">$0.00</strong>
+          </p>
+          <div class="price-list-actions">
+            <button type="button" class="price-list-copy" id="price-list-copy">Copy summary / 复制清单</button>
+            <button type="button" class="price-list-clear" id="price-list-clear">Clear all / 清空</button>
+          </div>
+        </footer>
+      </div>
+    </div>
+
     <button type="button" class="back-top" id="back-top" hidden aria-label="Back to top / 回到顶部">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12l7-7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span>Top / 顶部</span>
@@ -161,6 +194,6 @@
     </footer>
 
     <script src="menu-data.js?v=18"></script>
-    <script src="app.js?v=11"></script>
+    <script src="app.js?v=12"></script>
   </body>
 </html>
