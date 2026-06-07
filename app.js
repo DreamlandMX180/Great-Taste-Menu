@@ -13,7 +13,9 @@ const scrollMotionBehavior = () =>
 const getStickyOverlapPx = () => {
   const header = document.querySelector(".site-header");
   const tools = document.querySelector(".menu-tools");
-  return (header?.offsetHeight ?? 72) + (tools?.offsetHeight ?? 120) + 8;
+  const headerPosition = header ? window.getComputedStyle(header).position : "";
+  const headerOverlap = ["fixed", "sticky"].includes(headerPosition) ? header.offsetHeight : 0;
+  return headerOverlap + (tools?.offsetHeight ?? 120) + 8;
 };
 
 const updateScrollMargin = () => {

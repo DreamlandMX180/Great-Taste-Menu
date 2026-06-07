@@ -1553,6 +1553,27 @@ main {
   height: 8px;
 }
 
+.hero-facts div:first-child::before {
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+}
+
+.hero-facts div:first-child::after {
+  left: 14px;
+  top: 14px;
+}
+
+.hero-facts div:nth-child(2)::after {
+  left: 14px;
+  top: 11px;
+  width: 17px;
+  height: 17px;
+  border-radius: 0;
+  background:
+    linear-gradient(#a20f14 0 0) 50% 50% / 2px 10px no-repeat,
+    linear-gradient(#a20f14 0 0) 50% 50% / 9px 2px no-repeat;
+}
+
 .hero-facts dd {
   font-size: clamp(1rem, 1.22vw, 1.17rem);
   line-height: 1.32;
@@ -1825,6 +1846,268 @@ main {
   .results-summary,
   .menu-root {
     width: min(100% - 20px, 1280px);
+  }
+}
+
+/* Reference hero refinement: closer to the provided restaurant poster mockup */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom-color: transparent;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.header-inner {
+  width: min(1600px, calc(100% - clamp(28px, 5vw, 96px)));
+  min-height: 118px;
+  padding: 20px 0 12px;
+  align-items: flex-start;
+}
+
+.brand {
+  gap: 18px;
+}
+
+.brand-mark {
+  width: 94px;
+  height: 94px;
+  border-width: 4px;
+  background: #fff7e7;
+  font-size: 58px;
+  box-shadow:
+    inset 0 0 0 2px rgba(143, 31, 23, 0.1),
+    0 8px 18px rgba(111, 65, 20, 0.12);
+}
+
+.brand-name {
+  font-size: clamp(2.35rem, 3.1vw, 3.4rem);
+}
+
+.menu-meta {
+  gap: 22px;
+  padding-top: 10px;
+}
+
+.pickup-pill,
+.header-call {
+  min-height: 58px;
+  border-radius: 10px;
+  padding: 15px 32px;
+  font-size: 1.06rem;
+}
+
+.menu-hero {
+  min-height: clamp(690px, 51vw, 850px);
+  grid-template-columns: minmax(430px, 38%) minmax(0, 62%);
+  align-items: center;
+  gap: 0;
+  padding: clamp(118px, 7.4vw, 146px) clamp(28px, 4vw, 54px) 110px;
+  background:
+    radial-gradient(circle at 77% 35%, rgba(255, 227, 180, 0.35), transparent 35%),
+    radial-gradient(circle at 16% 83%, rgba(86, 65, 52, 0.13), transparent 34%),
+    linear-gradient(180deg, #fff8ed 0%, #f6e7d3 100%);
+}
+
+.hero-copy {
+  max-width: 620px;
+  padding: clamp(14px, 2.2vw, 34px) 0 clamp(18px, 3vw, 34px) clamp(42px, 7vw, 142px);
+}
+
+.menu-hero h1 {
+  position: relative;
+}
+
+.menu-hero h1 span {
+  max-width: 560px;
+  font-size: clamp(6.4rem, 8.5vw, 10.25rem);
+}
+
+.menu-hero h1 em {
+  margin-top: 8px;
+  font-size: clamp(4.2rem, 5.6vw, 6.2rem);
+}
+
+.menu-hero h1::after {
+  content: "好味";
+  position: absolute;
+  left: clamp(300px, 24vw, 410px);
+  right: auto;
+  top: 47%;
+  width: 44px;
+  min-height: 64px;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(143, 31, 23, 0.86);
+  border-radius: 8px;
+  color: #fffaf1;
+  background: linear-gradient(180deg, #a92a22 0%, #7d1114 100%);
+  font-family: "Noto Serif SC", serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1.05;
+  writing-mode: vertical-rl;
+  box-shadow: 0 8px 18px rgba(94, 18, 16, 0.16);
+}
+
+.hero-tagline {
+  margin-top: clamp(40px, 4.8vw, 66px);
+  font-size: clamp(1.1rem, 1.45vw, 1.36rem);
+}
+
+.hero-facts {
+  margin-top: 34px;
+}
+
+.hero-media {
+  min-height: clamp(560px, 38vw, 700px);
+  justify-content: center;
+}
+
+.hero-dishes-img {
+  width: min(112%, 1120px);
+  transform: translate(clamp(18px, 2.2vw, 42px), clamp(-28px, -1.8vw, -14px));
+  filter: none;
+}
+
+.plum-branch {
+  left: -86px;
+  top: clamp(128px, 10vw, 170px);
+  width: 360px;
+  height: 210px;
+}
+
+.plum-branch::before {
+  width: 340px;
+  transform: rotate(19deg);
+}
+
+.plum-branch::after {
+  content: "✿ ✿ ✿ ✿";
+  left: 34px;
+  top: 42px;
+  font-size: 34px;
+  letter-spacing: 18px;
+  transform: rotate(19deg);
+}
+
+.ink-mountain {
+  bottom: 42px;
+  width: min(640px, 44vw);
+  height: 430px;
+  opacity: 0.29;
+}
+
+.menu-tools {
+  margin: -86px auto 38px;
+  top: 0;
+}
+
+.menu-nav-card {
+  border-radius: 15px;
+  background: rgba(255, 248, 236, 0.93);
+  box-shadow: 0 22px 44px rgba(110, 60, 25, 0.13);
+}
+
+@media (max-width: 1180px) {
+  .header-inner {
+    min-height: 96px;
+  }
+
+  .brand-mark {
+    width: 68px;
+    height: 68px;
+    font-size: 42px;
+  }
+
+  .brand-name {
+    font-size: clamp(2rem, 3vw, 2.7rem);
+  }
+
+  .menu-hero {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    padding-top: 104px;
+    padding-bottom: 116px;
+  }
+
+  .hero-media {
+    order: -1;
+    min-height: 0;
+  }
+
+  .hero-dishes-img {
+    width: min(94%, 930px);
+    transform: none;
+  }
+
+  .hero-copy {
+    max-width: 760px;
+    padding: 12px clamp(12px, 6vw, 76px) 28px;
+  }
+
+  .menu-hero h1 span {
+    max-width: 520px;
+    font-size: clamp(4.8rem, 11vw, 7.6rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    position: absolute;
+  }
+
+  .header-inner {
+    width: min(100% - 20px, 1280px);
+    min-height: 64px;
+    padding: 12px 0 8px;
+  }
+
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    border-width: 2px;
+    font-size: 26px;
+  }
+
+  .brand-name {
+    font-size: 1.55rem;
+  }
+
+  .menu-hero {
+    padding: 82px 10px 92px;
+  }
+
+  .hero-dishes-img {
+    width: 96%;
+  }
+
+  .hero-copy {
+    padding: 24px 10px 12px;
+  }
+
+  .menu-hero h1 span {
+    max-width: 312px;
+    font-size: clamp(3.15rem, 15vw, 4.15rem);
+  }
+
+  .menu-hero h1 em {
+    font-size: clamp(2.65rem, 12vw, 3.35rem);
+  }
+
+  .menu-hero h1::after {
+    right: 12px;
+    top: 45%;
+    width: 34px;
+    min-height: 50px;
+    font-size: 1rem;
+  }
+
+  .menu-tools {
+    margin-top: -66px;
   }
 }
 
