@@ -125,7 +125,7 @@ const featuredSpecials = [
   {
     categoryId: "appetizers",
     number: "14",
-    imageSrc: "assets/salt and peper wings.png",
+    imageSrc: "assets/salt-pepper-wings.webp",
     imageAlt: "Salt and pepper chicken wings"
   }
 ];

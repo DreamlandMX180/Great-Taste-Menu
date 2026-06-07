@@ -15,13 +15,46 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=16">
+    <link rel="stylesheet" href="styles.css?v=17">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Great Taste",
+      "servesCuisine": ["Chinese", "American"],
+      "telephone": "+1-215-222-8880",
+      "url": "https://dreamlandmx180.github.io/Great-Taste-Menu/",
+      "image": "https://dreamlandmx180.github.io/Great-Taste-Menu/assets/general-tso-chicken.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "4101 Lancaster Ave.",
+        "addressLocality": "Philadelphia",
+        "addressRegion": "PA",
+        "postalCode": "19104",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "12:00",
+          "closes": "23:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "15:00",
+          "closes": "22:00"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <header class="site-header">
       <div class="header-inner">
         <a class="brand" href="#top" aria-label="Great Taste menu home">
-          <img class="brand-mark" src="assets/logo-mark.png?v=2" alt="" width="96" height="96" decoding="async">
+          <img class="brand-mark" src="assets/logo-mark.webp?v=3" alt="" width="96" height="96" decoding="async">
           <span>
             <span class="brand-name">Great Taste</span>
             <span class="brand-slogan">好味 · 好菜 · 好心意</span>
@@ -29,8 +62,8 @@
         </a>
         <div class="menu-meta">
           <a class="header-view" href="#menu-root">
-            <svg class="hb-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            View Order
+            <svg class="hb-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            View Menu / 查看菜单
           </a>
           <a class="header-call" href="tel:+12152228880">
             <svg class="hb-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 6.2 2 2 0 0 1 6.5 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -42,8 +75,8 @@
 
     <main id="top">
       <section class="menu-hero" aria-labelledby="menu-title">
-        <img class="ink-mountain" src="assets/art-ink-mountain.png?v=2" alt="" aria-hidden="true" decoding="async">
-        <img class="plum-branch" src="assets/art-plum-branch.png?v=2" alt="" aria-hidden="true" decoding="async">
+        <img class="ink-mountain" src="assets/art-ink-mountain.webp?v=3" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <img class="plum-branch" src="assets/art-plum-branch.webp?v=3" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="hero-copy">
           <h1 id="menu-title">
             <span>Great Taste</span>
@@ -66,7 +99,10 @@
         </div>
 
         <div class="hero-media" aria-label="Featured dishes">
-          <img class="hero-dishes-img" src="assets/menu-hero-dishes.png" alt="General Tso's Chicken, General Tso's Shrimp, and Salt & Pepper Chicken Wings" width="1472" height="1056" fetchpriority="high" decoding="async">
+          <picture>
+            <source srcset="assets/menu-hero-dishes.webp?v=3" type="image/webp">
+            <img class="hero-dishes-img" src="assets/menu-hero-dishes.png" alt="General Tso's Chicken, General Tso's Shrimp, and Salt & Pepper Chicken Wings" width="1472" height="1056" fetchpriority="high" decoding="async">
+          </picture>
         </div>
       </section>
 
@@ -107,12 +143,17 @@
       <section id="menu-root" class="menu-root" aria-label="Great Taste menu items"></section>
     </main>
 
+    <a class="call-fab" href="tel:+12152228880" aria-label="Call to order / 致电下单">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 6.2 2 2 0 0 1 6.5 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Call / 致电</span>
+    </a>
+
     <footer class="site-footer">
       <p><strong>Great Taste</strong> · <a href="tel:+12152228880">215-222-8880</a> · 4101 Lancaster Ave. Philadelphia, PA 19104</p>
       <p>Pickup Only / 仅限自取 · Mon - Sat 12:00 PM - 11:30 PM · Sunday 3:00 PM - 10:00 PM</p>
     </footer>
 
     <script src="menu-data.js?v=18"></script>
-    <script src="app.js?v=8"></script>
+    <script src="app.js?v=9"></script>
   </body>
 </html>
