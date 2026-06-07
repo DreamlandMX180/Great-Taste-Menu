@@ -2150,3 +2150,231 @@ main {
     break-inside: avoid;
   }
 }
+
+/* =====================================================================
+   Image 2 ink-wash redesign — final overrides (win the cascade)
+   ===================================================================== */
+
+/* Brush-ring logo mark (replaces the CSS circle) */
+.brand .brand-mark {
+  display: block;
+  width: clamp(72px, 6.2vw, 102px);
+  height: clamp(72px, 6.2vw, 102px);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 13px rgba(110, 60, 25, 0.18));
+}
+
+/* Header action buttons: View Order + Call to Order */
+.menu-meta {
+  gap: 14px;
+}
+
+.header-view,
+.header-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 52px;
+  border-radius: 11px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 850;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.header-view {
+  border: 1px solid rgba(150, 95, 40, 0.34);
+  color: #6a3d12;
+  background: rgba(255, 248, 236, 0.88);
+  box-shadow: 0 6px 16px rgba(110, 60, 25, 0.12);
+}
+
+.header-view:hover {
+  background: #fff3df;
+  transform: translateY(-1px);
+}
+
+.header-call {
+  border: 1px solid var(--red);
+  color: #fff;
+  background: linear-gradient(180deg, #b9151b 0%, #8d0e12 100%);
+  box-shadow: 0 8px 18px rgba(120, 25, 20, 0.26);
+}
+
+.header-call:hover {
+  background: var(--red-deep);
+  transform: translateY(-1px);
+}
+
+.header-view:focus-visible,
+.header-call:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.hb-ico {
+  flex: 0 0 auto;
+}
+
+/* Ink-wash mountain + pagoda, cropped to a vertical slice at the left */
+.menu-hero .ink-mountain {
+  position: absolute;
+  left: clamp(-58px, -2.5vw, -18px);
+  top: auto;
+  bottom: clamp(28px, 4vw, 64px);
+  z-index: 0;
+  width: clamp(210px, 23vw, 340px);
+  height: clamp(360px, 44vw, 560px);
+  background: none;
+  filter: none;
+  opacity: 0.66;
+  mix-blend-mode: multiply;
+  object-fit: cover;
+  object-position: 50% 40%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}
+
+/* Faint distant mist range hugging the hero base */
+.menu-hero .mist-range {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 46px;
+  z-index: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Red plum-blossom branch from the top-left, near the logo */
+.menu-hero .plum-branch {
+  position: absolute;
+  left: clamp(-70px, -3vw, -24px);
+  top: clamp(64px, 6.5vw, 118px);
+  z-index: 3;
+  width: clamp(240px, 27vw, 430px);
+  height: auto;
+  background: none;
+  opacity: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 18px rgba(60, 20, 15, 0.14));
+}
+
+.menu-hero .plum-branch::before,
+.menu-hero .plum-branch::after {
+  content: none;
+}
+
+/* Auspicious clouds behind the dishes */
+.hero-media {
+  position: relative;
+}
+
+.hero-clouds {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(184, 124, 58, 0.24);
+  pointer-events: none;
+}
+
+.hero-dishes-img {
+  position: relative;
+  z-index: 1;
+}
+
+/* Crisper carved-stamp look for the 好味 seal beside the title */
+.menu-hero h1::after {
+  border-width: 2px;
+  border-radius: 7px;
+  letter-spacing: 2px;
+  background: linear-gradient(180deg, #ab2c23 0%, #7c1013 100%);
+  box-shadow:
+    0 8px 18px rgba(94, 18, 16, 0.18),
+    inset 0 0 0 2px rgba(255, 240, 225, 0.45);
+}
+
+/* Unified, lighter search + category bar */
+.menu-nav-card {
+  border-color: rgba(150, 95, 40, 0.18);
+  border-radius: 16px;
+  background: rgba(255, 250, 241, 0.94);
+  box-shadow: 0 22px 46px rgba(110, 60, 25, 0.14);
+}
+
+.search-box {
+  border-radius: 12px;
+  border-color: rgba(120, 70, 35, 0.16);
+}
+
+.category-tab {
+  border-radius: 11px;
+}
+
+.category-tab[aria-selected="true"] {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+/* ---- Responsive tuning for the art layers ---- */
+@media (max-width: 1180px) {
+  .menu-hero .ink-mountain {
+    width: clamp(180px, 30vw, 300px);
+    height: clamp(300px, 48vw, 460px);
+    opacity: 0.42;
+  }
+
+  .menu-hero .plum-branch {
+    width: clamp(210px, 40vw, 330px);
+    top: clamp(56px, 8vw, 96px);
+  }
+
+  .menu-hero .mist-range {
+    bottom: 34px;
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 640px) {
+  .menu-hero .ink-mountain {
+    opacity: 0.22;
+    bottom: 70px;
+  }
+
+  .menu-hero .plum-branch {
+    width: 200px;
+    left: -42px;
+    top: 36px;
+    opacity: 0.6;
+  }
+
+  .menu-hero .mist-range {
+    opacity: 0.3;
+  }
+
+  .hero-clouds {
+    display: none;
+  }
+}
+
+@media print {
+  .menu-hero .ink-mountain,
+  .menu-hero .mist-range,
+  .menu-hero .plum-branch,
+  .hero-clouds {
+    display: none;
+  }
+}

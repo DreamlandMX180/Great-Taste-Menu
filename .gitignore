@@ -9,3 +9,8 @@ worktrees/
 # Generated exports and local QA/browser artifacts
 .codex-temp/
 outputs/
+
+# Local Python packages (Pillow install for asset processing)
+Lib/
+Scripts/
+pyvenv.cfg
