@@ -4,6 +4,9 @@ const searchInput = document.querySelector("#menu-search");
 const resultCount = document.querySelector("#result-count");
 const clearSearch = document.querySelector("#clear-search");
 const featuredRoot = document.querySelector("#featured-specials-root");
+const siteHeader = document.querySelector(".site-header");
+const menuHero = document.querySelector(".menu-hero");
+const backTop = document.querySelector("#back-top");
 
 let activeCategory = "all";
 
@@ -113,13 +116,15 @@ const featuredSpecials = [
   {
     categoryId: "seafood",
     number: "111",
-    imageSrc: "assets/general-tso-shrimp.jpg",
+    imageSrc: "assets/general-tso-shrimp.webp",
+    imageFallback: "assets/general-tso-shrimp.jpg",
     imageAlt: "General Tso's shrimp over rice"
   },
   {
     categoryId: "chicken",
     number: "89",
-    imageSrc: "assets/general-tso-chicken.jpg",
+    imageSrc: "assets/general-tso-chicken.webp",
+    imageFallback: "assets/general-tso-chicken.jpg",
     imageAlt: "General Tso's chicken plate"
   },
   {
@@ -136,11 +141,11 @@ const getAllItems = () => window.menuData.flatMap((category) =>
   category.items.map((item) => ({ ...item, categoryId: category.id }))
 );
 
-const findMenuItem = ({ categoryId, number, imageSrc, imageAlt }) => {
+const findMenuItem = ({ categoryId, number, imageSrc, imageFallback, imageAlt }) => {
   const category = window.menuData.find((entry) => entry.id === categoryId);
   if (!category) return null;
   const item = category.items.find((entry) => entry.number === number);
-  return item ? { item, category, imageSrc, imageAlt } : null;
+  return item ? { item, category, imageSrc, imageFallback, imageAlt } : null;
 };
 
 const matchesSearch = (item, category, query) => {
@@ -246,14 +251,20 @@ const renderItemsWithGroupHeadings = (items, category) => {
   return chunks.join("");
 };
 
-const renderFeaturedItem = ({ item, category, imageSrc, imageAlt }) => {
+const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt }) => {
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
   const href = `#${itemAnchorId(category.id, item.number)}`;
+  const photo = imageFallback
+    ? `<picture>
+        <source srcset="${imageSrc}?v=1" type="image/webp">
+        <img src="${imageFallback}" alt="${imageAlt}" width="640" height="480" loading="lazy" decoding="async">
+      </picture>`
+    : `<img src="${imageSrc}" alt="${imageAlt}" width="640" height="480" loading="lazy" decoding="async">`;
 
   return `
     <a class="featured-card" href="${href}" data-featured-category="${category.id}" data-featured-number="${item.number}">
       <div class="featured-photo">
-        <img src="${imageSrc}" alt="${imageAlt}" width="640" height="480" loading="lazy" decoding="async">
+        ${photo}
       </div>
       <div class="featured-body">
         <div class="featured-copy">
@@ -437,6 +448,31 @@ window.addEventListener("hashchange", handleRouteFromHash);
 
 window.addEventListener("resize", () => {
   updateScrollMargin();
+  updateScrollChrome();
 });
 
+const getHeroScrollThreshold = () => Math.max(0, (menuHero?.offsetHeight ?? 0) - 80);
+
+const updateScrolledHeader = () => {
+  if (!siteHeader || !menuHero) return;
+  siteHeader.classList.toggle("site-header--scrolled", window.scrollY > getHeroScrollThreshold());
+};
+
+const updateBackTop = () => {
+  if (!backTop) return;
+  backTop.hidden = window.scrollY <= 600;
+};
+
+const updateScrollChrome = () => {
+  updateScrolledHeader();
+  updateBackTop();
+};
+
+backTop?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: scrollMotionBehavior() });
+});
+
+window.addEventListener("scroll", updateScrollChrome, { passive: true });
+
 handleRouteFromHash();
+updateScrollChrome();

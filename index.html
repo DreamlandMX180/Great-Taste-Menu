@@ -15,7 +15,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=19">
+    <link rel="icon" href="assets/logo-mark.webp?v=3" type="image/webp">
+    <link rel="stylesheet" href="styles.css?v=20">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -83,11 +84,12 @@
             <em>Menu</em>
           </h1>
           <p class="hero-tagline">Chinese-American Take Out Menu<br>中美式外卖菜单</p>
+          <p class="hero-pickup-note">Pickup only · 仅限自取</p>
           <dl class="hero-facts" aria-label="Restaurant details">
             <div>
               <svg class="fact-ico" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21.5s6.6-5.8 6.6-10.7A6.6 6.6 0 1 0 5.4 10.8C5.4 15.7 12 21.5 12 21.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="10.4" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg>
               <dt>Address</dt>
-              <dd>4101 Lancaster Ave. Philadelphia, PA 19104</dd>
+              <dd><a href="https://maps.google.com/?q=4101+Lancaster+Ave+Philadelphia+PA+19104" target="_blank" rel="noopener noreferrer">4101 Lancaster Ave. Philadelphia, PA 19104</a></dd>
             </div>
             <div>
               <svg class="fact-ico" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.4" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.4V12l3.1 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -143,17 +145,22 @@
       <section id="menu-root" class="menu-root" aria-label="Great Taste menu items"></section>
     </main>
 
+    <button type="button" class="back-top" id="back-top" hidden aria-label="Back to top / 回到顶部">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12l7-7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Top / 顶部</span>
+    </button>
+
     <a class="call-fab" href="tel:+12152228880" aria-label="Call to order / 致电下单">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 6.2 2 2 0 0 1 6.5 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
       <span>Call / 致电</span>
     </a>
 
     <footer class="site-footer">
-      <p><strong>Great Taste</strong> · <a href="tel:+12152228880">215-222-8880</a> · 4101 Lancaster Ave. Philadelphia, PA 19104</p>
+      <p><strong>Great Taste</strong> · <a href="tel:+12152228880">215-222-8880</a> · <a href="https://maps.google.com/?q=4101+Lancaster+Ave+Philadelphia+PA+19104" target="_blank" rel="noopener noreferrer">4101 Lancaster Ave. Philadelphia, PA 19104</a></p>
       <p>Pickup Only / 仅限自取 · Mon - Sat 12:00 PM - 11:30 PM · Sunday 3:00 PM - 10:00 PM</p>
     </footer>
 
     <script src="menu-data.js?v=18"></script>
-    <script src="app.js?v=10"></script>
+    <script src="app.js?v=11"></script>
   </body>
 </html>
