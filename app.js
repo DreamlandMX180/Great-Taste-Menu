@@ -16,6 +16,8 @@ const priceListTotal = document.querySelector("#price-list-total");
 const priceListClear = document.querySelector("#price-list-clear");
 const priceListCopy = document.querySelector("#price-list-copy");
 const priceListClose = document.querySelector("#price-list-close");
+const priceListFab = document.querySelector("#price-list-fab");
+const priceListFabBadge = document.querySelector("#price-list-fab-badge");
 
 let activeCategory = "all";
 
@@ -259,10 +261,24 @@ const renderItem = (item, category) => {
   `;
 };
 
-/** @type {Array<{ categoryId: string, number: string, priceIndex: number, qty: number }>} */
+/** @type {Array<{ categoryId: string, number: string, priceIndex: number, qty: number, unitNotes: string[] }>} */
 let priceLines = [];
 
 const lineKey = (categoryId, number, priceIndex) => `${categoryId}__${number}__${priceIndex}`;
+
+const syncLineNotes = (line) => {
+  if (!Array.isArray(line.unitNotes)) line.unitNotes = [];
+  while (line.unitNotes.length < line.qty) line.unitNotes.push("");
+  if (line.unitNotes.length > line.qty) line.unitNotes.length = line.qty;
+  return line.unitNotes;
+};
+
+const findLastEmptyNoteIndex = (notes) => {
+  for (let i = notes.length - 1; i >= 0; i -= 1) {
+    if (!String(notes[i] || "").trim()) return i;
+  }
+  return -1;
+};
 
 const resolveLine = (line) => {
   const category = window.menuData?.find((c) => c.id === line.categoryId);
@@ -302,17 +318,45 @@ const priceLineLabel = (price) => {
 const addPriceLine = (categoryId, number, priceIndex) => {
   const key = lineKey(categoryId, number, priceIndex);
   const existing = priceLines.find((l) => lineKey(l.categoryId, l.number, l.priceIndex) === key);
-  if (existing) existing.qty += 1;
-  else priceLines.push({ categoryId, number: String(number), priceIndex, qty: 1 });
+  if (existing) {
+    existing.qty += 1;
+    syncLineNotes(existing);
+  } else {
+    priceLines.push({ categoryId, number: String(number), priceIndex, qty: 1, unitNotes: [""] });
+  }
   updatePriceListChrome();
 };
 
 const changeLineQty = (key, delta) => {
   const i = priceLines.findIndex((l) => lineKey(l.categoryId, l.number, l.priceIndex) === key);
   if (i < 0) return;
-  priceLines[i].qty += delta;
-  if (priceLines[i].qty <= 0) priceLines.splice(i, 1);
+  const line = priceLines[i];
+  syncLineNotes(line);
+  if (delta > 0) {
+    line.qty += delta;
+    syncLineNotes(line);
+  } else if (delta < 0) {
+    const steps = Math.min(Math.abs(delta), line.qty);
+    for (let step = 0; step < steps; step += 1) {
+      const emptyIndex = findLastEmptyNoteIndex(line.unitNotes);
+      if (emptyIndex >= 0) line.unitNotes.splice(emptyIndex, 1);
+      else line.unitNotes.pop();
+      line.qty -= 1;
+    }
+  }
+  if (line.qty <= 0) priceLines.splice(i, 1);
+  else syncLineNotes(line);
   updatePriceListChrome();
+};
+
+const updateLineNote = (key, noteIndex, value) => {
+  const i = priceLines.findIndex((l) => lineKey(l.categoryId, l.number, l.priceIndex) === key);
+  if (i < 0) return;
+  const index = Number.parseInt(noteIndex, 10);
+  const line = priceLines[i];
+  syncLineNotes(line);
+  if (!Number.isInteger(index) || index < 0 || index >= line.qty) return;
+  line.unitNotes[index] = value;
 };
 
 const removeLine = (key) => {
@@ -336,6 +380,10 @@ const formatSummaryText = () => {
     const unit = parsePriceToCents(r.price.amount) / 100;
     const lineTotal = unit * line.qty;
     lines.push(`${title} · ${label} × ${line.qty}  $${lineTotal.toFixed(2)}`);
+    syncLineNotes(line).forEach((note, index) => {
+      const text = String(note || "").trim();
+      if (text) lines.push(`  Note ${index + 1} / 备注 ${index + 1}: ${text}`);
+    });
   }
   lines.push("");
   lines.push(`Subtotal / 合计  ${formatMoney(getTotalCents())}`);
@@ -354,24 +402,41 @@ const renderPricePanelLines = () => {
       const r = resolveLine(line);
       if (!r) return "";
       const rawKey = lineKey(line.categoryId, line.number, line.priceIndex);
+      const key = escapeHtml(rawKey);
       const num = r.item.number ? `#${escapeHtml(String(r.item.number))} ` : "";
       const title = `${num}${escapeHtml(r.item.nameEn)}`;
       const detail = escapeHtml(priceLineLabel(r.price));
       const unitCents = parsePriceToCents(r.price.amount);
       const subCents = unitCents * line.qty;
       const sub = escapeHtml(formatMoney(subCents));
+      const noteRows = syncLineNotes(line).map((note, index) => `
+        <label class="price-list-note-row">
+          <span class="price-list-note-label">Note ${index + 1} / 备注 ${index + 1}</span>
+          <textarea
+            class="price-list-note-input"
+            data-note-input
+            data-line-key="${key}"
+            data-note-index="${index}"
+            rows="2"
+            placeholder="Sauce on side / 酱另放；no onion / 不要洋葱"
+          >${escapeHtml(note)}</textarea>
+        </label>
+      `).join("");
       return `
-        <div class="price-list-line" data-line-key="${rawKey}">
+        <div class="price-list-line" data-line-key="${key}">
           <div class="price-list-line-info">
             <span class="price-list-line-title">${title}</span>
             <span class="price-list-line-detail">${detail}</span>
           </div>
           <div class="price-list-line-controls">
-            <button type="button" class="price-list-qty-btn" data-qty-down data-line-key="${rawKey}" aria-label="Decrease quantity / 减少">−</button>
+            <button type="button" class="price-list-qty-btn" data-qty-down data-line-key="${key}" aria-label="Decrease quantity / 减少">−</button>
             <span class="price-list-line-qty" aria-label="Quantity / 数量">× ${line.qty}</span>
-            <button type="button" class="price-list-qty-btn" data-qty-up data-line-key="${rawKey}" aria-label="Increase quantity / 增加">+</button>
+            <button type="button" class="price-list-qty-btn" data-qty-up data-line-key="${key}" aria-label="Increase quantity / 增加">+</button>
             <span class="price-list-line-sub">${sub}</span>
-            <button type="button" class="price-list-remove" data-line-remove data-line-key="${rawKey}" aria-label="Remove / 删除">×</button>
+            <button type="button" class="price-list-remove" data-line-remove data-line-key="${key}" aria-label="Remove / 删除">×</button>
+          </div>
+          <div class="price-list-notes">
+            ${noteRows}
           </div>
         </div>
       `;
@@ -380,15 +445,22 @@ const renderPricePanelLines = () => {
 };
 
 const updatePriceListBadge = () => {
-  if (!priceListBadge) return;
   const n = getTotalQty();
   const cents = getTotalCents();
+  const text = `${formatMoney(cents)} · ${n}`;
   if (n === 0) {
-    priceListBadge.hidden = true;
+    if (priceListBadge) priceListBadge.hidden = true;
+    if (priceListFabBadge) priceListFabBadge.hidden = true;
     return;
   }
-  priceListBadge.hidden = false;
-  priceListBadge.textContent = `${formatMoney(cents)} · ${n}`;
+  if (priceListBadge) {
+    priceListBadge.hidden = false;
+    priceListBadge.textContent = text;
+  }
+  if (priceListFabBadge) {
+    priceListFabBadge.hidden = false;
+    priceListFabBadge.textContent = text;
+  }
 };
 
 const updatePriceListTotal = () => {
@@ -406,6 +478,7 @@ let priceListOpen = false;
 const setPriceListOpen = (open) => {
   priceListOpen = open;
   priceListToggle?.setAttribute("aria-expanded", open ? "true" : "false");
+  priceListFab?.setAttribute("aria-expanded", open ? "true" : "false");
   if (priceListBackdrop) {
     priceListBackdrop.hidden = !open;
     priceListBackdrop.setAttribute("aria-hidden", open ? "false" : "true");
@@ -418,7 +491,8 @@ const setPriceListOpen = (open) => {
       window.requestAnimationFrame(() => priceListClose?.focus());
     } else {
       document.body.style.overflow = "";
-      priceListToggle?.focus();
+      const trigger = priceListToggle?.offsetParent ? priceListToggle : priceListFab;
+      trigger?.focus();
     }
   }
 };
@@ -682,6 +756,10 @@ priceListToggle?.addEventListener("click", () => {
   setPriceListOpen(!priceListOpen);
 });
 
+priceListFab?.addEventListener("click", () => {
+  setPriceListOpen(!priceListOpen);
+});
+
 priceListClose?.addEventListener("click", () => setPriceListOpen(false));
 
 priceListBackdrop?.addEventListener("click", () => setPriceListOpen(false));
@@ -697,6 +775,12 @@ priceListPanel?.addEventListener("click", (e) => {
   if (up) changeLineQty(key, 1);
   else if (down) changeLineQty(key, -1);
   else if (rm) removeLine(key);
+});
+
+priceListPanel?.addEventListener("input", (e) => {
+  const note = e.target.closest("[data-note-input]");
+  if (!note) return;
+  updateLineNote(note.dataset.lineKey, note.dataset.noteIndex, note.value);
 });
 
 priceListClear?.addEventListener("click", () => clearPriceLines());

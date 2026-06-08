@@ -2484,11 +2484,67 @@ main {
 }
 
 /* Mobile-only floating call-to-order button */
+.price-list-fab,
 .call-fab {
   display: none;
 }
 
 @media (max-width: 640px) {
+  .price-list-fab {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 60;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    max-width: 176px;
+    min-height: 54px;
+    padding: 10px 16px;
+    border: 1px solid rgba(150, 95, 40, 0.34);
+    border-radius: 999px;
+    color: #5c3410;
+    background: rgba(255, 248, 236, 0.96);
+    box-shadow: 0 10px 26px rgba(110, 60, 25, 0.2);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 850;
+    line-height: 1.12;
+    cursor: pointer;
+  }
+
+  .price-list-fab-main {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .price-list-fab-main svg {
+    flex: 0 0 auto;
+    color: var(--red-deep);
+  }
+
+  .price-list-fab-badge {
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--red-deep);
+    font-size: 0.76rem;
+    font-weight: 850;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .price-list-fab:active {
+    transform: translateY(1px);
+  }
+
+  .price-list-fab:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
   .call-fab {
     position: fixed;
     right: 16px;
@@ -2521,6 +2577,7 @@ main {
 }
 
 @media print {
+  .price-list-fab,
   .call-fab,
   .back-top {
     display: none;
@@ -2832,6 +2889,54 @@ main {
   background: var(--red-soft);
 }
 
+.price-list-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.price-list-note-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.price-list-note-label {
+  color: var(--muted-2);
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.price-list-note-input {
+  width: 100%;
+  min-height: 58px;
+  box-sizing: border-box;
+  resize: vertical;
+  border: 1px solid rgba(150, 95, 40, 0.28);
+  border-radius: 10px;
+  background: rgba(255, 253, 248, 0.9);
+  color: var(--ink);
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.price-list-note-input::placeholder {
+  color: rgba(116, 92, 84, 0.66);
+  font-weight: 600;
+}
+
+.price-list-note-input:focus {
+  border-color: var(--gold);
+  background: var(--surface);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(201, 148, 53, 0.18);
+}
+
 .price-list-footer {
   padding: 14px 18px 0;
   border-top: 1px solid var(--line);
@@ -2922,6 +3027,10 @@ main {
     margin-left: 0;
     width: 100%;
     text-align: right;
+  }
+
+  .price-list-note-input {
+    font-size: 1rem;
   }
 }
 
