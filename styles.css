@@ -776,6 +776,126 @@ a.featured-card:hover .featured-photo img {
   line-height: 1;
 }
 
+.featured-card--wing-order {
+  position: relative;
+}
+
+.featured-card--wing-order .featured-body {
+  gap: 16px;
+}
+
+.featured-card--wing-order .featured-photo img {
+  object-position: center 50%;
+}
+
+.wing-order {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.wing-order-rate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+  color: #785826;
+  font-size: 0.86rem;
+  font-weight: 850;
+  line-height: 1.18;
+}
+
+.wing-order-rate strong {
+  color: var(--red);
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.wing-stepper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.wing-stepper-btn,
+.wing-stepper-add {
+  min-height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(150, 95, 40, 0.3);
+  background: var(--surface);
+  color: var(--red-deep);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.wing-stepper-btn {
+  width: 42px;
+  padding: 0;
+  font-size: 1.18rem;
+  line-height: 1;
+}
+
+.wing-stepper-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.wing-stepper-btn:not(:disabled):hover,
+.wing-stepper-add:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.wing-stepper-btn:focus-visible,
+.wing-stepper-add:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.wing-stepper-count {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  min-width: 74px;
+  min-height: 42px;
+  padding: 9px 10px;
+  border: 1px solid rgba(150, 95, 40, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 248, 236, 0.86);
+  color: #4b3520;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.wing-stepper-count strong {
+  color: var(--red-deep);
+  font-size: 1.12rem;
+  line-height: 1;
+}
+
+.wing-stepper-total {
+  margin-left: auto;
+  color: var(--red);
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.wing-stepper-add {
+  padding: 8px 16px;
+  background: var(--gold-soft);
+  color: #5c3410;
+  white-space: nowrap;
+}
+
 .results-summary {
   min-height: 38px;
   display: flex;
@@ -999,6 +1119,39 @@ a.featured-card:hover .featured-photo img {
   gap: 3px;
   justify-items: end;
   align-content: start;
+}
+
+.price-list--wing {
+  justify-items: stretch;
+  width: min(100%, 430px);
+  margin-left: auto;
+}
+
+.menu-item--wing-pricing {
+  grid-template-columns: minmax(0, 1fr) minmax(290px, 42%);
+}
+
+.menu-item--wing-pricing .item-note {
+  max-width: 52ch;
+}
+
+.menu-item--wing-pricing .wing-order {
+  width: 100%;
+}
+
+.menu-item--wing-pricing .wing-order-rate {
+  grid-template-columns: 1fr;
+  gap: 4px;
+  text-align: right;
+}
+
+.menu-item--wing-pricing .wing-stepper {
+  justify-content: flex-end;
+}
+
+.menu-item--wing-pricing .wing-stepper-total {
+  min-width: 86px;
+  text-align: right;
 }
 
 .price-chip {
@@ -1456,6 +1609,25 @@ a.featured-card:hover .featured-photo img {
     font-size: 1.25rem;
   }
 
+  .wing-order-rate {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .wing-order-rate strong {
+    font-size: 1.04rem;
+  }
+
+  .wing-stepper {
+    gap: 7px;
+  }
+
+  .wing-stepper-total {
+    margin-left: 0;
+    min-width: 84px;
+    text-align: right;
+  }
+
   .results-summary {
     min-height: 34px;
   }
@@ -1477,6 +1649,19 @@ a.featured-card:hover .featured-photo img {
   .price-list {
     justify-items: stretch;
     margin-left: 36px;
+  }
+
+  .price-list--wing {
+    width: auto;
+    margin-left: 30px;
+  }
+
+  .menu-item--wing-pricing .wing-order-rate {
+    text-align: left;
+  }
+
+  .menu-item--wing-pricing .wing-stepper {
+    justify-content: flex-start;
   }
 
   .price-chip {
@@ -1503,6 +1688,14 @@ a.featured-card:hover .featured-photo img {
 
   h1 em {
     font-size: 2.35rem;
+  }
+
+  .wing-stepper-add {
+    flex: 1 1 100%;
+  }
+
+  .wing-stepper-total {
+    flex: 1 1 auto;
   }
 }
 

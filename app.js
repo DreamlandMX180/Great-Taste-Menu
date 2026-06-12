@@ -143,6 +143,12 @@ const featuredSpecials = [
     number: "14",
     imageSrc: "assets/salt-pepper-wings.webp",
     imageAlt: "Salt and pepper chicken wings"
+  },
+  {
+    categoryId: "appetizers",
+    number: "FCW",
+    imageSrc: "assets/chicken wings.png",
+    imageAlt: "Fried chicken wings"
   }
 ];
 
@@ -169,7 +175,8 @@ const matchesSearch = (item, category, query) => {
     item.groupEn || "",
     category.categoryEn,
     category.categoryZh,
-    ...item.prices.map((price) => `${price.labelEn || ""} ${price.labelZh || ""} ${price.amount}`)
+    item.wingPricing ? `${item.wingPricing.minQty} pcs min ${item.wingPricing.maxQty} max ${item.wingPricing.unitPrice} per wing` : "",
+    ...(item.prices || []).map((price) => `${price.labelEn || ""} ${price.labelZh || ""} ${price.amount}`)
   ].join(" ");
   return normalize(searchable).includes(query);
 };
@@ -252,6 +259,79 @@ const formatFeaturedPrice = (price) => {
   `;
 };
 
+const getWingPricing = (item) => {
+  const pricing = item?.wingPricing;
+  if (!pricing) return null;
+  const unitCents = parsePriceToCents(pricing.unitPrice);
+  const minQty = Number.parseInt(pricing.minQty, 10);
+  const maxQty = Number.parseInt(pricing.maxQty, 10);
+  if (!unitCents || !Number.isFinite(minQty) || !Number.isFinite(maxQty)) return null;
+  return {
+    unitCents,
+    minQty,
+    maxQty: Math.max(minQty, maxQty)
+  };
+};
+
+const clampWingCount = (item, value) => {
+  const pricing = getWingPricing(item);
+  if (!pricing) return null;
+  const count = Number.parseInt(value, 10);
+  if (!Number.isFinite(count)) return pricing.minQty;
+  return Math.min(pricing.maxQty, Math.max(pricing.minQty, count));
+};
+
+const wingCountLabel = (count) => `${count} pcs / ${count}只`;
+
+const renderWingStepper = (category, item, context = "menu") => {
+  const pricing = getWingPricing(item);
+  if (!pricing) return "";
+  const count = pricing.minQty;
+  const total = formatMoney(pricing.unitCents * count);
+  const cat = escapeHtml(category.id);
+  const num = escapeHtml(String(item.number));
+  const name = escapeHtml(item.nameEn);
+  return `
+    <div
+      class="wing-stepper wing-stepper--${escapeHtml(context)}"
+      data-wing-stepper
+      data-category-id="${cat}"
+      data-item-number="${num}"
+      data-min-qty="${pricing.minQty}"
+      data-max-qty="${pricing.maxQty}"
+      data-unit-cents="${pricing.unitCents}"
+      data-wing-count="${count}"
+      aria-label="Choose wing count for ${name}"
+    >
+      <button type="button" class="wing-stepper-btn" data-wing-minus aria-label="Decrease wings / 减少鸡翅" disabled>-</button>
+      <span class="wing-stepper-count" aria-live="polite"><strong data-wing-count-text>${count}</strong><span>pcs</span></span>
+      <button type="button" class="wing-stepper-btn" data-wing-plus aria-label="Increase wings / 增加鸡翅">+</button>
+      <span class="wing-stepper-total" data-wing-total>${escapeHtml(total)}</span>
+      <button
+        type="button"
+        class="wing-stepper-add"
+        data-add-wing
+        data-wing-count-value="${count}"
+        aria-label="Add ${count} fried chicken wings to price list / 加入${count}只炸鸡翅"
+      >Add / 加入</button>
+    </div>
+  `;
+};
+
+const renderWingOrder = (category, item, context = "menu") => {
+  const pricing = getWingPricing(item);
+  if (!pricing) return "";
+  return `
+    <div class="wing-order wing-order--${escapeHtml(context)}">
+      <div class="wing-order-rate">
+        <span>${pricing.minQty} pcs min / 三只起</span>
+        <strong>${formatMoney(pricing.unitCents)} each / 每只</strong>
+      </div>
+      ${renderWingStepper(category, item, context)}
+    </div>
+  `;
+};
+
 const formatOption = (category, item, priceIndex, price) => {
   const splitChoices = splitSideChoicesForPrice(price);
   if (splitChoices.length) {
@@ -291,8 +371,13 @@ const renderItem = (item, category) => {
   const review = item.needsReview ? `<span class="review-badge">Review / 需校对</span>` : "";
   const nameZhLine = item.nameZh ? `<p class="item-name-zh">${item.nameZh}</p>` : "";
 
+  const isWingPriced = Boolean(item.wingPricing);
   const isOptions = ["specialties", "platters"].includes(category.id) && item.prices.length >= 3;
-  const priceList = isOptions
+  const priceList = isWingPriced
+    ? `<div class="price-list price-list--wing" aria-label="Wing quantity pricing for ${item.nameEn}">
+        ${renderWingOrder(category, item, "menu")}
+      </div>`
+    : isOptions
     ? `<div class="price-list price-options" aria-label="Side options and prices for ${item.nameEn}">
         ${item.prices.map((price, idx) => formatOption(category, item, idx, price)).join("")}
       </div>`
@@ -301,7 +386,7 @@ const renderItem = (item, category) => {
       </div>`;
 
   return `
-    <article class="menu-item${isOptions ? " menu-item--options" : ""}" id="${anchor}">
+    <article class="menu-item${isOptions ? " menu-item--options" : ""}${isWingPriced ? " menu-item--wing-pricing" : ""}" id="${anchor}">
       <div class="item-main">
         <div class="item-line">
           ${number}
@@ -317,14 +402,14 @@ const renderItem = (item, category) => {
   `;
 };
 
-/** @type {Array<{ categoryId: string, number: string, priceIndex: number, sideChoice?: string, qty: number, unitNotes: string[] }>} */
+/** @type {Array<{ categoryId: string, number: string, priceIndex: number, sideChoice?: string, wingCount?: number, qty: number, unitNotes: string[] }>} */
 let priceLines = [];
 
-const lineKey = (categoryId, number, priceIndex, sideChoice = "") =>
-  `${categoryId}__${number}__${priceIndex}__${sideChoice || "base"}`;
+const lineKey = (categoryId, number, priceIndex, sideChoice = "", wingCount = "") =>
+  `${categoryId}__${number}__${priceIndex}__${sideChoice || "base"}__${wingCount ? `wings-${wingCount}` : "standard"}`;
 
 const getLineKey = (line) =>
-  lineKey(line.categoryId, line.number, line.priceIndex, line.sideChoice);
+  lineKey(line.categoryId, line.number, line.priceIndex, line.sideChoice, line.wingCount);
 
 const syncLineNotes = (line) => {
   if (!Array.isArray(line.unitNotes)) line.unitNotes = [];
@@ -378,7 +463,8 @@ const resolveLine = (line) => {
   if (!category) return null;
   const item = category.items.find((it) => String(it.number) === String(line.number));
   if (!item) return null;
-  const price = item.prices[line.priceIndex];
+  const price = item.prices?.[line.priceIndex] || item.prices?.[0] || null;
+  if (item.wingPricing) return { category, item, price: price || { amount: "0.00" } };
   if (!price) return null;
   return { category, item, price };
 };
@@ -391,17 +477,27 @@ const parsePriceToCents = (amount) => {
 
 const formatMoney = (cents) => `$${(cents / 100).toFixed(2)}`;
 
+const getLineUnitCents = (line, resolved) => {
+  if (resolved?.item?.wingPricing && line.wingCount) {
+    const count = clampWingCount(resolved.item, line.wingCount);
+    const pricing = getWingPricing(resolved.item);
+    if (count && pricing) return pricing.unitCents * count;
+  }
+  return parsePriceToCents(resolved?.price?.amount);
+};
+
 const getTotalCents = () =>
   priceLines.reduce((sum, line) => {
     const r = resolveLine(line);
     if (!r) return sum;
-    const unit = parsePriceToCents(r.price.amount);
+    const unit = getLineUnitCents(line, r);
     return sum + unit * line.qty;
   }, 0);
 
 const getTotalQty = () => priceLines.reduce((s, l) => s + l.qty, 0);
 
 const priceLineLabel = (price, line = null) => {
+  if (line?.wingCount) return wingCountLabel(line.wingCount);
   if (line?.sideChoice) return sideChoiceLabel(line.sideChoice);
   if (price.labelEn && price.labelZh) return `${price.labelEn} / ${price.labelZh}`;
   if (price.labelEn) return price.labelEn;
@@ -409,14 +505,23 @@ const priceLineLabel = (price, line = null) => {
   return "Price / 价格";
 };
 
-const addPriceLine = (categoryId, number, priceIndex, sideChoice = "") => {
-  const key = lineKey(categoryId, number, priceIndex, sideChoice);
+const priceLineTitle = (item, line) => {
+  const num = item.number ? `#${item.number} ` : "";
+  const title = `${num}${item.nameEn}`.trim();
+  return line?.wingCount ? `${title} (${line.wingCount} pcs)` : title;
+};
+
+const addPriceLine = (categoryId, number, priceIndex, sideChoice = "", wingCount = "") => {
+  const normalizedWingCount = wingCount ? Number.parseInt(wingCount, 10) : "";
+  const key = lineKey(categoryId, number, priceIndex, sideChoice, normalizedWingCount);
   const existing = priceLines.find((l) => getLineKey(l) === key);
   if (existing) {
     existing.qty += 1;
     syncLineNotes(existing);
   } else {
-    priceLines.push({ categoryId, number: String(number), priceIndex, sideChoice, qty: 1, unitNotes: [""] });
+    const nextLine = { categoryId, number: String(number), priceIndex, sideChoice, qty: 1, unitNotes: [""] };
+    if (normalizedWingCount) nextLine.wingCount = normalizedWingCount;
+    priceLines.push(nextLine);
   }
   updatePriceListChrome();
 };
@@ -468,10 +573,9 @@ const formatSummaryText = () => {
   for (const line of priceLines) {
     const r = resolveLine(line);
     if (!r) continue;
-    const num = r.item.number ? `#${r.item.number} ` : "";
-    const title = `${num}${r.item.nameEn}`.trim();
+    const title = priceLineTitle(r.item, line);
     const label = priceLineLabel(r.price, line);
-    const unit = parsePriceToCents(r.price.amount) / 100;
+    const unit = getLineUnitCents(line, r) / 100;
     const lineTotal = unit * line.qty;
     lines.push(`${title} · ${label} × ${line.qty}  $${lineTotal.toFixed(2)}`);
     syncLineNotes(line).forEach((note, index) => {
@@ -497,10 +601,9 @@ const renderPricePanelLines = () => {
       if (!r) return "";
       const rawKey = getLineKey(line);
       const key = escapeHtml(rawKey);
-      const num = r.item.number ? `#${escapeHtml(String(r.item.number))} ` : "";
-      const title = `${num}${escapeHtml(r.item.nameEn)}`;
+      const title = escapeHtml(priceLineTitle(r.item, line));
       const detail = escapeHtml(priceLineLabel(r.price, line));
-      const unitCents = parsePriceToCents(r.price.amount);
+      const unitCents = getLineUnitCents(line, r);
       const subCents = unitCents * line.qty;
       const sub = escapeHtml(formatMoney(subCents));
       const quickNoteButtonsForNote = (note) => quickNoteOptions.map((option) => {
@@ -613,6 +716,70 @@ const flashMenuItemForButton = (btn) => {
   window.setTimeout(() => item.classList.remove("menu-item--add-flash"), 220);
 };
 
+const flashOrderSurfaceForButton = (btn) => {
+  const surface = btn?.closest?.(".menu-item, .featured-card");
+  if (!surface) return;
+  surface.classList.add("menu-item--add-flash");
+  window.setTimeout(() => surface.classList.remove("menu-item--add-flash"), 220);
+};
+
+const findMenuItemById = (categoryId, number) => {
+  const category = window.menuData?.find((entry) => entry.id === categoryId);
+  if (!category) return null;
+  const item = category.items.find((entry) => String(entry.number) === String(number));
+  return item ? { category, item } : null;
+};
+
+const setWingStepperCount = (stepper, value) => {
+  if (!stepper) return;
+  const minQty = Number.parseInt(stepper.dataset.minQty, 10);
+  const maxQty = Number.parseInt(stepper.dataset.maxQty, 10);
+  const unitCents = Number.parseInt(stepper.dataset.unitCents, 10);
+  const rawCount = Number.parseInt(value, 10);
+  if (!Number.isFinite(minQty) || !Number.isFinite(maxQty) || !Number.isFinite(unitCents)) return;
+  const count = Math.min(maxQty, Math.max(minQty, Number.isFinite(rawCount) ? rawCount : minQty));
+  stepper.dataset.wingCount = String(count);
+  const countText = stepper.querySelector("[data-wing-count-text]");
+  const totalText = stepper.querySelector("[data-wing-total]");
+  const addButton = stepper.querySelector("[data-add-wing]");
+  const minus = stepper.querySelector("[data-wing-minus]");
+  const plus = stepper.querySelector("[data-wing-plus]");
+  if (countText) countText.textContent = String(count);
+  if (totalText) totalText.textContent = formatMoney(unitCents * count);
+  if (addButton) {
+    addButton.dataset.wingCountValue = String(count);
+    addButton.setAttribute("aria-label", `Add ${count} fried chicken wings to price list / 加入${count}只炸鸡翅`);
+  }
+  if (minus) minus.disabled = count <= minQty;
+  if (plus) plus.disabled = count >= maxQty;
+};
+
+const handleWingStepperClick = (event) => {
+  const adjust = event.target.closest("[data-wing-minus], [data-wing-plus]");
+  if (adjust) {
+    event.preventDefault();
+    const stepper = adjust.closest("[data-wing-stepper]");
+    const current = Number.parseInt(stepper?.dataset.wingCount, 10);
+    const delta = adjust.matches("[data-wing-plus]") ? 1 : -1;
+    setWingStepperCount(stepper, current + delta);
+    return true;
+  }
+
+  const addWing = event.target.closest("[data-add-wing]");
+  if (!addWing) return false;
+  event.preventDefault();
+  const stepper = addWing.closest("[data-wing-stepper]");
+  const categoryId = stepper?.dataset.categoryId;
+  const number = stepper?.dataset.itemNumber;
+  const found = findMenuItemById(categoryId, number);
+  if (!found) return true;
+  const count = clampWingCount(found.item, addWing.dataset.wingCountValue || stepper.dataset.wingCount);
+  if (!count) return true;
+  addPriceLine(categoryId, number, 0, "", count);
+  flashOrderSurfaceForButton(addWing);
+  return true;
+};
+
 const renderItemsWithGroupHeadings = (items, category) => {
   let lastGroup = null;
   const chunks = [];
@@ -629,15 +796,40 @@ const renderItemsWithGroupHeadings = (items, category) => {
   return chunks.join("");
 };
 
-const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt }) => {
-  const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
-  const href = `#${itemAnchorId(category.id, item.number)}`;
-  const photo = imageFallback
+const renderFeaturedPhoto = ({ imageSrc, imageFallback, imageAlt }) =>
+  imageFallback
     ? `<picture>
         <source srcset="${imageSrc}?v=1" type="image/webp">
         <img src="${imageFallback}" alt="${imageAlt}" width="640" height="480" loading="lazy" decoding="async">
       </picture>`
     : `<img src="${imageSrc}" alt="${imageAlt}" width="640" height="480" loading="lazy" decoding="async">`;
+
+const renderFeaturedWingItem = ({ item, category, imageSrc, imageFallback, imageAlt }) => {
+  const photo = renderFeaturedPhoto({ imageSrc, imageFallback, imageAlt });
+  return `
+    <article class="featured-card featured-card--wing-order" data-featured-category="${category.id}" data-featured-number="${item.number}">
+      <div class="featured-photo">
+        ${photo}
+      </div>
+      <div class="featured-body">
+        <div class="featured-copy">
+          <div class="featured-name-line">
+            <h3>${item.nameEn}</h3>
+          </div>
+          <p>${item.nameZh}</p>
+          <div class="featured-rule" aria-hidden="true"></div>
+        </div>
+        ${renderWingOrder(category, item, "featured")}
+      </div>
+    </article>
+  `;
+};
+
+const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt }) => {
+  if (item.wingPricing) return renderFeaturedWingItem({ item, category, imageSrc, imageFallback, imageAlt });
+  const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
+  const href = `#${itemAnchorId(category.id, item.number)}`;
+  const photo = renderFeaturedPhoto({ imageSrc, imageFallback, imageAlt });
 
   return `
     <a class="featured-card" href="${href}" data-featured-category="${category.id}" data-featured-number="${item.number}">
@@ -790,6 +982,8 @@ categoryTabs.addEventListener("focusin", (event) => {
 });
 
 menuRoot?.addEventListener("click", (event) => {
+  if (handleWingStepperClick(event)) return;
+
   const addBtn = event.target.closest("[data-add-price]");
   if (addBtn) {
     event.preventDefault();
@@ -812,6 +1006,8 @@ menuRoot?.addEventListener("click", (event) => {
 });
 
 featuredRoot?.addEventListener("click", (event) => {
+  if (handleWingStepperClick(event)) return;
+
   const a = event.target.closest("a.featured-card");
   if (!a?.hash) return;
   event.preventDefault();
