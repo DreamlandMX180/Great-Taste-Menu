@@ -846,7 +846,7 @@ a.featured-card:hover .featured-photo img {
 }
 
 .wing-stepper-btn:not(:disabled):hover,
-.wing-stepper-add:hover {
+.wing-stepper-add:not(:disabled):hover {
   border-color: var(--gold);
   background: var(--gold-soft);
 }
@@ -862,9 +862,9 @@ a.featured-card:hover .featured-photo img {
   align-items: baseline;
   justify-content: center;
   gap: 4px;
-  min-width: 74px;
+  width: 92px;
   min-height: 42px;
-  padding: 9px 10px;
+  padding: 7px 10px;
   border: 1px solid rgba(150, 95, 40, 0.22);
   border-radius: 999px;
   background: rgba(255, 248, 236, 0.86);
@@ -873,10 +873,40 @@ a.featured-card:hover .featured-photo img {
   font-weight: 850;
 }
 
-.wing-stepper-count strong {
+.wing-stepper-count:focus-within {
+  border-color: var(--gold);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(201, 148, 53, 0.18);
+}
+
+.wing-stepper-input {
+  width: 34px;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
   color: var(--red-deep);
+  font: inherit;
   font-size: 1.12rem;
+  font-weight: 900;
   line-height: 1;
+  text-align: center;
+  appearance: textfield;
+}
+
+.wing-stepper-input::-webkit-outer-spin-button,
+.wing-stepper-input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.wing-stepper-input[aria-invalid="true"] {
+  color: var(--red);
+}
+
+.wing-stepper-count:has(.wing-stepper-input[aria-invalid="true"]) {
+  border-color: rgba(143, 31, 23, 0.48);
+  background: var(--red-soft);
 }
 
 .wing-stepper-total {
@@ -894,6 +924,11 @@ a.featured-card:hover .featured-photo img {
   background: var(--gold-soft);
   color: #5c3410;
   white-space: nowrap;
+}
+
+.wing-stepper-add:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
 }
 
 .results-summary {

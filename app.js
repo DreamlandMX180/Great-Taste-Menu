@@ -304,7 +304,21 @@ const renderWingStepper = (category, item, context = "menu") => {
       aria-label="Choose wing count for ${name}"
     >
       <button type="button" class="wing-stepper-btn" data-wing-minus aria-label="Decrease wings / 减少鸡翅" disabled>-</button>
-      <span class="wing-stepper-count" aria-live="polite"><strong data-wing-count-text>${count}</strong><span>pcs</span></span>
+      <label class="wing-stepper-count">
+        <input
+          class="wing-stepper-input"
+          data-wing-count-input
+          type="number"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          min="${pricing.minQty}"
+          max="${pricing.maxQty}"
+          step="1"
+          value="${count}"
+          aria-label="Wing count / 鸡翅数量"
+        >
+        <span>pcs</span>
+      </label>
       <button type="button" class="wing-stepper-btn" data-wing-plus aria-label="Increase wings / 增加鸡翅">+</button>
       <span class="wing-stepper-total" data-wing-total>${escapeHtml(total)}</span>
       <button
@@ -730,21 +744,34 @@ const findMenuItemById = (categoryId, number) => {
   return item ? { category, item } : null;
 };
 
+const parseWingInputValue = (value) => {
+  const text = String(value ?? "").trim();
+  if (!/^\d+$/.test(text)) return NaN;
+  return Number.parseInt(text, 10);
+};
+
+const setWingStepperInputValidity = (stepper, valid) => {
+  const input = stepper?.querySelector?.("[data-wing-count-input]");
+  const addButton = stepper?.querySelector?.("[data-add-wing]");
+  if (input) input.setAttribute("aria-invalid", valid ? "false" : "true");
+  if (addButton) addButton.disabled = !valid;
+};
+
 const setWingStepperCount = (stepper, value) => {
   if (!stepper) return;
   const minQty = Number.parseInt(stepper.dataset.minQty, 10);
   const maxQty = Number.parseInt(stepper.dataset.maxQty, 10);
   const unitCents = Number.parseInt(stepper.dataset.unitCents, 10);
-  const rawCount = Number.parseInt(value, 10);
+  const rawCount = parseWingInputValue(value);
   if (!Number.isFinite(minQty) || !Number.isFinite(maxQty) || !Number.isFinite(unitCents)) return;
   const count = Math.min(maxQty, Math.max(minQty, Number.isFinite(rawCount) ? rawCount : minQty));
   stepper.dataset.wingCount = String(count);
-  const countText = stepper.querySelector("[data-wing-count-text]");
+  const countInput = stepper.querySelector("[data-wing-count-input]");
   const totalText = stepper.querySelector("[data-wing-total]");
   const addButton = stepper.querySelector("[data-add-wing]");
   const minus = stepper.querySelector("[data-wing-minus]");
   const plus = stepper.querySelector("[data-wing-plus]");
-  if (countText) countText.textContent = String(count);
+  if (countInput) countInput.value = String(count);
   if (totalText) totalText.textContent = formatMoney(unitCents * count);
   if (addButton) {
     addButton.dataset.wingCountValue = String(count);
@@ -752,6 +779,29 @@ const setWingStepperCount = (stepper, value) => {
   }
   if (minus) minus.disabled = count <= minQty;
   if (plus) plus.disabled = count >= maxQty;
+  setWingStepperInputValidity(stepper, true);
+};
+
+const updateWingStepperFromInput = (input) => {
+  const stepper = input?.closest?.("[data-wing-stepper]");
+  if (!stepper) return false;
+  const minQty = Number.parseInt(stepper.dataset.minQty, 10);
+  const maxQty = Number.parseInt(stepper.dataset.maxQty, 10);
+  const count = parseWingInputValue(input.value);
+  if (!Number.isFinite(count) || count < minQty) {
+    setWingStepperInputValidity(stepper, false);
+    return true;
+  }
+  setWingStepperCount(stepper, Math.min(count, maxQty));
+  return true;
+};
+
+const commitWingStepperInput = (input) => {
+  const stepper = input?.closest?.("[data-wing-stepper]");
+  if (!stepper) return false;
+  const count = parseWingInputValue(input.value);
+  setWingStepperCount(stepper, Number.isFinite(count) ? count : stepper.dataset.minQty);
+  return true;
 };
 
 const handleWingStepperClick = (event) => {
@@ -769,6 +819,8 @@ const handleWingStepperClick = (event) => {
   if (!addWing) return false;
   event.preventDefault();
   const stepper = addWing.closest("[data-wing-stepper]");
+  const input = stepper?.querySelector("[data-wing-count-input]");
+  if (input) commitWingStepperInput(input);
   const categoryId = stepper?.dataset.categoryId;
   const number = stepper?.dataset.itemNumber;
   const found = findMenuItemById(categoryId, number);
@@ -1005,6 +1057,16 @@ menuRoot?.addEventListener("click", (event) => {
   section.scrollIntoView({ behavior, block: "start" });
 });
 
+menuRoot?.addEventListener("input", (event) => {
+  const wingInput = event.target.closest("[data-wing-count-input]");
+  if (wingInput) updateWingStepperFromInput(wingInput);
+});
+
+menuRoot?.addEventListener("focusout", (event) => {
+  const wingInput = event.target.closest("[data-wing-count-input]");
+  if (wingInput) commitWingStepperInput(wingInput);
+});
+
 featuredRoot?.addEventListener("click", (event) => {
   if (handleWingStepperClick(event)) return;
 
@@ -1013,6 +1075,16 @@ featuredRoot?.addEventListener("click", (event) => {
   event.preventDefault();
   history.pushState(null, "", a.hash);
   handleRouteFromHash();
+});
+
+featuredRoot?.addEventListener("input", (event) => {
+  const wingInput = event.target.closest("[data-wing-count-input]");
+  if (wingInput) updateWingStepperFromInput(wingInput);
+});
+
+featuredRoot?.addEventListener("focusout", (event) => {
+  const wingInput = event.target.closest("[data-wing-count-input]");
+  if (wingInput) commitWingStepperInput(wingInput);
 });
 
 searchInput.addEventListener("input", () => {
