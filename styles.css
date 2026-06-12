@@ -2938,6 +2938,13 @@ main {
   background: var(--gold-soft);
 }
 
+.price-list-note-chip--selected {
+  border-color: var(--red);
+  background: var(--red-soft);
+  color: var(--red-deep);
+  box-shadow: inset 0 0 0 1px rgba(143, 31, 23, 0.12);
+}
+
 .price-list-note-chip:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;

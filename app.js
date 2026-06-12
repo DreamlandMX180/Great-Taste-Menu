@@ -340,16 +340,37 @@ const findLastEmptyNoteIndex = (notes) => {
   return -1;
 };
 
-const appendQuickNoteText = (current, addition) => {
-  const note = String(addition || "").trim();
-  const existing = String(current || "").trim();
-  if (!note) return existing;
-  const parts = existing
+const getQuickNoteParts = (value) =>
+  String(value || "")
     .split(",")
     .map((part) => part.trim())
     .filter(Boolean);
-  if (parts.some((part) => normalize(part) === normalize(note))) return existing;
+
+const hasQuickNoteText = (current, option) => {
+  const note = String(option || "").trim();
+  if (!note) return false;
+  return getQuickNoteParts(current).some((part) => normalize(part) === normalize(note));
+};
+
+const toggleQuickNoteText = (current, option) => {
+  const note = String(option || "").trim();
+  if (!note) return String(current || "").trim();
+  const parts = getQuickNoteParts(current);
+  const selected = parts.some((part) => normalize(part) === normalize(note));
+  if (selected) {
+    return parts.filter((part) => normalize(part) !== normalize(note)).join(", ");
+  }
   return [...parts, note].join(", ");
+};
+
+const syncQuickNoteChipsForRow = (row) => {
+  const input = row?.querySelector?.("[data-note-input]");
+  if (!input) return;
+  row.querySelectorAll("[data-note-quick]").forEach((chip) => {
+    const selected = hasQuickNoteText(input.value, chip.dataset.noteText);
+    chip.classList.toggle("price-list-note-chip--selected", selected);
+    chip.setAttribute("aria-pressed", selected ? "true" : "false");
+  });
 };
 
 const resolveLine = (line) => {
@@ -482,19 +503,23 @@ const renderPricePanelLines = () => {
       const unitCents = parsePriceToCents(r.price.amount);
       const subCents = unitCents * line.qty;
       const sub = escapeHtml(formatMoney(subCents));
-      const quickNoteButtons = quickNoteOptions.map((option) => `
+      const quickNoteButtonsForNote = (note) => quickNoteOptions.map((option) => {
+        const selected = hasQuickNoteText(note, option);
+        return `
         <button
           type="button"
-          class="price-list-note-chip"
+          class="price-list-note-chip${selected ? " price-list-note-chip--selected" : ""}"
           data-note-quick
           data-note-text="${escapeHtml(option)}"
+          aria-pressed="${selected ? "true" : "false"}"
         >${escapeHtml(option)}</button>
-      `).join("");
+      `;
+      }).join("");
       const noteRows = syncLineNotes(line).map((note, index) => `
         <div class="price-list-note-row">
           <span class="price-list-note-label">Note ${index + 1} / 备注 ${index + 1}</span>
           <span class="price-list-note-quick" aria-label="Quick notes / 快捷备注">
-            ${quickNoteButtons}
+            ${quickNoteButtonsForNote(note)}
           </span>
           <textarea
             class="price-list-note-input"
@@ -853,10 +878,12 @@ priceListPanel?.addEventListener("click", (e) => {
   const quick = e.target.closest("[data-note-quick]");
   if (quick) {
     e.preventDefault();
-    const input = quick.closest(".price-list-note-row")?.querySelector("[data-note-input]");
+    const row = quick.closest(".price-list-note-row");
+    const input = row?.querySelector("[data-note-input]");
     if (!input) return;
-    input.value = appendQuickNoteText(input.value, quick.dataset.noteText);
+    input.value = toggleQuickNoteText(input.value, quick.dataset.noteText);
     updateLineNote(input.dataset.lineKey, input.dataset.noteIndex, input.value);
+    syncQuickNoteChipsForRow(row);
     input.focus();
     return;
   }
@@ -877,6 +904,7 @@ priceListPanel?.addEventListener("input", (e) => {
   const note = e.target.closest("[data-note-input]");
   if (!note) return;
   updateLineNote(note.dataset.lineKey, note.dataset.noteIndex, note.value);
+  syncQuickNoteChipsForRow(note.closest(".price-list-note-row"));
 });
 
 priceListClear?.addEventListener("click", () => clearPriceLines());
