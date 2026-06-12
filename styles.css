@@ -1105,6 +1105,10 @@ a.featured-card:hover .featured-photo img {
   padding-top: 1px;
 }
 
+.opt-row--split-side {
+  background: linear-gradient(90deg, rgba(255, 248, 236, 0.62), transparent 72%);
+}
+
 .opt-label {
   min-width: 0;
   color: #342f37;
@@ -2907,6 +2911,36 @@ main {
   font-size: 0.76rem;
   font-weight: 800;
   line-height: 1.2;
+}
+
+.price-list-note-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.price-list-note-chip {
+  min-height: 32px;
+  padding: 5px 9px;
+  border: 1px solid rgba(150, 95, 40, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 248, 236, 0.9);
+  color: #6a3d12;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.1;
+  cursor: pointer;
+}
+
+.price-list-note-chip:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.price-list-note-chip:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .price-list-note-input {

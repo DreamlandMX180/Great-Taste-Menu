@@ -181,11 +181,51 @@ const escapeHtml = (value) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
-const priceAddButtonHtml = (categoryId, number, priceIndex) => {
+const sideChoiceLabels = {
+  "white-rice": { labelEn: "White Rice", labelZh: "白饭" },
+  "fried-rice": { labelEn: "Fried Rice", labelZh: "炒饭" },
+  "french-fries": { labelEn: "French Fries", labelZh: "薯条" }
+};
+
+const quickNoteOptions = [
+  "salt",
+  "pepper",
+  "ketchup",
+  "hot sauce",
+  "garlic powder",
+  "general tso sauce",
+  "garlic sauce (鱼香酱)",
+  "no veg",
+  "extra veg",
+  "add broccoli",
+  "no onion",
+  "no bean sprouts"
+];
+
+const splitSideChoicesForPrice = (price) => {
+  const label = normalize(price.labelEn);
+  const hasFriedRice = label.includes("fried rice");
+  const hasFries = label.includes("french fries") || /\bfries\b/.test(label);
+  if (!hasFriedRice || !hasFries) return [];
+  const choices = [];
+  if (label.includes("white rice")) choices.push("white-rice");
+  choices.push("fried-rice", "french-fries");
+  return choices;
+};
+
+const sideChoiceLabel = (choice) => {
+  const entry = sideChoiceLabels[choice];
+  if (!entry) return "";
+  return `${entry.labelEn} / ${entry.labelZh}`;
+};
+
+const priceAddButtonHtml = (categoryId, number, priceIndex, sideChoice = "") => {
   const cat = escapeHtml(categoryId);
   const num = escapeHtml(String(number));
   const idx = String(priceIndex);
-  return `<button type="button" class="price-add-btn" data-add-price data-category-id="${cat}" data-item-number="${num}" data-price-index="${idx}" aria-label="Add to price list / 加入算价"><span aria-hidden="true">+</span></button>`;
+  const side = sideChoice ? ` data-side-choice="${escapeHtml(sideChoice)}"` : "";
+  const sideText = sideChoice ? ` ${escapeHtml(sideChoiceLabel(sideChoice))}` : "";
+  return `<button type="button" class="price-add-btn" data-add-price data-category-id="${cat}" data-item-number="${num}" data-price-index="${idx}"${side} aria-label="Add${sideText} to price list / 加入算价"><span aria-hidden="true">+</span></button>`;
 };
 
 const formatPrice = (category, item, priceIndex, price) => {
@@ -213,6 +253,22 @@ const formatFeaturedPrice = (price) => {
 };
 
 const formatOption = (category, item, priceIndex, price) => {
+  const splitChoices = splitSideChoicesForPrice(price);
+  if (splitChoices.length) {
+    return splitChoices.map((choice) => {
+      const label = sideChoiceLabels[choice];
+      const addBtn = priceAddButtonHtml(category.id, item.number, priceIndex, choice);
+      return `
+    <span class="opt-row opt-row--split-side">
+      <span class="opt-label">${label.labelEn}<span class="opt-zh">${label.labelZh}</span></span>
+      <span class="opt-price-wrap">
+        <span class="opt-price">$${price.amount}</span>
+        ${addBtn}
+      </span>
+    </span>
+  `;
+    }).join("");
+  }
   const zh = price.labelZh ? `<span class="opt-zh">${price.labelZh}</span>` : "";
   const label = price.labelEn || "Price / 价格";
   const addBtn = priceAddButtonHtml(category.id, item.number, priceIndex);
@@ -261,10 +317,14 @@ const renderItem = (item, category) => {
   `;
 };
 
-/** @type {Array<{ categoryId: string, number: string, priceIndex: number, qty: number, unitNotes: string[] }>} */
+/** @type {Array<{ categoryId: string, number: string, priceIndex: number, sideChoice?: string, qty: number, unitNotes: string[] }>} */
 let priceLines = [];
 
-const lineKey = (categoryId, number, priceIndex) => `${categoryId}__${number}__${priceIndex}`;
+const lineKey = (categoryId, number, priceIndex, sideChoice = "") =>
+  `${categoryId}__${number}__${priceIndex}__${sideChoice || "base"}`;
+
+const getLineKey = (line) =>
+  lineKey(line.categoryId, line.number, line.priceIndex, line.sideChoice);
 
 const syncLineNotes = (line) => {
   if (!Array.isArray(line.unitNotes)) line.unitNotes = [];
@@ -278,6 +338,18 @@ const findLastEmptyNoteIndex = (notes) => {
     if (!String(notes[i] || "").trim()) return i;
   }
   return -1;
+};
+
+const appendQuickNoteText = (current, addition) => {
+  const note = String(addition || "").trim();
+  const existing = String(current || "").trim();
+  if (!note) return existing;
+  const parts = existing
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (parts.some((part) => normalize(part) === normalize(note))) return existing;
+  return [...parts, note].join(", ");
 };
 
 const resolveLine = (line) => {
@@ -308,27 +380,28 @@ const getTotalCents = () =>
 
 const getTotalQty = () => priceLines.reduce((s, l) => s + l.qty, 0);
 
-const priceLineLabel = (price) => {
+const priceLineLabel = (price, line = null) => {
+  if (line?.sideChoice) return sideChoiceLabel(line.sideChoice);
   if (price.labelEn && price.labelZh) return `${price.labelEn} / ${price.labelZh}`;
   if (price.labelEn) return price.labelEn;
   if (price.labelZh) return price.labelZh;
   return "Price / 价格";
 };
 
-const addPriceLine = (categoryId, number, priceIndex) => {
-  const key = lineKey(categoryId, number, priceIndex);
-  const existing = priceLines.find((l) => lineKey(l.categoryId, l.number, l.priceIndex) === key);
+const addPriceLine = (categoryId, number, priceIndex, sideChoice = "") => {
+  const key = lineKey(categoryId, number, priceIndex, sideChoice);
+  const existing = priceLines.find((l) => getLineKey(l) === key);
   if (existing) {
     existing.qty += 1;
     syncLineNotes(existing);
   } else {
-    priceLines.push({ categoryId, number: String(number), priceIndex, qty: 1, unitNotes: [""] });
+    priceLines.push({ categoryId, number: String(number), priceIndex, sideChoice, qty: 1, unitNotes: [""] });
   }
   updatePriceListChrome();
 };
 
 const changeLineQty = (key, delta) => {
-  const i = priceLines.findIndex((l) => lineKey(l.categoryId, l.number, l.priceIndex) === key);
+  const i = priceLines.findIndex((l) => getLineKey(l) === key);
   if (i < 0) return;
   const line = priceLines[i];
   syncLineNotes(line);
@@ -350,7 +423,7 @@ const changeLineQty = (key, delta) => {
 };
 
 const updateLineNote = (key, noteIndex, value) => {
-  const i = priceLines.findIndex((l) => lineKey(l.categoryId, l.number, l.priceIndex) === key);
+  const i = priceLines.findIndex((l) => getLineKey(l) === key);
   if (i < 0) return;
   const index = Number.parseInt(noteIndex, 10);
   const line = priceLines[i];
@@ -360,7 +433,7 @@ const updateLineNote = (key, noteIndex, value) => {
 };
 
 const removeLine = (key) => {
-  priceLines = priceLines.filter((l) => lineKey(l.categoryId, l.number, l.priceIndex) !== key);
+  priceLines = priceLines.filter((l) => getLineKey(l) !== key);
   updatePriceListChrome();
 };
 
@@ -376,7 +449,7 @@ const formatSummaryText = () => {
     if (!r) continue;
     const num = r.item.number ? `#${r.item.number} ` : "";
     const title = `${num}${r.item.nameEn}`.trim();
-    const label = priceLineLabel(r.price);
+    const label = priceLineLabel(r.price, line);
     const unit = parsePriceToCents(r.price.amount) / 100;
     const lineTotal = unit * line.qty;
     lines.push(`${title} · ${label} × ${line.qty}  $${lineTotal.toFixed(2)}`);
@@ -401,17 +474,28 @@ const renderPricePanelLines = () => {
     .map((line) => {
       const r = resolveLine(line);
       if (!r) return "";
-      const rawKey = lineKey(line.categoryId, line.number, line.priceIndex);
+      const rawKey = getLineKey(line);
       const key = escapeHtml(rawKey);
       const num = r.item.number ? `#${escapeHtml(String(r.item.number))} ` : "";
       const title = `${num}${escapeHtml(r.item.nameEn)}`;
-      const detail = escapeHtml(priceLineLabel(r.price));
+      const detail = escapeHtml(priceLineLabel(r.price, line));
       const unitCents = parsePriceToCents(r.price.amount);
       const subCents = unitCents * line.qty;
       const sub = escapeHtml(formatMoney(subCents));
+      const quickNoteButtons = quickNoteOptions.map((option) => `
+        <button
+          type="button"
+          class="price-list-note-chip"
+          data-note-quick
+          data-note-text="${escapeHtml(option)}"
+        >${escapeHtml(option)}</button>
+      `).join("");
       const noteRows = syncLineNotes(line).map((note, index) => `
-        <label class="price-list-note-row">
+        <div class="price-list-note-row">
           <span class="price-list-note-label">Note ${index + 1} / 备注 ${index + 1}</span>
+          <span class="price-list-note-quick" aria-label="Quick notes / 快捷备注">
+            ${quickNoteButtons}
+          </span>
           <textarea
             class="price-list-note-input"
             data-note-input
@@ -420,7 +504,7 @@ const renderPricePanelLines = () => {
             rows="2"
             placeholder="Sauce on side / 酱另放；no onion / 不要洋葱"
           >${escapeHtml(note)}</textarea>
-        </label>
+        </div>
       `).join("");
       return `
         <div class="price-list-line" data-line-key="${key}">
@@ -687,8 +771,9 @@ menuRoot?.addEventListener("click", (event) => {
     const categoryId = addBtn.dataset.categoryId;
     const number = addBtn.dataset.itemNumber;
     const priceIndex = Number.parseInt(addBtn.dataset.priceIndex ?? "0", 10);
+    const sideChoice = addBtn.dataset.sideChoice || "";
     if (!categoryId || number == null || Number.isNaN(priceIndex)) return;
-    addPriceLine(categoryId, number, priceIndex);
+    addPriceLine(categoryId, number, priceIndex, sideChoice);
     flashMenuItemForButton(addBtn);
     return;
   }
@@ -765,6 +850,17 @@ priceListClose?.addEventListener("click", () => setPriceListOpen(false));
 priceListBackdrop?.addEventListener("click", () => setPriceListOpen(false));
 
 priceListPanel?.addEventListener("click", (e) => {
+  const quick = e.target.closest("[data-note-quick]");
+  if (quick) {
+    e.preventDefault();
+    const input = quick.closest(".price-list-note-row")?.querySelector("[data-note-input]");
+    if (!input) return;
+    input.value = appendQuickNoteText(input.value, quick.dataset.noteText);
+    updateLineNote(input.dataset.lineKey, input.dataset.noteIndex, input.value);
+    input.focus();
+    return;
+  }
+
   const up = e.target.closest("[data-qty-up]");
   const down = e.target.closest("[data-qty-down]");
   const rm = e.target.closest("[data-line-remove]");
