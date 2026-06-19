@@ -36,8 +36,18 @@ const updateScrollMargin = () => {
   document.documentElement.style.setProperty("--menu-scroll-margin", `${getStickyOverlapPx()}px`);
 };
 
-const itemAnchorId = (categoryId, number) => {
-  const safe = String(number ?? "").replace(/[^a-zA-Z0-9_-]/g, "_");
+const slugifyKeyPart = (value) =>
+  String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+const itemKey = (item) => String(item?.number || item?.id || slugifyKeyPart(item?.nameEn || item?.nameZh || "item"));
+
+const itemAnchorId = (categoryId, key) => {
+  const safe = String(key ?? "").replace(/[^a-zA-Z0-9_-]/g, "_");
   return `dish-${categoryId}__${safe}`;
 };
 
@@ -50,10 +60,10 @@ const parseHash = () => {
     const i = raw.indexOf(sep, 5);
     if (i > 5) {
       const categoryId = raw.slice(5, i);
-      const number = raw.slice(i + sep.length);
+      const key = raw.slice(i + sep.length);
       const cat = window.menuData.find((c) => c.id === categoryId);
-      if (cat && cat.items.some((it) => String(it.number) === number)) {
-        return { mode: "item", categoryId, number };
+      if (cat && cat.items.some((it) => itemKey(it) === key)) {
+        return { mode: "item", categoryId, key };
       }
     }
   }
@@ -71,7 +81,7 @@ const applyHashToState = () => {
   if (p.mode === "item") {
     activeCategory = "all";
     searchInput.value = "";
-    return { scrollTargetId: itemAnchorId(p.categoryId, p.number), kind: "dish" };
+    return { scrollTargetId: itemAnchorId(p.categoryId, p.key), kind: "dish" };
   }
   activeCategory = "all";
   return { scrollTargetId: null, kind: null };
@@ -161,7 +171,8 @@ const getAllItems = () => window.menuData.flatMap((category) =>
 const findMenuItem = ({ categoryId, number, imageSrc, imageFallback, imageAlt }) => {
   const category = window.menuData.find((entry) => entry.id === categoryId);
   if (!category) return null;
-  const item = category.items.find((entry) => entry.number === number);
+  const key = String(number ?? "");
+  const item = category.items.find((entry) => itemKey(entry) === key || (key && String(entry.number) === key));
   return item ? { item, category, imageSrc, imageFallback, imageAlt } : null;
 };
 
@@ -226,9 +237,9 @@ const sideChoiceLabel = (choice) => {
   return `${entry.labelEn} / ${entry.labelZh}`;
 };
 
-const priceAddButtonHtml = (categoryId, number, priceIndex, sideChoice = "") => {
+const priceAddButtonHtml = (categoryId, key, priceIndex, sideChoice = "") => {
   const cat = escapeHtml(categoryId);
-  const num = escapeHtml(String(number));
+  const num = escapeHtml(String(key));
   const idx = String(priceIndex);
   const side = sideChoice ? ` data-side-choice="${escapeHtml(sideChoice)}"` : "";
   const sideText = sideChoice ? ` ${escapeHtml(sideChoiceLabel(sideChoice))}` : "";
@@ -237,7 +248,7 @@ const priceAddButtonHtml = (categoryId, number, priceIndex, sideChoice = "") => 
 
 const formatPrice = (category, item, priceIndex, price) => {
   const label = price.labelEn ? `<span class="price-label">${price.labelEn}${price.labelZh ? ` / ${price.labelZh}` : ""}</span>` : "";
-  const addBtn = priceAddButtonHtml(category.id, item.number, priceIndex);
+  const addBtn = priceAddButtonHtml(category.id, itemKey(item), priceIndex);
   return `
     <span class="price-chip">
       ${label}
@@ -289,7 +300,7 @@ const renderWingStepper = (category, item, context = "menu") => {
   const count = pricing.minQty;
   const total = formatMoney(pricing.unitCents * count);
   const cat = escapeHtml(category.id);
-  const num = escapeHtml(String(item.number));
+  const num = escapeHtml(itemKey(item));
   const name = escapeHtml(item.nameEn);
   return `
     <div
@@ -351,7 +362,7 @@ const formatOption = (category, item, priceIndex, price) => {
   if (splitChoices.length) {
     return splitChoices.map((choice) => {
       const label = sideChoiceLabels[choice];
-      const addBtn = priceAddButtonHtml(category.id, item.number, priceIndex, choice);
+      const addBtn = priceAddButtonHtml(category.id, itemKey(item), priceIndex, choice);
       return `
     <span class="opt-row opt-row--split-side">
       <span class="opt-label">${label.labelEn}<span class="opt-zh">${label.labelZh}</span></span>
@@ -365,7 +376,7 @@ const formatOption = (category, item, priceIndex, price) => {
   }
   const zh = price.labelZh ? `<span class="opt-zh">${price.labelZh}</span>` : "";
   const label = price.labelEn || "Price / 价格";
-  const addBtn = priceAddButtonHtml(category.id, item.number, priceIndex);
+  const addBtn = priceAddButtonHtml(category.id, itemKey(item), priceIndex);
   return `
     <span class="opt-row">
       <span class="opt-label">${label}${zh}</span>
@@ -378,7 +389,7 @@ const formatOption = (category, item, priceIndex, price) => {
 };
 
 const renderItem = (item, category) => {
-  const anchor = itemAnchorId(category.id, item.number);
+  const anchor = itemAnchorId(category.id, itemKey(item));
   const number = item.number ? `<span class="item-number">${item.number}</span>` : "";
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
   const note = item.note ? `<p class="item-note">${item.note}</p>` : "";
@@ -475,7 +486,7 @@ const syncQuickNoteChipsForRow = (row) => {
 const resolveLine = (line) => {
   const category = window.menuData?.find((c) => c.id === line.categoryId);
   if (!category) return null;
-  const item = category.items.find((it) => String(it.number) === String(line.number));
+  const item = category.items.find((it) => itemKey(it) === String(line.number));
   if (!item) return null;
   const price = item.prices?.[line.priceIndex] || item.prices?.[0] || null;
   if (item.wingPricing) return { category, item, price: price || { amount: "0.00" } };
@@ -740,7 +751,8 @@ const flashOrderSurfaceForButton = (btn) => {
 const findMenuItemById = (categoryId, number) => {
   const category = window.menuData?.find((entry) => entry.id === categoryId);
   if (!category) return null;
-  const item = category.items.find((entry) => String(entry.number) === String(number));
+  const key = String(number ?? "");
+  const item = category.items.find((entry) => itemKey(entry) === key || (key && String(entry.number) === key));
   return item ? { category, item } : null;
 };
 
@@ -880,7 +892,7 @@ const renderFeaturedWingItem = ({ item, category, imageSrc, imageFallback, image
 const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt }) => {
   if (item.wingPricing) return renderFeaturedWingItem({ item, category, imageSrc, imageFallback, imageAlt });
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
-  const href = `#${itemAnchorId(category.id, item.number)}`;
+  const href = `#${itemAnchorId(category.id, itemKey(item))}`;
   const photo = renderFeaturedPhoto({ imageSrc, imageFallback, imageAlt });
 
   return `

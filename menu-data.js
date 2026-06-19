@@ -238,8 +238,8 @@ window.menuData = [
     items: [
       { number: "", nameEn: "Plain Steak", nameZh: "原味牛排", prices: [{ amount: "6.00" }] },
       { number: "", nameEn: "Cheese Steak", nameZh: "乳酪牛排", prices: [{ amount: "6.50" }] },
-      { number: "", nameEn: "Hamburger", nameZh: "汉堡", prices: [{ amount: "3.50" }] },
-      { number: "", nameEn: "Cheeseburger", nameZh: "乳酪汉堡", prices: [{ amount: "4.00" }] },
+      { number: "", nameEn: "Hamburger", nameZh: "汉堡", prices: [{ amount: "4.50" }] },
+      { number: "", nameEn: "Cheeseburger", nameZh: "乳酪汉堡", prices: [{ amount: "5.00" }, { labelEn: "With Fries", labelZh: "配薯条", amount: "6.50" }] },
       { number: "", nameEn: "Cheese Fries", nameZh: "乳酪薯条", prices: [{ labelEn: "Sm", labelZh: "小", amount: "3.50" }, { labelEn: "Lg", labelZh: "大", amount: "6.00" }] }
     ]
   },
