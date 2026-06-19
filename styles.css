@@ -1328,6 +1328,180 @@ a.featured-card:hover .featured-photo img {
   gap: 6px;
 }
 
+.menu-section--rice-options .item-list {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.menu-item--rice-options {
+  grid-template-columns: minmax(220px, 28%) minmax(0, 1fr);
+  align-items: start;
+  gap: 18px;
+  padding: 14px 12px;
+  border: 1px solid rgba(218, 200, 188, 0.34);
+  background: rgba(255, 253, 248, 0.72);
+  box-shadow: 0 6px 18px rgba(110, 60, 25, 0.045);
+}
+
+.menu-section--rice-options .item-list > article.menu-item:nth-of-type(even) {
+  background: rgba(255, 250, 240, 0.82);
+}
+
+.menu-item--rice-options .item-main {
+  position: sticky;
+  top: calc(var(--menu-scroll-margin, 200px) - 132px);
+}
+
+.menu-item--rice-options .item-name-en {
+  font-size: 1.08rem;
+}
+
+.rice-price-matrix {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.rice-size-group {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid rgba(199, 145, 50, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 248, 236, 0.52);
+}
+
+.rice-size-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(199, 145, 50, 0.22);
+  color: var(--red);
+  font-weight: 900;
+}
+
+.rice-size-heading span {
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.rice-size-heading strong {
+  color: var(--gold);
+  font-family: "Noto Serif SC", serif;
+  font-size: 0.98rem;
+}
+
+.rice-basic-choices {
+  display: grid;
+  gap: 5px;
+}
+
+.rice-choice {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+}
+
+.rice-choice + .rice-choice {
+  border-top: 1px dashed rgba(218, 200, 188, 0.44);
+}
+
+.rice-choice-label {
+  min-width: 0;
+  color: #211d22;
+  font-size: 0.84rem;
+  font-weight: 850;
+  line-height: 1.18;
+}
+
+.rice-choice-label span {
+  margin-left: 6px;
+  color: var(--muted-2);
+  font-size: 0.74rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.rice-choice-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.rice-choice-price {
+  color: var(--red-deep);
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.rice-price-matrix .price-add-btn {
+  width: 30px;
+  height: 30px;
+  border-width: 1.5px;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(110, 60, 25, 0.1);
+}
+
+.rice-meat-row {
+  display: grid;
+  gap: 7px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(199, 145, 50, 0.18);
+}
+
+.rice-meat-title {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.rice-meat-title strong {
+  margin-left: 6px;
+  color: var(--muted-2);
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.rice-meat-choices {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 8px;
+}
+
+.rice-meat-choices .rice-choice {
+  padding: 3px 0;
+}
+
+.rice-meat-choices .rice-choice + .rice-choice {
+  border-top: none;
+}
+
+.rice-meat-choices .rice-choice-label {
+  font-size: 0.78rem;
+}
+
+.rice-meat-choices .rice-choice-label span {
+  font-size: 0.7rem;
+}
+
+.rice-meat-choices .rice-choice-price {
+  font-size: 0.92rem;
+}
+
 .no-results {
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius);
@@ -1440,6 +1614,15 @@ a.featured-card:hover .featured-photo img {
 
   .menu-item {
     grid-template-columns: minmax(0, 1fr) minmax(140px, 34%);
+  }
+
+  .menu-item--rice-options {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .menu-item--rice-options .item-main {
+    position: static;
   }
 }
 
@@ -1679,6 +1862,41 @@ a.featured-card:hover .featured-photo img {
     grid-template-columns: 1fr;
     gap: 6px;
     padding: 9px 0;
+  }
+
+  .menu-section--rice-options {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .menu-item--rice-options {
+    padding: 12px 9px;
+  }
+
+  .rice-price-matrix {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .rice-size-group {
+    padding: 9px;
+  }
+
+  .rice-choice {
+    gap: 7px;
+  }
+
+  .rice-choice-label {
+    font-size: 0.82rem;
+  }
+
+  .rice-choice-label span {
+    white-space: normal;
+  }
+
+  .rice-price-matrix .price-add-btn {
+    width: 28px;
+    height: 28px;
   }
 
   .price-list {

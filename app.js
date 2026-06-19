@@ -205,6 +205,18 @@ const sideChoiceLabels = {
   "french-fries": { labelEn: "French Fries", labelZh: "薯条" }
 };
 
+const riceOptionCategoryIds = new Set(["chicken", "beef", "seafood"]);
+const riceSizeGroups = [
+  { id: "pt", labelEn: "Small", labelZh: "小" },
+  { id: "qt", labelEn: "Large", labelZh: "大" }
+];
+const riceMeatChoices = [
+  { id: "chicken", labelEn: "Chicken", labelZh: "鸡" },
+  { id: "pork", labelEn: "Pork", labelZh: "猪" },
+  { id: "beef", labelEn: "Beef", labelZh: "牛" },
+  { id: "shrimp", labelEn: "Shrimp", labelZh: "虾" }
+];
+
 const quickNoteOptions = [
   "salt",
   "pepper",
@@ -235,6 +247,35 @@ const sideChoiceLabel = (choice) => {
   const entry = sideChoiceLabels[choice];
   if (!entry) return "";
   return `${entry.labelEn} / ${entry.labelZh}`;
+};
+
+const riceOptionMeta = (price) => {
+  const label = normalize(price.labelEn);
+  const size = label.startsWith("pt ") ? "pt" : label.startsWith("qt ") ? "qt" : "";
+  if (!size) return null;
+  const meat = riceMeatChoices.find((choice) => label.includes(`${choice.id} fried rice`));
+  if (meat) return { size, kind: "meat", meat: meat.id };
+  if (label.includes("white rice")) return { size, kind: "white" };
+  if (label.includes("fried rice")) return { size, kind: "fried" };
+  return null;
+};
+
+const getRiceOptionMatrix = (item) => {
+  const emptySize = () => ({ white: null, fried: null, meat: {} });
+  const grouped = { pt: emptySize(), qt: emptySize() };
+  for (const [index, price] of (item.prices || []).entries()) {
+    const meta = riceOptionMeta(price);
+    if (!meta || !grouped[meta.size]) return null;
+    const entry = { index, price };
+    if (meta.kind === "meat") grouped[meta.size].meat[meta.meat] = entry;
+    else grouped[meta.size][meta.kind] = entry;
+  }
+
+  const complete = riceSizeGroups.every((size) => {
+    const group = grouped[size.id];
+    return group.white && group.fried && riceMeatChoices.every((choice) => group.meat[choice.id]);
+  });
+  return complete ? grouped : null;
 };
 
 const priceAddButtonHtml = (categoryId, key, priceIndex, sideChoice = "") => {
@@ -388,6 +429,49 @@ const formatOption = (category, item, priceIndex, price) => {
   `;
 };
 
+const renderRiceOptionButton = (category, item, entry, label) => {
+  const addBtn = priceAddButtonHtml(category.id, itemKey(item), entry.index);
+  return `
+    <span class="rice-choice">
+      <span class="rice-choice-label">${label.labelEn}<span>${label.labelZh}</span></span>
+      <span class="rice-choice-action">
+        <span class="rice-choice-price">$${entry.price.amount}</span>
+        ${addBtn}
+      </span>
+    </span>
+  `;
+};
+
+const renderRiceOptionMatrix = (category, item) => {
+  const matrix = getRiceOptionMatrix(item);
+  if (!matrix) return "";
+  return `
+    <div class="rice-price-matrix" aria-label="Rice options and prices for ${escapeHtml(item.nameEn)}">
+      ${riceSizeGroups.map((size) => {
+        const group = matrix[size.id];
+        return `
+          <div class="rice-size-group">
+            <div class="rice-size-heading">
+              <span>${size.labelEn}</span>
+              <strong>${size.labelZh}</strong>
+            </div>
+            <div class="rice-basic-choices">
+              ${renderRiceOptionButton(category, item, group.white, { labelEn: "White Rice", labelZh: "白饭" })}
+              ${renderRiceOptionButton(category, item, group.fried, { labelEn: "Fried Rice", labelZh: "炒饭" })}
+            </div>
+            <div class="rice-meat-row">
+              <span class="rice-meat-title">Meat Fried Rice <strong>各肉炒饭</strong></span>
+              <span class="rice-meat-choices">
+                ${riceMeatChoices.map((choice) => renderRiceOptionButton(category, item, group.meat[choice.id], choice)).join("")}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+};
+
 const renderItem = (item, category) => {
   const anchor = itemAnchorId(category.id, itemKey(item));
   const number = item.number ? `<span class="item-number">${item.number}</span>` : "";
@@ -397,11 +481,14 @@ const renderItem = (item, category) => {
   const nameZhLine = item.nameZh ? `<p class="item-name-zh">${item.nameZh}</p>` : "";
 
   const isWingPriced = Boolean(item.wingPricing);
-  const isOptions = ["specialties", "platters", "chicken", "beef", "seafood"].includes(category.id) && item.prices.length >= 3;
+  const isRiceOptionItem = riceOptionCategoryIds.has(category.id) && Boolean(getRiceOptionMatrix(item));
+  const isOptions = ["specialties", "platters"].includes(category.id) && item.prices.length >= 3;
   const priceList = isWingPriced
     ? `<div class="price-list price-list--wing" aria-label="Wing quantity pricing for ${item.nameEn}">
         ${renderWingOrder(category, item, "menu")}
       </div>`
+    : isRiceOptionItem
+    ? renderRiceOptionMatrix(category, item)
     : isOptions
     ? `<div class="price-list price-options" aria-label="Side options and prices for ${item.nameEn}">
         ${item.prices.map((price, idx) => formatOption(category, item, idx, price)).join("")}
@@ -411,7 +498,7 @@ const renderItem = (item, category) => {
       </div>`;
 
   return `
-    <article class="menu-item${isOptions ? " menu-item--options" : ""}${isWingPriced ? " menu-item--wing-pricing" : ""}" id="${anchor}">
+    <article class="menu-item${isOptions ? " menu-item--options" : ""}${isRiceOptionItem ? " menu-item--rice-options" : ""}${isWingPriced ? " menu-item--wing-pricing" : ""}" id="${anchor}">
       <div class="item-main">
         <div class="item-line">
           ${number}
@@ -977,9 +1064,10 @@ const renderMenu = () => {
     const subtitleHtml = subtitle
       ? `<p class="section-subtitle">${subtitle}</p>`
       : "";
+    const sectionClass = `menu-section${riceOptionCategoryIds.has(category.id) ? " menu-section--rice-options" : ""}`;
 
     return `
-      <section class="menu-section" id="${category.id}" role="region" aria-labelledby="tab-${category.id}">
+      <section class="${sectionClass}" id="${category.id}" role="region" aria-labelledby="tab-${category.id}">
         <div class="section-header">
           <div>
             <h2 class="section-title">${category.categoryEn}</h2>
