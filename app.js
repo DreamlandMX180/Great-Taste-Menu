@@ -1,5 +1,6 @@
 const menuRoot = document.querySelector("#menu-root");
 const categoryTabs = document.querySelector("#category-tabs");
+const categoryRail = document.querySelector("#category-rail");
 const searchInput = document.querySelector("#menu-search");
 const resultCount = document.querySelector("#result-count");
 const clearSearch = document.querySelector("#clear-search");
@@ -18,6 +19,11 @@ const priceListCopy = document.querySelector("#price-list-copy");
 const priceListClose = document.querySelector("#price-list-close");
 const priceListFab = document.querySelector("#price-list-fab");
 const priceListFabBadge = document.querySelector("#price-list-fab-badge");
+const priceSummaryLines = document.querySelector("#price-summary-lines");
+const priceSummaryTotal = document.querySelector("#price-summary-total");
+const priceSummaryOpenButtons = document.querySelectorAll("[data-price-summary-open]");
+const priceSummaryClear = document.querySelector("[data-price-summary-clear]");
+const priceSummaryCopy = document.querySelector("[data-price-summary-copy]");
 
 let activeCategory = "all";
 
@@ -206,6 +212,7 @@ const sideChoiceLabels = {
 };
 
 const riceOptionCategoryIds = new Set(["chicken", "beef", "seafood"]);
+const optionHeavyCategoryIds = new Set(["specialties", "platters"]);
 const riceSizeGroups = [
   { id: "pt", labelEn: "Small", labelZh: "小" },
   { id: "qt", labelEn: "Large", labelZh: "大" }
@@ -429,6 +436,55 @@ const formatOption = (category, item, priceIndex, price) => {
   `;
 };
 
+const optionEntriesForPrice = (category, item, priceIndex, price) => {
+  const splitChoices = splitSideChoicesForPrice(price);
+  if (splitChoices.length) {
+    return splitChoices.map((choice) => {
+      const label = sideChoiceLabels[choice];
+      return {
+        labelEn: label.labelEn,
+        labelZh: label.labelZh,
+        amount: price.amount,
+        addButton: priceAddButtonHtml(category.id, itemKey(item), priceIndex, choice)
+      };
+    });
+  }
+  return [{
+    labelEn: price.labelEn || "Price",
+    labelZh: price.labelZh || "",
+    amount: price.amount,
+    addButton: priceAddButtonHtml(category.id, itemKey(item), priceIndex)
+  }];
+};
+
+const getLowestPriceAmount = (item) => {
+  const cents = (item.prices || [])
+    .map((price) => parsePriceToCents(price.amount))
+    .filter((amount) => Number.isFinite(amount) && amount > 0);
+  if (!cents.length) return item.prices?.[0]?.amount || "0.00";
+  return (Math.min(...cents) / 100).toFixed(2);
+};
+
+const renderOptionTable = (category, item) => {
+  const entries = item.prices.flatMap((price, idx) => optionEntriesForPrice(category, item, idx, price));
+  return `
+    <div class="option-table" aria-label="Side options and prices for ${escapeHtml(item.nameEn)}">
+      ${entries.map((entry) => `
+        <span class="option-cell">
+          <span class="option-cell-label">
+            <strong>${escapeHtml(entry.labelEn)}</strong>
+            ${entry.labelZh ? `<span>${escapeHtml(entry.labelZh)}</span>` : ""}
+          </span>
+          <span class="option-cell-action">
+            <span class="option-cell-price">$${escapeHtml(entry.amount)}</span>
+            ${entry.addButton}
+          </span>
+        </span>
+      `).join("")}
+    </div>
+  `;
+};
+
 const renderRiceOptionButton = (category, item, entry, label) => {
   const addBtn = priceAddButtonHtml(category.id, itemKey(item), entry.index);
   return `
@@ -482,7 +538,7 @@ const renderItem = (item, category) => {
 
   const isWingPriced = Boolean(item.wingPricing);
   const isRiceOptionItem = riceOptionCategoryIds.has(category.id) && Boolean(getRiceOptionMatrix(item));
-  const isOptions = ["specialties", "platters"].includes(category.id) && item.prices.length >= 3;
+  const isOptions = optionHeavyCategoryIds.has(category.id) && item.prices.length >= 3;
   const priceList = isWingPriced
     ? `<div class="price-list price-list--wing" aria-label="Wing quantity pricing for ${item.nameEn}">
         ${renderWingOrder(category, item, "menu")}
@@ -490,8 +546,12 @@ const renderItem = (item, category) => {
     : isRiceOptionItem
     ? renderRiceOptionMatrix(category, item)
     : isOptions
-    ? `<div class="price-list price-options" aria-label="Side options and prices for ${item.nameEn}">
-        ${item.prices.map((price, idx) => formatOption(category, item, idx, price)).join("")}
+    ? `<div class="option-summary">
+        <span>From <strong>$${getLowestPriceAmount(item)}</strong></span>
+        <button type="button" class="option-toggle" data-option-toggle aria-expanded="false">Options</button>
+      </div>
+      <div class="price-list price-options" aria-label="Side options and prices for ${item.nameEn}">
+        ${renderOptionTable(category, item)}
       </div>`
     : `<div class="price-list" aria-label="Prices for ${item.nameEn}">
         ${item.prices.map((price, idx) => formatPrice(category, item, idx, price)).join("")}
@@ -768,6 +828,35 @@ const renderPricePanelLines = () => {
     .join("");
 };
 
+const renderPriceSummaryLines = () => {
+  if (!priceSummaryLines) return;
+  if (!priceLines.length) {
+    priceSummaryLines.innerHTML = `
+      <p class="price-summary-empty">Tap + beside a price to build a quick estimate. / 点 + 加入算价。</p>
+    `;
+    return;
+  }
+  priceSummaryLines.innerHTML = priceLines.slice(0, 4).map((line) => {
+    const r = resolveLine(line);
+    if (!r) return "";
+    const title = escapeHtml(priceLineTitle(r.item, line));
+    const detail = escapeHtml(priceLineLabel(r.price, line));
+    const sub = escapeHtml(formatMoney(getLineUnitCents(line, r) * line.qty));
+    return `
+      <div class="price-summary-line">
+        <span class="price-summary-qty">${line.qty}</span>
+        <span class="price-summary-item">
+          <strong>${title}</strong>
+          <span>${detail}</span>
+        </span>
+        <span class="price-summary-price">${sub}</span>
+      </div>
+    `;
+  }).join("") + (priceLines.length > 4
+    ? `<p class="price-summary-more">+ ${priceLines.length - 4} more / 还有 ${priceLines.length - 4} 项</p>`
+    : "");
+};
+
 const updatePriceListBadge = () => {
   const n = getTotalQty();
   const cents = getTotalCents();
@@ -789,10 +878,12 @@ const updatePriceListBadge = () => {
 
 const updatePriceListTotal = () => {
   if (priceListTotal) priceListTotal.textContent = formatMoney(getTotalCents());
+  if (priceSummaryTotal) priceSummaryTotal.textContent = formatMoney(getTotalCents());
 };
 
 const updatePriceListChrome = () => {
   renderPricePanelLines();
+  renderPriceSummaryLines();
   updatePriceListBadge();
   updatePriceListTotal();
 };
@@ -957,6 +1048,8 @@ const renderFeaturedPhoto = ({ imageSrc, imageFallback, imageAlt }) =>
 
 const renderFeaturedWingItem = ({ item, category, imageSrc, imageFallback, imageAlt }) => {
   const photo = renderFeaturedPhoto({ imageSrc, imageFallback, imageAlt });
+  const pricing = getWingPricing(item);
+  const total = pricing ? formatMoney(pricing.unitCents * pricing.minQty) : "$0.00";
   return `
     <article class="featured-card featured-card--wing-order" data-featured-category="${category.id}" data-featured-number="${item.number}">
       <div class="featured-photo">
@@ -970,7 +1063,19 @@ const renderFeaturedWingItem = ({ item, category, imageSrc, imageFallback, image
           <p>${item.nameZh}</p>
           <div class="featured-rule" aria-hidden="true"></div>
         </div>
-        ${renderWingOrder(category, item, "featured")}
+        <div class="featured-wing-mini">
+          <span>${pricing ? `${pricing.minQty} pcs min / 三只起` : ""}</span>
+          <strong>${pricing ? `${formatMoney(pricing.unitCents)} each / 每只` : total}</strong>
+          <button
+            type="button"
+            class="price-add-btn"
+            data-add-wing-quick
+            data-category-id="${escapeHtml(category.id)}"
+            data-item-number="${escapeHtml(itemKey(item))}"
+            data-wing-count="${pricing ? pricing.minQty : 0}"
+            aria-label="Add featured wings to price list / 加入炸鸡翅"
+          ><span aria-hidden="true">+</span></button>
+        </div>
       </div>
     </article>
   `;
@@ -981,12 +1086,14 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt 
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
   const href = `#${itemAnchorId(category.id, itemKey(item))}`;
   const photo = renderFeaturedPhoto({ imageSrc, imageFallback, imageAlt });
-  const featuredPrices = item.prices.length > 4
-    ? item.prices.filter((price) => normalize(price.labelEn).includes("white rice"))
-    : item.prices;
+  const preferredIndex = item.prices.length > 4
+    ? item.prices.findIndex((price) => normalize(price.labelEn).includes("white rice"))
+    : 0;
+  const priceIndex = preferredIndex >= 0 ? preferredIndex : 0;
+  const featuredPrice = item.prices[priceIndex];
 
   return `
-    <a class="featured-card" href="${href}" data-featured-category="${category.id}" data-featured-number="${item.number}">
+    <article class="featured-card" data-featured-category="${category.id}" data-featured-number="${item.number}">
       <div class="featured-photo">
         ${photo}
       </div>
@@ -1000,10 +1107,12 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt 
           <div class="featured-rule" aria-hidden="true"></div>
         </div>
         <div class="featured-prices" aria-label="Featured prices for ${item.nameEn}">
-          ${featuredPrices.map(formatFeaturedPrice).join("")}
+          ${formatFeaturedPrice(featuredPrice)}
+          ${priceAddButtonHtml(category.id, itemKey(item), priceIndex)}
+          <a class="featured-card-link" href="${href}" aria-label="View ${escapeHtml(item.nameEn)} in menu">View</a>
         </div>
       </div>
-    </a>
+    </article>
   `;
 };
 
@@ -1012,6 +1121,8 @@ const renderFeaturedSpecials = () => {
   const items = featuredSpecials.map(findMenuItem).filter(Boolean);
   featuredRoot.innerHTML = items.map(renderFeaturedItem).join("");
 };
+
+const categoryRailNumber = (index) => String(index + 1).padStart(2, "0");
 
 const renderCategories = () => {
   const tabs = [
@@ -1042,6 +1153,26 @@ const renderCategories = () => {
   }).join("");
 
   categoryTabs.setAttribute("role", "tablist");
+  if (categoryRail) {
+    categoryRail.innerHTML = tabs.map((category, index) => {
+      const selected = category.id === activeCategory;
+      const zh = category.categoryZh ? `<span>${category.categoryZh}</span>` : "";
+      return `
+        <button
+          type="button"
+          class="category-rail-btn"
+          data-category="${category.id}"
+          aria-current="${selected ? "true" : "false"}"
+        >
+          <span class="category-rail-no">${category.id === "all" ? "★" : categoryRailNumber(index - 1)}</span>
+          <span class="category-rail-text">
+            <strong>${category.categoryEn}</strong>
+            ${zh}
+          </span>
+        </button>
+      `;
+    }).join("");
+  }
   categoryTabs.setAttribute("aria-label", "Menu categories / 菜单分类");
 };
 
@@ -1064,7 +1195,7 @@ const renderMenu = () => {
     const subtitleHtml = subtitle
       ? `<p class="section-subtitle">${subtitle}</p>`
       : "";
-    const sectionClass = `menu-section${riceOptionCategoryIds.has(category.id) ? " menu-section--rice-options" : ""}`;
+    const sectionClass = `menu-section${riceOptionCategoryIds.has(category.id) ? " menu-section--rice-options" : ""}${optionHeavyCategoryIds.has(category.id) ? " menu-section--option-heavy" : ""}`;
 
     return `
       <section class="${sectionClass}" id="${category.id}" role="region" aria-labelledby="tab-${category.id}">
@@ -1095,14 +1226,24 @@ const renderMenu = () => {
   clearSearch.hidden = !query && activeCategory === "all";
 };
 
-categoryTabs.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-category]");
-  if (!button) return;
-  activeCategory = button.dataset.category;
+const selectCategory = (categoryId) => {
+  activeCategory = categoryId;
   renderCategories();
   renderMenu();
   syncUrlHashFromFilter();
   scrollToCategory(activeCategory);
+};
+
+categoryTabs.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-category]");
+  if (!button) return;
+  selectCategory(button.dataset.category);
+});
+
+categoryRail?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-category]");
+  if (!button) return;
+  selectCategory(button.dataset.category);
 });
 
 categoryTabs.addEventListener("keydown", (event) => {
@@ -1139,6 +1280,17 @@ categoryTabs.addEventListener("focusin", (event) => {
 menuRoot?.addEventListener("click", (event) => {
   if (handleWingStepperClick(event)) return;
 
+  const optionToggle = event.target.closest("[data-option-toggle]");
+  if (optionToggle) {
+    event.preventDefault();
+    const item = optionToggle.closest(".menu-item--options");
+    const open = !item?.classList?.contains("menu-item--options-open");
+    item?.classList?.toggle("menu-item--options-open", open);
+    optionToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    optionToggle.textContent = open ? "Hide" : "Options";
+    return;
+  }
+
   const addBtn = event.target.closest("[data-add-price]");
   if (addBtn) {
     event.preventDefault();
@@ -1173,7 +1325,41 @@ menuRoot?.addEventListener("focusout", (event) => {
 featuredRoot?.addEventListener("click", (event) => {
   if (handleWingStepperClick(event)) return;
 
+  const wingQuick = event.target.closest("[data-add-wing-quick]");
+  if (wingQuick) {
+    event.preventDefault();
+    const categoryId = wingQuick.dataset.categoryId;
+    const number = wingQuick.dataset.itemNumber;
+    const found = findMenuItemById(categoryId, number);
+    if (!found) return;
+    const count = clampWingCount(found.item, wingQuick.dataset.wingCount);
+    if (!count) return;
+    addPriceLine(categoryId, number, 0, "", count);
+    flashOrderSurfaceForButton(wingQuick);
+    return;
+  }
+
+  const addBtn = event.target.closest("[data-add-price]");
+  if (addBtn) {
+    event.preventDefault();
+    const categoryId = addBtn.dataset.categoryId;
+    const number = addBtn.dataset.itemNumber;
+    const priceIndex = Number.parseInt(addBtn.dataset.priceIndex ?? "0", 10);
+    const sideChoice = addBtn.dataset.sideChoice || "";
+    if (!categoryId || number == null || Number.isNaN(priceIndex)) return;
+    addPriceLine(categoryId, number, priceIndex, sideChoice);
+    flashOrderSurfaceForButton(addBtn);
+    return;
+  }
+
   const a = event.target.closest("a.featured-card");
+  const link = event.target.closest("a.featured-card-link");
+  if (link?.hash) {
+    event.preventDefault();
+    history.pushState(null, "", link.hash);
+    handleRouteFromHash();
+    return;
+  }
   if (!a?.hash) return;
   event.preventDefault();
   history.pushState(null, "", a.hash);
@@ -1285,6 +1471,20 @@ priceListCopy?.addEventListener("click", () => {
   if (!text.trim()) return;
   navigator.clipboard.writeText(text).catch(() => {
     window.prompt("Copy this text / 复制以下文本:", text);
+  });
+});
+
+priceSummaryOpenButtons.forEach((button) => {
+  button.addEventListener("click", () => setPriceListOpen(true));
+});
+
+priceSummaryClear?.addEventListener("click", () => clearPriceLines());
+
+priceSummaryCopy?.addEventListener("click", () => {
+  const text = formatSummaryText();
+  if (!text.trim()) return;
+  navigator.clipboard.writeText(text).catch(() => {
+    window.prompt("Copy this text / å¤åˆ¶ä»¥ä¸‹æ–‡æœ¬:", text);
   });
 });
 

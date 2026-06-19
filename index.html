@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="assets/logo-mark.webp?v=3" type="image/webp">
-    <link rel="stylesheet" href="styles.css?v=28">
+    <link rel="stylesheet" href="styles.css?v=30">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -130,6 +130,15 @@
         </div>
       </section>
 
+      <div class="menu-shell">
+        <aside class="category-rail-shell" aria-label="Menu category shortcuts">
+          <div class="category-rail-card">
+            <div class="category-rail-title">Menu / 菜单</div>
+            <nav id="category-rail" class="category-rail" aria-label="Menu category shortcuts"></nav>
+          </div>
+        </aside>
+
+        <div class="menu-content">
       <section class="featured-specials" aria-labelledby="featured-title">
         <div class="featured-heading">
           <div>
@@ -150,6 +159,27 @@
       </section>
 
       <section id="menu-root" class="menu-root" aria-label="Great Taste menu items"></section>
+        </div>
+
+        <aside class="price-summary-card" aria-labelledby="price-summary-title">
+          <header class="price-summary-header">
+            <span class="price-summary-icon" aria-hidden="true">+</span>
+            <h2 id="price-summary-title">Price List / 价目表</h2>
+            <button type="button" class="price-summary-collapse" data-price-summary-open aria-label="Open price list / 打开清单">↗</button>
+          </header>
+          <div id="price-summary-lines" class="price-summary-lines"></div>
+          <footer class="price-summary-footer">
+            <p class="price-summary-total-row">
+              Total / 合计 <strong id="price-summary-total">$0.00</strong>
+            </p>
+            <div class="price-summary-actions">
+              <button type="button" data-price-summary-clear>Clear / 清空</button>
+              <button type="button" data-price-summary-copy>Copy List / 复制</button>
+            </div>
+            <button type="button" class="price-summary-main" data-price-summary-open>View Price List / 查看清单</button>
+          </footer>
+        </aside>
+      </div>
     </main>
 
     <div class="price-list-backdrop" id="price-list-backdrop" hidden aria-hidden="true"></div>
@@ -205,6 +235,6 @@
     </footer>
 
     <script src="menu-data.js?v=21"></script>
-    <script src="app.js?v=20"></script>
+    <script src="app.js?v=21"></script>
   </body>
 </html>
