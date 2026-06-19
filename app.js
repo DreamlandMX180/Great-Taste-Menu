@@ -397,7 +397,7 @@ const renderItem = (item, category) => {
   const nameZhLine = item.nameZh ? `<p class="item-name-zh">${item.nameZh}</p>` : "";
 
   const isWingPriced = Boolean(item.wingPricing);
-  const isOptions = ["specialties", "platters"].includes(category.id) && item.prices.length >= 3;
+  const isOptions = ["specialties", "platters", "chicken", "beef", "seafood"].includes(category.id) && item.prices.length >= 3;
   const priceList = isWingPriced
     ? `<div class="price-list price-list--wing" aria-label="Wing quantity pricing for ${item.nameEn}">
         ${renderWingOrder(category, item, "menu")}
@@ -894,6 +894,9 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt 
   const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
   const href = `#${itemAnchorId(category.id, itemKey(item))}`;
   const photo = renderFeaturedPhoto({ imageSrc, imageFallback, imageAlt });
+  const featuredPrices = item.prices.length > 4
+    ? item.prices.filter((price) => normalize(price.labelEn).includes("white rice"))
+    : item.prices;
 
   return `
     <a class="featured-card" href="${href}" data-featured-category="${category.id}" data-featured-number="${item.number}">
@@ -910,7 +913,7 @@ const renderFeaturedItem = ({ item, category, imageSrc, imageFallback, imageAlt 
           <div class="featured-rule" aria-hidden="true"></div>
         </div>
         <div class="featured-prices" aria-label="Featured prices for ${item.nameEn}">
-          ${item.prices.map(formatFeaturedPrice).join("")}
+          ${featuredPrices.map(formatFeaturedPrice).join("")}
         </div>
       </div>
     </a>

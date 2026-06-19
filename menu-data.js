@@ -1,3 +1,35 @@
+const chickenSeafoodRicePrices = [
+  { labelEn: "Pt White Rice", labelZh: "小 白饭", amount: "10.00" },
+  { labelEn: "Pt Fried Rice", labelZh: "小 炒饭", amount: "11.00" },
+  { labelEn: "Pt Chicken Fried Rice", labelZh: "小 鸡炒饭", amount: "12.00" },
+  { labelEn: "Pt Pork Fried Rice", labelZh: "小 猪炒饭", amount: "12.00" },
+  { labelEn: "Pt Beef Fried Rice", labelZh: "小 牛炒饭", amount: "12.00" },
+  { labelEn: "Pt Shrimp Fried Rice", labelZh: "小 虾炒饭", amount: "12.00" },
+  { labelEn: "Qt White Rice", labelZh: "大 白饭", amount: "14.00" },
+  { labelEn: "Qt Fried Rice", labelZh: "大 炒饭", amount: "16.00" },
+  { labelEn: "Qt Chicken Fried Rice", labelZh: "大 鸡炒饭", amount: "18.00" },
+  { labelEn: "Qt Pork Fried Rice", labelZh: "大 猪炒饭", amount: "18.00" },
+  { labelEn: "Qt Beef Fried Rice", labelZh: "大 牛炒饭", amount: "18.00" },
+  { labelEn: "Qt Shrimp Fried Rice", labelZh: "大 虾炒饭", amount: "18.00" }
+];
+
+const beefRicePrices = [
+  { labelEn: "Pt White Rice", labelZh: "小 白饭", amount: "11.00" },
+  { labelEn: "Pt Fried Rice", labelZh: "小 炒饭", amount: "12.00" },
+  { labelEn: "Pt Chicken Fried Rice", labelZh: "小 鸡炒饭", amount: "13.00" },
+  { labelEn: "Pt Pork Fried Rice", labelZh: "小 猪炒饭", amount: "13.00" },
+  { labelEn: "Pt Beef Fried Rice", labelZh: "小 牛炒饭", amount: "13.00" },
+  { labelEn: "Pt Shrimp Fried Rice", labelZh: "小 虾炒饭", amount: "13.00" },
+  { labelEn: "Qt White Rice", labelZh: "大 白饭", amount: "14.00" },
+  { labelEn: "Qt Fried Rice", labelZh: "大 炒饭", amount: "16.00" },
+  { labelEn: "Qt Chicken Fried Rice", labelZh: "大 鸡炒饭", amount: "18.00" },
+  { labelEn: "Qt Pork Fried Rice", labelZh: "大 猪炒饭", amount: "18.00" },
+  { labelEn: "Qt Beef Fried Rice", labelZh: "大 牛炒饭", amount: "18.00" },
+  { labelEn: "Qt Shrimp Fried Rice", labelZh: "大 虾炒饭", amount: "18.00" }
+];
+
+const riceOptionNote = "White rice, fried rice, and meat fried rice options listed below. / 白饭、炒饭及各肉炒饭价格如下。";
+
 window.menuData = [
   {
     id: "specialties",
@@ -247,58 +279,58 @@ window.menuData = [
     id: "chicken",
     categoryEn: "Chicken",
     categoryZh: "鸡肉",
-    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
+    note: riceOptionNote,
     items: [
-      { number: "78", nameEn: "Chicken with Mixed Vegetables", nameZh: "鸡肉什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "79", nameEn: "Pepper Chicken with Onion", nameZh: "青椒洋葱鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "80", nameEn: "Chicken with Black Bean Sauce", nameZh: "豆豉鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "81", nameEn: "Chicken with Broccoli", nameZh: "鸡肉西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "82", nameEn: "Moo Goo Gai Pan", nameZh: "蘑菇鸡片", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "83", nameEn: "Curry Chicken with Onion", nameZh: "咖喱鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "84", nameEn: "Chicken in Garlic Sauce", nameZh: "鱼香鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "85", nameEn: "Szechuan Chicken", nameZh: "四川鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "86", nameEn: "Hunan Chicken", nameZh: "湖南鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "87", nameEn: "Kung Po Chicken", nameZh: "宫保鸡丁", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "88", nameEn: "Hot Spicy Chicken", nameZh: "香辣鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "89", nameEn: "General Tso's Chicken", nameZh: "左宗鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true }
+      { number: "78", nameEn: "Chicken with Mixed Vegetables", nameZh: "鸡肉什锦蔬菜", prices: chickenSeafoodRicePrices },
+      { number: "79", nameEn: "Pepper Chicken with Onion", nameZh: "青椒洋葱鸡", prices: chickenSeafoodRicePrices },
+      { number: "80", nameEn: "Chicken with Black Bean Sauce", nameZh: "豆豉鸡", prices: chickenSeafoodRicePrices },
+      { number: "81", nameEn: "Chicken with Broccoli", nameZh: "鸡肉西兰花", prices: chickenSeafoodRicePrices },
+      { number: "82", nameEn: "Moo Goo Gai Pan", nameZh: "蘑菇鸡片", prices: chickenSeafoodRicePrices },
+      { number: "83", nameEn: "Curry Chicken with Onion", nameZh: "咖喱鸡", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "84", nameEn: "Chicken in Garlic Sauce", nameZh: "鱼香鸡", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "85", nameEn: "Szechuan Chicken", nameZh: "四川鸡", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "86", nameEn: "Hunan Chicken", nameZh: "湖南鸡", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "87", nameEn: "Kung Po Chicken", nameZh: "宫保鸡丁", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "88", nameEn: "Hot Spicy Chicken", nameZh: "香辣鸡", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "89", nameEn: "General Tso's Chicken", nameZh: "左宗鸡", prices: chickenSeafoodRicePrices, spicy: true }
     ]
   },
   {
     id: "beef",
     categoryEn: "Beef",
     categoryZh: "牛肉",
-    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
+    note: riceOptionNote,
     items: [
-      { number: "90", nameEn: "Beef with Mixed Vegetables", nameZh: "牛肉什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }] },
-      { number: "91", nameEn: "Beef with Scallion", nameZh: "葱爆牛肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }] },
-      { number: "92", nameEn: "Pepper Steak with Onion", nameZh: "青椒洋葱牛肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }] },
-      { number: "93", nameEn: "Beef with Mushrooms", nameZh: "蘑菇牛肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }] },
-      { number: "94", nameEn: "Beef with Broccoli", nameZh: "牛肉西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }] },
-      { number: "95", nameEn: "Beef with Black Bean Sauce", nameZh: "豆豉牛肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }] },
-      { number: "96", nameEn: "Beef in Garlic Sauce", nameZh: "鱼香牛肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }], spicy: true },
-      { number: "97", nameEn: "Szechuan Beef", nameZh: "四川牛肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }], spicy: true },
-      { number: "98", nameEn: "Hunan Beef", nameZh: "湖南牛肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "11.00" }, { labelEn: "Qt", labelZh: "大", amount: "13.00" }], spicy: true }
+      { number: "90", nameEn: "Beef with Mixed Vegetables", nameZh: "牛肉什锦蔬菜", prices: beefRicePrices },
+      { number: "91", nameEn: "Beef with Scallion", nameZh: "葱爆牛肉", prices: beefRicePrices },
+      { number: "92", nameEn: "Pepper Steak with Onion", nameZh: "青椒洋葱牛肉", prices: beefRicePrices },
+      { number: "93", nameEn: "Beef with Mushrooms", nameZh: "蘑菇牛肉", prices: beefRicePrices },
+      { number: "94", nameEn: "Beef with Broccoli", nameZh: "牛肉西兰花", prices: beefRicePrices },
+      { number: "95", nameEn: "Beef with Black Bean Sauce", nameZh: "豆豉牛肉", prices: beefRicePrices },
+      { number: "96", nameEn: "Beef in Garlic Sauce", nameZh: "鱼香牛肉", prices: beefRicePrices, spicy: true },
+      { number: "97", nameEn: "Szechuan Beef", nameZh: "四川牛肉", prices: beefRicePrices, spicy: true },
+      { number: "98", nameEn: "Hunan Beef", nameZh: "湖南牛肉", prices: beefRicePrices, spicy: true }
     ]
   },
   {
     id: "seafood",
     categoryEn: "Seafood",
     categoryZh: "海鲜",
-    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
+    note: riceOptionNote,
     items: [
-      { number: "99", nameEn: "Shrimp with Mixed Vegetables", nameZh: "虾什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "100", nameEn: "Shrimp with Lobster Sauce", nameZh: "龙虾酱虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "101", nameEn: "Shrimp with Pepper, Tomato & Onion", nameZh: "青椒番茄洋葱虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "102", nameEn: "Shrimp with Broccoli", nameZh: "虾西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "103", nameEn: "Shrimp with Black Bean Sauce", nameZh: "豆豉虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "104", nameEn: "Shrimp with Mushrooms", nameZh: "蘑菇虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "105", nameEn: "Shrimp with Bean Curds", nameZh: "豆腐虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "106", nameEn: "Curry Shrimp with Onion", nameZh: "咖喱虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "107", nameEn: "Shrimp in Garlic Sauce", nameZh: "鱼香虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "108", nameEn: "Szechuan Shrimp", nameZh: "四川虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "109", nameEn: "Hunan Shrimp", nameZh: "湖南虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "110", nameEn: "Hot & Spicy Shrimp", nameZh: "香辣虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true },
-      { number: "111", nameEn: "General Tso's Shrimp", nameZh: "左宗虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }], spicy: true }
+      { number: "99", nameEn: "Shrimp with Mixed Vegetables", nameZh: "虾什锦蔬菜", prices: chickenSeafoodRicePrices },
+      { number: "100", nameEn: "Shrimp with Lobster Sauce", nameZh: "龙虾酱虾", prices: chickenSeafoodRicePrices },
+      { number: "101", nameEn: "Shrimp with Pepper, Tomato & Onion", nameZh: "青椒番茄洋葱虾", prices: chickenSeafoodRicePrices },
+      { number: "102", nameEn: "Shrimp with Broccoli", nameZh: "虾西兰花", prices: chickenSeafoodRicePrices },
+      { number: "103", nameEn: "Shrimp with Black Bean Sauce", nameZh: "豆豉虾", prices: chickenSeafoodRicePrices },
+      { number: "104", nameEn: "Shrimp with Mushrooms", nameZh: "蘑菇虾", prices: chickenSeafoodRicePrices },
+      { number: "105", nameEn: "Shrimp with Black Bean Sauce", nameZh: "豆豉虾", prices: chickenSeafoodRicePrices },
+      { number: "106", nameEn: "Curry Shrimp with Onion", nameZh: "咖喱虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "107", nameEn: "Shrimp in Garlic Sauce", nameZh: "鱼香虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "108", nameEn: "Szechuan Shrimp", nameZh: "四川虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "109", nameEn: "Hunan Shrimp", nameZh: "湖南虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "110", nameEn: "Hot & Spicy Shrimp", nameZh: "香辣虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "111", nameEn: "General Tso's Shrimp", nameZh: "左宗虾", prices: chickenSeafoodRicePrices, spicy: true }
     ]
   },
   {
