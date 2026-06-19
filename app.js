@@ -206,7 +206,6 @@ const sideChoiceLabels = {
 };
 
 const riceOptionCategoryIds = new Set(["chicken", "beef", "seafood"]);
-const optionHeavyCategoryIds = new Set(["specialties", "platters"]);
 const riceSizeGroups = [
   { id: "pt", labelEn: "Small", labelZh: "小" },
   { id: "qt", labelEn: "Large", labelZh: "大" }
@@ -483,7 +482,7 @@ const renderItem = (item, category) => {
 
   const isWingPriced = Boolean(item.wingPricing);
   const isRiceOptionItem = riceOptionCategoryIds.has(category.id) && Boolean(getRiceOptionMatrix(item));
-  const isOptions = optionHeavyCategoryIds.has(category.id) && item.prices.length >= 3;
+  const isOptions = ["specialties", "platters"].includes(category.id) && item.prices.length >= 3;
   const priceList = isWingPriced
     ? `<div class="price-list price-list--wing" aria-label="Wing quantity pricing for ${item.nameEn}">
         ${renderWingOrder(category, item, "menu")}
@@ -1065,7 +1064,7 @@ const renderMenu = () => {
     const subtitleHtml = subtitle
       ? `<p class="section-subtitle">${subtitle}</p>`
       : "";
-    const sectionClass = `menu-section${riceOptionCategoryIds.has(category.id) ? " menu-section--rice-options" : ""}${optionHeavyCategoryIds.has(category.id) ? " menu-section--option-heavy" : ""}`;
+    const sectionClass = `menu-section${riceOptionCategoryIds.has(category.id) ? " menu-section--rice-options" : ""}`;
 
     return `
       <section class="${sectionClass}" id="${category.id}" role="region" aria-labelledby="tab-${category.id}">
