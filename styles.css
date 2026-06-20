@@ -6036,3 +6036,256 @@ main {
     margin-left: 48px;
   }
 }
+
+/* v34 desktop hero alignment: prevent the header from cutting through the first viewport. */
+@media (min-width: 641px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid rgba(199, 176, 151, 0.44);
+    background: rgba(255, 252, 245, 0.96);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 10px 26px rgba(73, 35, 20, 0.06);
+  }
+
+  .header-inner {
+    min-height: clamp(76px, 6.2vw, 96px);
+    align-items: center;
+    padding: 12px 0;
+  }
+
+  .menu-meta {
+    align-items: center;
+    padding-top: 0;
+  }
+
+  .brand {
+    gap: clamp(12px, 1.1vw, 18px);
+  }
+
+  .brand-mark {
+    width: clamp(54px, 4.8vw, 76px);
+    height: clamp(54px, 4.8vw, 76px);
+  }
+
+  .brand-name {
+    font-size: clamp(2rem, 2.7vw, 3.1rem);
+  }
+
+  .menu-hero {
+    isolation: isolate;
+    grid-template-columns: minmax(390px, 42%) minmax(0, 58%);
+    width: 100vw;
+    min-height: clamp(420px, 31vw, 560px);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 0 max(24px, calc((100vw - var(--gt-max)) / 2));
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .hero-copy {
+    align-self: center;
+    max-width: none;
+    padding: clamp(34px, 4vw, 64px) 0 clamp(32px, 3vw, 52px) clamp(128px, 12vw, 220px);
+  }
+
+  .menu-hero h1 {
+    position: relative;
+    z-index: 2;
+  }
+
+  .menu-hero h1 span {
+    font-size: clamp(3.7rem, 5.4vw, 6.4rem);
+    line-height: 0.92;
+  }
+
+  .menu-hero h1 em {
+    font-size: clamp(2.55rem, 3.45vw, 3.8rem);
+  }
+
+  .menu-hero h1::after {
+    left: clamp(292px, 23.4vw, 390px);
+    top: 44%;
+    width: 42px;
+    min-height: 62px;
+  }
+
+  .hero-tagline {
+    margin-top: clamp(18px, 2.1vw, 30px);
+  }
+
+  .hero-facts {
+    grid-template-columns: minmax(210px, 1fr) minmax(230px, 1fr);
+    max-width: 620px;
+  }
+
+  .hero-facts div {
+    min-width: 0;
+    padding-left: 58px;
+  }
+
+  .hero-facts .fact-ico {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-facts dd {
+    min-width: 0;
+  }
+
+  .hero-media {
+    align-self: center;
+    min-height: clamp(360px, 30vw, 520px);
+    justify-content: flex-end;
+    overflow: visible;
+  }
+
+  .hero-dishes-img {
+    width: min(100%, 760px);
+    max-height: clamp(330px, 29vw, 500px);
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .menu-hero .plum-branch {
+    z-index: 1;
+    top: clamp(26px, 3.2vw, 58px);
+    width: clamp(210px, 20vw, 330px);
+  }
+
+  .menu-hero .ink-mountain {
+    z-index: 0;
+    bottom: clamp(8px, 1.8vw, 28px);
+    width: clamp(190px, 18vw, 280px);
+    height: clamp(280px, 30vw, 420px);
+    opacity: 0.32;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 920px) {
+  .header-inner {
+    min-height: 72px;
+  }
+
+  .brand-mark {
+    width: 50px;
+    height: 50px;
+  }
+
+  .menu-hero {
+    grid-template-columns: minmax(300px, 46%) minmax(0, 54%);
+    min-height: 284px;
+  }
+}
+
+@media (min-width: 921px) and (max-height: 720px) {
+  .header-inner {
+    min-height: 88px;
+    padding: 10px 0;
+  }
+
+  .brand-mark {
+    width: 64px;
+    height: 64px;
+  }
+
+  .brand-name {
+    font-size: clamp(2.15rem, 2.45vw, 2.85rem);
+  }
+
+  .header-view,
+  .header-price-list,
+  .header-call {
+    min-height: 46px;
+    padding: 10px 20px;
+  }
+
+  .menu-hero {
+    min-height: clamp(420px, calc(100vh - 88px), 500px);
+  }
+
+  .hero-copy {
+    padding-top: clamp(22px, 3vw, 36px);
+    padding-bottom: 24px;
+  }
+
+  .menu-hero h1 span {
+    font-size: clamp(3.25rem, 4.8vw, 5.6rem);
+  }
+
+  .menu-hero h1 em {
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+  }
+
+  .menu-hero h1::after {
+    top: 43%;
+    width: 38px;
+    min-height: 56px;
+    font-size: 1.16rem;
+  }
+
+  .hero-tagline {
+    margin-top: 14px;
+    font-size: 0.96rem;
+  }
+
+  .hero-tagline::after {
+    margin-top: 12px;
+  }
+
+  .hero-pickup-note {
+    margin-top: 12px;
+    font-size: 0.9rem;
+  }
+
+  .hero-facts {
+    margin-top: 10px;
+    gap: 8px 14px;
+  }
+
+  .hero-facts div {
+    padding-left: 52px;
+  }
+
+  .hero-facts .fact-ico {
+    width: 36px;
+    height: 36px;
+    padding: 7px;
+    border-radius: 12px;
+  }
+
+  .hero-facts dd {
+    font-size: 0.82rem;
+    line-height: 1.18;
+  }
+
+  .hero-media {
+    min-height: clamp(330px, calc(100vh - 150px), 420px);
+  }
+
+  .hero-dishes-img {
+    width: min(100%, 700px);
+    max-height: clamp(310px, calc(100vh - 160px), 400px);
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1120px) {
+  .hero-copy {
+    padding-left: clamp(88px, 9vw, 120px);
+  }
+
+  .hero-facts {
+    grid-template-columns: 1fr;
+    max-width: 390px;
+    gap: 10px;
+  }
+
+  .hero-facts dd {
+    white-space: normal;
+  }
+}
