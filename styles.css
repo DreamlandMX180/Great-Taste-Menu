@@ -4958,3 +4958,299 @@ main {
     grid-template-columns: 40px 86px 40px minmax(64px, 1fr);
   }
 }
+
+/* v32 desktop layout repair: keep mobile behavior intact while tightening wide screens. */
+@media (min-width: 641px) {
+  .menu-content > .featured-specials,
+  .menu-content > .results-summary,
+  .menu-content > .menu-root {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .menu-shell {
+    grid-template-columns: minmax(142px, var(--gt-rail)) minmax(0, 1fr) minmax(258px, var(--gt-receipt));
+    gap: clamp(14px, 1.3vw, var(--gt-shell-gap));
+  }
+
+  .featured-specials {
+    overflow: hidden;
+  }
+
+  .featured-list {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+
+  .featured-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+    min-height: 132px;
+    gap: 12px;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .featured-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    min-height: 0;
+    max-width: 96px;
+    aspect-ratio: 1 / 1;
+    align-self: center;
+    padding: 6px;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.92) 0 44%, rgba(255, 244, 224, 0.78) 72%, rgba(255, 238, 210, 0.92) 100%);
+  }
+
+  .featured-photo picture {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .featured-photo img,
+  .featured-card[data-featured-number="14"] .featured-photo img,
+  .featured-card--wing-order .featured-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  a.featured-card:hover .featured-photo img {
+    transform: scale(1.03);
+  }
+
+  .featured-body {
+    min-width: 0;
+  }
+
+  .featured-name-line h3 {
+    max-width: 100%;
+  }
+
+  .featured-prices,
+  .featured-wing-mini {
+    min-width: 0;
+  }
+
+  .menu-section--option-heavy .item-list {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 14px;
+  }
+
+  .menu-section--option-heavy .menu-item--options {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    gap: 12px;
+    min-height: 0;
+    padding: 14px;
+    border: 1px solid rgba(218, 200, 188, 0.72);
+    border-radius: 8px;
+    background: linear-gradient(180deg, #fff 0%, #fffdf8 100%);
+    box-shadow: 0 8px 20px rgba(82, 35, 22, 0.05);
+  }
+
+  .menu-section--option-heavy .item-list > article.menu-item:nth-of-type(even) {
+    background: linear-gradient(180deg, #fff 0%, #fffdf8 100%);
+  }
+
+  .menu-section--option-heavy .menu-item--options .item-main {
+    min-width: 0;
+  }
+
+  .menu-section--option-heavy .menu-item--options .item-line {
+    align-items: center;
+  }
+
+  .menu-section--option-heavy .price-options {
+    width: 100%;
+    justify-self: stretch;
+    display: block;
+  }
+
+  .option-table {
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+  }
+
+  .option-cell {
+    min-height: 92px;
+    align-content: space-between;
+    padding: 11px 10px;
+  }
+
+  .option-cell-label {
+    font-size: 0.82rem;
+  }
+
+  .option-cell-label span {
+    font-size: 0.76rem;
+  }
+
+  .option-cell-action {
+    min-width: 0;
+  }
+}
+
+@media (min-width: 921px) {
+  .menu-hero {
+    grid-template-columns: minmax(390px, 42%) minmax(0, 58%);
+    min-height: clamp(318px, 28vw, 430px);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .hero-copy {
+    max-width: none;
+    padding: clamp(38px, 4.4vw, 64px) 0 clamp(28px, 3vw, 42px) clamp(128px, 12vw, 218px);
+  }
+
+  .menu-hero h1 span {
+    font-size: clamp(3.35rem, 4.8vw, 4.85rem);
+    line-height: 0.92;
+  }
+
+  .menu-hero h1 em {
+    font-size: clamp(2.35rem, 3.15vw, 3.1rem);
+  }
+
+  .hero-tagline {
+    margin-top: clamp(18px, 2.1vw, 30px);
+  }
+
+  .hero-pickup-note {
+    margin-top: 16px;
+  }
+
+  .hero-facts {
+    grid-template-columns: minmax(210px, 1fr) minmax(230px, 1fr);
+    margin-top: 14px;
+  }
+
+  .hero-media {
+    min-height: clamp(300px, 27vw, 430px);
+    align-self: center;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .hero-dishes-img {
+    width: min(100%, 710px);
+    max-height: clamp(276px, 26vw, 410px);
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+    filter: drop-shadow(0 22px 32px rgba(68, 25, 14, 0.13));
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0, #000 2.5%, #000 97.5%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 2.5%, #000 97.5%, transparent 100%);
+    mask-image:
+      linear-gradient(to right, transparent 0, #000 2.5%, #000 97.5%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 2.5%, #000 97.5%, transparent 100%);
+  }
+
+  .menu-hero .plum-branch {
+    width: clamp(220px, 21vw, 340px);
+    top: clamp(44px, 5vw, 82px);
+  }
+
+  .menu-hero .ink-mountain {
+    width: clamp(190px, 18vw, 280px);
+    height: clamp(300px, 34vw, 430px);
+    bottom: clamp(10px, 2vw, 32px);
+    opacity: 0.34;
+  }
+}
+
+@media (min-width: 1181px) {
+  .hero-copy {
+    padding-left: clamp(190px, 15vw, 250px);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1120px) {
+  .menu-shell {
+    display: block;
+  }
+
+  .category-rail-shell,
+  .price-summary-card {
+    display: none;
+  }
+
+  .menu-content {
+    width: 100%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 920px) {
+  .menu-hero {
+    display: grid;
+    grid-template-columns: minmax(300px, 46%) minmax(0, 54%);
+    min-height: 284px;
+    padding: 0 max(24px, calc((100vw - var(--gt-max)) / 2));
+  }
+
+  .hero-copy {
+    max-width: none;
+    padding: 34px 0 28px 112px;
+  }
+
+  .menu-hero h1 span {
+    font-size: clamp(2.95rem, 7vw, 3.8rem);
+  }
+
+  .menu-hero h1 em {
+    font-size: clamp(2rem, 4.5vw, 2.55rem);
+  }
+
+  .hero-tagline {
+    margin-top: 14px;
+    font-size: 0.96rem;
+  }
+
+  .hero-pickup-note,
+  .hero-facts {
+    display: none;
+  }
+
+  .hero-media {
+    min-height: 260px;
+    justify-content: center;
+  }
+
+  .hero-dishes-img {
+    width: min(100%, 520px);
+    max-height: 260px;
+    object-fit: contain;
+    transform: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .menu-hero .plum-branch {
+    width: 220px;
+    left: -48px;
+    top: 42px;
+  }
+
+  .menu-hero .ink-mountain {
+    width: 190px;
+    height: 290px;
+    bottom: 0;
+    opacity: 0.26;
+  }
+
+  .menu-section--option-heavy .item-list {
+    grid-template-columns: 1fr;
+  }
+}
