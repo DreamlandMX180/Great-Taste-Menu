@@ -970,7 +970,8 @@ a.featured-card:hover .featured-photo img {
 }
 
 #menu-root,
-.menu-section {
+.menu-section,
+.menu-item {
   scroll-margin-top: var(--menu-scroll-margin, 200px);
 }
 
@@ -4871,5 +4872,89 @@ main {
 
   .featured-price-chip strong {
     font-size: 1rem;
+  }
+}
+
+/* v31 mobile ordering fixes */
+@media (max-width: 640px) {
+  body {
+    padding-bottom: calc(126px + env(safe-area-inset-bottom));
+  }
+
+  .menu-tools {
+    position: relative;
+    top: auto;
+    z-index: 4;
+  }
+
+  .menu-item--wing-pricing {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .menu-item--wing-pricing .item-line {
+    align-items: center;
+  }
+
+  .menu-item--wing-pricing .item-name-en {
+    max-width: none;
+  }
+
+  .menu-item--wing-pricing .item-note,
+  .menu-item--wing-pricing .item-name-zh {
+    max-width: calc(100% - 44px);
+  }
+
+  .menu-item--wing-pricing .price-list--wing {
+    width: calc(100% - 44px);
+    max-width: calc(100% - 44px);
+    margin-left: 44px;
+    align-self: stretch;
+  }
+
+  .menu-item--wing-pricing .wing-order-rate {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .menu-item--wing-pricing .wing-stepper {
+    display: grid;
+    grid-template-columns: 42px 92px 42px minmax(68px, 1fr);
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .menu-item--wing-pricing .wing-stepper-total {
+    grid-column: 4;
+    justify-self: end;
+    min-width: 0;
+    margin-left: 0;
+    font-size: 1.24rem;
+    text-align: right;
+  }
+
+  .menu-item--wing-pricing .wing-stepper-add {
+    grid-column: 1 / span 3;
+    justify-self: start;
+    min-height: 40px;
+    padding: 8px 16px;
+  }
+
+  .price-list-fab,
+  .call-fab {
+    bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 360px) {
+  .menu-item--wing-pricing .price-list--wing {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .menu-item--wing-pricing .wing-stepper {
+    grid-template-columns: 40px 86px 40px minmax(64px, 1fr);
   }
 }

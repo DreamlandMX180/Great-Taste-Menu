@@ -28,6 +28,63 @@ const beefRicePrices = [
   { labelEn: "Qt Shrimp Fried Rice", labelZh: "大 虾炒饭", amount: "18.00" }
 ];
 
+const buildRicePrices = ({ ptWhite, ptFried, ptMeat, qtWhite, qtFried, qtMeat }) => [
+  { labelEn: "Pt White Rice", labelZh: "小 白饭", amount: ptWhite },
+  { labelEn: "Pt Fried Rice", labelZh: "小 炒饭", amount: ptFried },
+  { labelEn: "Pt Chicken Fried Rice", labelZh: "小 鸡炒饭", amount: ptMeat },
+  { labelEn: "Pt Pork Fried Rice", labelZh: "小 猪炒饭", amount: ptMeat },
+  { labelEn: "Pt Beef Fried Rice", labelZh: "小 牛炒饭", amount: ptMeat },
+  { labelEn: "Pt Shrimp Fried Rice", labelZh: "小 虾炒饭", amount: ptMeat },
+  { labelEn: "Qt White Rice", labelZh: "大 白饭", amount: qtWhite },
+  { labelEn: "Qt Fried Rice", labelZh: "大 炒饭", amount: qtFried },
+  { labelEn: "Qt Chicken Fried Rice", labelZh: "大 鸡炒饭", amount: qtMeat },
+  { labelEn: "Qt Pork Fried Rice", labelZh: "大 猪炒饭", amount: qtMeat },
+  { labelEn: "Qt Beef Fried Rice", labelZh: "大 牛炒饭", amount: qtMeat },
+  { labelEn: "Qt Shrimp Fried Rice", labelZh: "大 虾炒饭", amount: qtMeat }
+];
+
+const buildSingleRicePrices = ({ white, fried, meat }) => [
+  { labelEn: "White Rice", labelZh: "白饭", amount: white },
+  { labelEn: "Fried Rice", labelZh: "炒饭", amount: fried },
+  { labelEn: "Chicken Fried Rice", labelZh: "鸡炒饭", amount: meat },
+  { labelEn: "Pork Fried Rice", labelZh: "猪炒饭", amount: meat },
+  { labelEn: "Beef Fried Rice", labelZh: "牛炒饭", amount: meat },
+  { labelEn: "Shrimp Fried Rice", labelZh: "虾炒饭", amount: meat }
+];
+
+const vegetableEggFooYoungRicePrices = buildRicePrices({
+  ptWhite: "7.00",
+  ptFried: "8.00",
+  ptMeat: "10.00",
+  qtWhite: "9.00",
+  qtFried: "10.00",
+  qtMeat: "12.00"
+});
+
+const eggFooYoungRicePrices = buildRicePrices({
+  ptWhite: "8.00",
+  ptFried: "9.00",
+  ptMeat: "11.00",
+  qtWhite: "11.00",
+  qtFried: "12.00",
+  qtMeat: "14.00"
+});
+
+const houseSpecialEggFooYoungRicePrices = buildSingleRicePrices({
+  white: "11.00",
+  fried: "12.00",
+  meat: "14.00"
+});
+
+const vegetableRicePrices = buildRicePrices({
+  ptWhite: "7.00",
+  ptFried: "8.00",
+  ptMeat: "9.00",
+  qtWhite: "10.00",
+  qtFried: "11.00",
+  qtMeat: "13.00"
+});
+
 const riceOptionNote = "White rice, fried rice, and meat fried rice options listed below. / 白饭、炒饭及各肉炒饭价格如下。";
 
 window.menuData = [
@@ -197,40 +254,40 @@ window.menuData = [
     id: "egg-foo-young",
     categoryEn: "Egg Foo Young",
     categoryZh: "芙蓉蛋",
-    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
+    note: riceOptionNote,
     items: [
-      { number: "59", nameEn: "Vegetable Egg Foo Young", nameZh: "蔬菜芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }] },
-      { number: "61", nameEn: "Roast Pork Egg Foo Young", nameZh: "叉烧芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "62", nameEn: "Chicken Egg Foo Young", nameZh: "鸡肉芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "63", nameEn: "Shrimp Egg Foo Young", nameZh: "虾芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "64", nameEn: "Beef Egg Foo Young", nameZh: "牛肉芙蓉蛋", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "65", nameEn: "House Special Egg Foo Young", nameZh: "本楼芙蓉蛋", prices: [{ amount: "11.00" }] }
+      { number: "59", nameEn: "Vegetable Egg Foo Young", nameZh: "蔬菜芙蓉蛋", prices: vegetableEggFooYoungRicePrices },
+      { number: "61", nameEn: "Roast Pork Egg Foo Young", nameZh: "叉烧芙蓉蛋", prices: eggFooYoungRicePrices },
+      { number: "62", nameEn: "Chicken Egg Foo Young", nameZh: "鸡肉芙蓉蛋", prices: eggFooYoungRicePrices },
+      { number: "63", nameEn: "Shrimp Egg Foo Young", nameZh: "虾芙蓉蛋", prices: eggFooYoungRicePrices },
+      { number: "64", nameEn: "Beef Egg Foo Young", nameZh: "牛肉芙蓉蛋", prices: eggFooYoungRicePrices },
+      { number: "65", nameEn: "House Special Egg Foo Young", nameZh: "本楼芙蓉蛋", prices: houseSpecialEggFooYoungRicePrices }
     ]
   },
   {
     id: "sweet-sour",
     categoryEn: "Sweet & Sour",
     categoryZh: "甜酸",
-    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
+    note: riceOptionNote,
     items: [
-      { number: "66", nameEn: "Sweet & Sour Pork", nameZh: "甜酸肉", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "67", nameEn: "Sweet & Sour Shrimp", nameZh: "甜酸虾", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "68", nameEn: "Sweet & Sour Chicken", nameZh: "甜酸鸡", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "69", nameEn: "Triple Sweet & Sour", nameZh: "三拼甜酸", prices: [{ amount: "11.00" }] },
-      { number: "70", nameEn: "Sweet & Sour Spare Rib Tips", nameZh: "甜酸排骨尖", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] }
+      { number: "66", nameEn: "Sweet & Sour Pork", nameZh: "甜酸肉", prices: chickenSeafoodRicePrices },
+      { number: "67", nameEn: "Sweet & Sour Shrimp", nameZh: "甜酸虾", prices: chickenSeafoodRicePrices },
+      { number: "68", nameEn: "Sweet & Sour Chicken", nameZh: "甜酸鸡", prices: chickenSeafoodRicePrices },
+      { number: "69", nameEn: "Triple Sweet & Sour", nameZh: "三拼甜酸", prices: chickenSeafoodRicePrices },
+      { number: "70", nameEn: "Sweet & Sour Spare Rib Tips", nameZh: "甜酸排骨尖", prices: chickenSeafoodRicePrices }
     ]
   },
   {
     id: "vegetables",
     categoryEn: "House Special Vegetables",
     categoryZh: "本楼蔬菜",
-    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
+    note: riceOptionNote,
     items: [
-      { number: "71", nameEn: "Mixed Vegetables", nameZh: "什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
-      { number: "72", nameEn: "Bean Curd with Mixed Vegetables", nameZh: "豆腐什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
-      { number: "73", nameEn: "Sauteed Broccoli", nameZh: "炒西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
-      { number: "74", nameEn: "Broccoli with Garlic Sauce", nameZh: "鱼香西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], spicy: true },
-      { number: "75", nameEn: "Bean Curd Szechuan Style", nameZh: "四川豆腐", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }], spicy: true }
+      { number: "71", nameEn: "Mixed Vegetables", nameZh: "什锦蔬菜", prices: vegetableRicePrices },
+      { number: "72", nameEn: "Bean Curd with Mixed Vegetables", nameZh: "豆腐什锦蔬菜", prices: vegetableRicePrices },
+      { number: "73", nameEn: "Sauteed Broccoli", nameZh: "炒西兰花", prices: vegetableRicePrices },
+      { number: "74", nameEn: "Broccoli with Garlic Sauce", nameZh: "鱼香西兰花", prices: vegetableRicePrices, spicy: true },
+      { number: "75", nameEn: "Bean Curd Szechuan Style", nameZh: "四川豆腐", prices: vegetableRicePrices, spicy: true }
     ]
   },
   {
@@ -248,10 +305,10 @@ window.menuData = [
     id: "pork",
     categoryEn: "Pork",
     categoryZh: "猪肉",
-    note: "Served with white rice. Fried rice +$1. / 配白饭，炒饭加 $1.",
+    note: riceOptionNote,
     items: [
-      { number: "76", nameEn: "Roast Pork with Mixed Vegetables", nameZh: "叉烧什锦蔬菜", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
-      { number: "77", nameEn: "Roast Pork with Broccoli", nameZh: "叉烧西兰花", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] }
+      { number: "76", nameEn: "Roast Pork with Mixed Vegetables", nameZh: "叉烧什锦蔬菜", prices: chickenSeafoodRicePrices },
+      { number: "77", nameEn: "Roast Pork with Broccoli", nameZh: "叉烧西兰花", prices: chickenSeafoodRicePrices }
     ]
   },
   {

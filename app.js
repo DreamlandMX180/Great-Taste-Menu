@@ -211,7 +211,7 @@ const sideChoiceLabels = {
   "french-fries": { labelEn: "French Fries", labelZh: "薯条" }
 };
 
-const riceOptionCategoryIds = new Set(["chicken", "beef", "seafood"]);
+const riceOptionCategoryIds = new Set(["egg-foo-young", "sweet-sour", "vegetables", "pork", "chicken", "beef", "seafood"]);
 const optionHeavyCategoryIds = new Set(["specialties", "platters"]);
 const riceSizeGroups = [
   { id: "pt", labelEn: "Small", labelZh: "小" },
