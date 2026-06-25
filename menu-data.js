@@ -136,7 +136,7 @@ window.menuData = [
       { number: "8", nameEn: "Fried Scallops (10)", nameZh: "炸干贝", prices: [{ amount: "6.00" }] },
       { number: "9", nameEn: "Onion Rings (10)", nameZh: "洋葱圈", prices: [{ amount: "3.00" }] },
       { number: "10", nameEn: "Steamed or Fried Dumplings (8)", nameZh: "蒸或煎饺子", prices: [{ amount: "7.00" }] },
-      { number: "11", nameEn: "Teriyaki Chicken", nameZh: "照烧鸡", prices: [{ amount: "2.00" }] },
+      { number: "11", nameEn: "Teriyaki Chicken", nameZh: "照烧鸡", prices: [{ amount: "2.50" }] },
       { number: "12", nameEn: "Buffalo Wings", nameZh: "辣味鸡翅", prices: [{ amount: "8.00" }], spicy: true },
       { number: "13", nameEn: "Steamed Shrimp (20)", nameZh: "蒸虾", prices: [{ amount: "7.00" }] },
       {
