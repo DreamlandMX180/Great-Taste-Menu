@@ -224,20 +224,72 @@ const riceMeatChoices = [
   { id: "shrimp", labelEn: "Shrimp", labelZh: "虾" }
 ];
 
-const quickNoteOptions = [
-  "salt",
-  "pepper",
-  "ketchup",
-  "hot sauce",
-  "garlic powder",
-  "general tso sauce",
-  "garlic sauce (鱼香酱)",
-  "no veg",
-  "extra veg",
-  "add broccoli",
-  "no onion",
-  "no bean sprouts"
+const quickNoteGroups = [
+  {
+    id: "paid",
+    labelEn: "Add-ons",
+    labelZh: "加料",
+    paid: true,
+    options: [
+      { text: "add egg", cents: 150 },
+      { text: "extra veg", cents: 100 },
+      { text: "add broccoli", cents: 100 },
+      { text: "garlic sauce (鱼香酱)", cents: 100 },
+      { text: "general tso sauce", cents: 100 }
+    ]
+  },
+  {
+    id: "prefs",
+    labelEn: "Preferences",
+    labelZh: "口味",
+    options: [
+      { text: "no veg" },
+      { text: "no onion" },
+      { text: "no bean sprouts" }
+    ]
+  },
+  {
+    id: "condiments",
+    labelEn: "Condiments",
+    labelZh: "调料",
+    options: [
+      { text: "salt" },
+      { text: "pepper" },
+      { text: "ketchup" },
+      { text: "hot sauce" },
+      { text: "garlic powder" }
+    ]
+  }
 ];
+
+/* Extra spellings that should still trigger the add-on charge when typed by hand. */
+const noteSurchargeAliases = {
+  "add egg": ["egg", "加蛋"],
+  "extra veg": ["add veg", "加菜"],
+  "add broccoli": ["broccoli", "加西兰花"],
+  "garlic sauce (鱼香酱)": ["garlic sauce", "鱼香酱"],
+  "general tso sauce": ["general tso's sauce", "左宗酱"]
+};
+
+const noteSurchargeCentsByText = (() => {
+  const map = new Map();
+  for (const group of quickNoteGroups) {
+    for (const option of group.options) {
+      if (!option.cents) continue;
+      map.set(normalize(option.text), option.cents);
+      for (const alias of noteSurchargeAliases[option.text] || []) {
+        map.set(normalize(alias), option.cents);
+      }
+    }
+  }
+  return map;
+})();
+
+const getUnitNoteSurchargeCents = (note) =>
+  getQuickNoteParts(note).reduce(
+    (sum, part) => sum + (noteSurchargeCentsByText.get(normalize(part)) || 0),
+    0
+  );
 
 const splitSideChoicesForPrice = (price) => {
   const label = normalize(price.labelEn);
@@ -558,7 +610,7 @@ const renderItem = (item, category) => {
       </div>`;
 
   return `
-    <article class="menu-item${isOptions ? " menu-item--options" : ""}${isRiceOptionItem ? " menu-item--rice-options" : ""}${isWingPriced ? " menu-item--wing-pricing" : ""}" id="${anchor}">
+    <article class="menu-item${isOptions ? " menu-item--options" : ""}${isRiceOptionItem ? " menu-item--rice-options" : ""}${isWingPriced ? " menu-item--wing-pricing" : ""}${item.number ? "" : " menu-item--unnumbered"}" id="${anchor}">
       <div class="item-main">
         <div class="item-line">
           ${number}
@@ -658,12 +710,17 @@ const getLineUnitCents = (line, resolved) => {
   return parsePriceToCents(resolved?.price?.amount);
 };
 
+const getLineSurchargeCents = (line) =>
+  syncLineNotes(line).reduce((sum, note) => sum + getUnitNoteSurchargeCents(note), 0);
+
+const getLineTotalCents = (line, resolved) =>
+  getLineUnitCents(line, resolved) * line.qty + getLineSurchargeCents(line);
+
 const getTotalCents = () =>
   priceLines.reduce((sum, line) => {
     const r = resolveLine(line);
     if (!r) return sum;
-    const unit = getLineUnitCents(line, r);
-    return sum + unit * line.qty;
+    return sum + getLineTotalCents(line, r);
   }, 0);
 
 const getTotalQty = () => priceLines.reduce((s, l) => s + l.qty, 0);
@@ -747,12 +804,14 @@ const formatSummaryText = () => {
     if (!r) continue;
     const title = priceLineTitle(r.item, line);
     const label = priceLineLabel(r.price, line);
-    const unit = getLineUnitCents(line, r) / 100;
-    const lineTotal = unit * line.qty;
+    const lineTotal = getLineTotalCents(line, r) / 100;
     lines.push(`${title} · ${label} × ${line.qty}  $${lineTotal.toFixed(2)}`);
     syncLineNotes(line).forEach((note, index) => {
       const text = String(note || "").trim();
-      if (text) lines.push(`  Note ${index + 1} / 备注 ${index + 1}: ${text}`);
+      if (!text) return;
+      const surcharge = getUnitNoteSurchargeCents(note);
+      const extra = surcharge ? `  (+${formatMoney(surcharge)} add-on / 加料)` : "";
+      lines.push(`  Note ${index + 1} / 备注 ${index + 1}: ${text}${extra}`);
     });
   }
   lines.push("");
@@ -775,27 +834,37 @@ const renderPricePanelLines = () => {
       const key = escapeHtml(rawKey);
       const title = escapeHtml(priceLineTitle(r.item, line));
       const detail = escapeHtml(priceLineLabel(r.price, line));
-      const unitCents = getLineUnitCents(line, r);
-      const subCents = unitCents * line.qty;
-      const sub = escapeHtml(formatMoney(subCents));
-      const quickNoteButtonsForNote = (note) => quickNoteOptions.map((option) => {
-        const selected = hasQuickNoteText(note, option);
+      const surchargeCents = getLineSurchargeCents(line);
+      const sub = escapeHtml(formatMoney(getLineTotalCents(line, r)));
+      const quickNoteButtonsForNote = (note) => quickNoteGroups.map((group) => {
+        const chips = group.options.map((option) => {
+          const selected = hasQuickNoteText(note, option.text);
+          const priceTag = option.cents
+            ? `<em class="price-list-note-chip-price">+${escapeHtml(formatMoney(option.cents))}</em>`
+            : "";
+          return `
+            <button
+              type="button"
+              class="price-list-note-chip${option.cents ? " price-list-note-chip--paid" : ""}${selected ? " price-list-note-chip--selected" : ""}"
+              data-note-quick
+              data-note-text="${escapeHtml(option.text)}"
+              aria-pressed="${selected ? "true" : "false"}"
+            >${escapeHtml(option.text)}${priceTag}</button>
+          `;
+        }).join("");
         return `
-        <button
-          type="button"
-          class="price-list-note-chip${selected ? " price-list-note-chip--selected" : ""}"
-          data-note-quick
-          data-note-text="${escapeHtml(option)}"
-          aria-pressed="${selected ? "true" : "false"}"
-        >${escapeHtml(option)}</button>
-      `;
+          <div class="price-list-note-group">
+            <span class="price-list-note-group-title">${escapeHtml(group.labelEn)} / ${escapeHtml(group.labelZh)}</span>
+            <span class="price-list-note-quick" aria-label="Quick notes / 快捷备注">
+              ${chips}
+            </span>
+          </div>
+        `;
       }).join("");
       const noteRows = syncLineNotes(line).map((note, index) => `
         <div class="price-list-note-row">
           <span class="price-list-note-label">Note ${index + 1} / 备注 ${index + 1}</span>
-          <span class="price-list-note-quick" aria-label="Quick notes / 快捷备注">
-            ${quickNoteButtonsForNote(note)}
-          </span>
+          ${quickNoteButtonsForNote(note)}
           <textarea
             class="price-list-note-input"
             data-note-input
@@ -816,7 +885,10 @@ const renderPricePanelLines = () => {
             <button type="button" class="price-list-qty-btn" data-qty-down data-line-key="${key}" aria-label="Decrease quantity / 减少">−</button>
             <span class="price-list-line-qty" aria-label="Quantity / 数量">× ${line.qty}</span>
             <button type="button" class="price-list-qty-btn" data-qty-up data-line-key="${key}" aria-label="Increase quantity / 增加">+</button>
-            <span class="price-list-line-sub">${sub}</span>
+            <span class="price-list-line-money">
+              <span class="price-list-line-sub" data-line-sub>${sub}</span>
+              <span class="price-list-line-addon" data-line-addon${surchargeCents ? "" : " hidden"}>incl. add-ons +${escapeHtml(formatMoney(surchargeCents))} / 含加料</span>
+            </span>
             <button type="button" class="price-list-remove" data-line-remove data-line-key="${key}" aria-label="Remove / 删除">×</button>
           </div>
           <div class="price-list-notes">
@@ -826,6 +898,28 @@ const renderPricePanelLines = () => {
       `;
     })
     .join("");
+};
+
+/* Refresh money readouts without re-rendering the panel (keeps textarea focus). */
+const refreshLineMoney = (key) => {
+  const line = priceLines.find((l) => getLineKey(l) === key);
+  const row = priceListLines?.querySelector(`.price-list-line[data-line-key="${CSS.escape(key)}"]`);
+  if (line && row) {
+    const r = resolveLine(line);
+    if (r) {
+      const sub = row.querySelector("[data-line-sub]");
+      const addon = row.querySelector("[data-line-addon]");
+      const surchargeCents = getLineSurchargeCents(line);
+      if (sub) sub.textContent = formatMoney(getLineTotalCents(line, r));
+      if (addon) {
+        addon.hidden = !surchargeCents;
+        addon.textContent = `incl. add-ons +${formatMoney(surchargeCents)} / 含加料`;
+      }
+    }
+  }
+  renderPriceSummaryLines();
+  updatePriceListBadge();
+  updatePriceListTotal();
 };
 
 const renderPriceSummaryLines = () => {
@@ -840,8 +934,12 @@ const renderPriceSummaryLines = () => {
     const r = resolveLine(line);
     if (!r) return "";
     const title = escapeHtml(priceLineTitle(r.item, line));
-    const detail = escapeHtml(priceLineLabel(r.price, line));
-    const sub = escapeHtml(formatMoney(getLineUnitCents(line, r) * line.qty));
+    const surchargeCents = getLineSurchargeCents(line);
+    const detailText = surchargeCents
+      ? `${priceLineLabel(r.price, line)} · +加料 ${formatMoney(surchargeCents)}`
+      : priceLineLabel(r.price, line);
+    const detail = escapeHtml(detailText);
+    const sub = escapeHtml(formatMoney(getLineTotalCents(line, r)));
     return `
       <div class="price-summary-line">
         <span class="price-summary-qty">${line.qty}</span>
@@ -1441,6 +1539,7 @@ priceListPanel?.addEventListener("click", (e) => {
     input.value = toggleQuickNoteText(input.value, quick.dataset.noteText);
     updateLineNote(input.dataset.lineKey, input.dataset.noteIndex, input.value);
     syncQuickNoteChipsForRow(row);
+    refreshLineMoney(input.dataset.lineKey);
     input.focus();
     return;
   }
@@ -1462,6 +1561,7 @@ priceListPanel?.addEventListener("input", (e) => {
   if (!note) return;
   updateLineNote(note.dataset.lineKey, note.dataset.noteIndex, note.value);
   syncQuickNoteChipsForRow(note.closest(".price-list-note-row"));
+  refreshLineMoney(note.dataset.lineKey);
 });
 
 priceListClear?.addEventListener("click", () => clearPriceLines());
@@ -1484,7 +1584,7 @@ priceSummaryCopy?.addEventListener("click", () => {
   const text = formatSummaryText();
   if (!text.trim()) return;
   navigator.clipboard.writeText(text).catch(() => {
-    window.prompt("Copy this text / å¤åˆ¶ä»¥ä¸‹æ–‡æœ¬:", text);
+    window.prompt("Copy this text / 复制以下文本:", text);
   });
 });
 

@@ -3366,7 +3366,27 @@ main {
   gap: 6px;
 }
 
+.price-list-note-group {
+  display: grid;
+  gap: 4px;
+}
+
+.price-list-note-group + .price-list-note-group {
+  margin-top: 4px;
+}
+
+.price-list-note-group-title {
+  color: var(--muted-2);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .price-list-note-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   min-height: 32px;
   padding: 5px 9px;
   border: 1px solid rgba(150, 95, 40, 0.28);
@@ -3378,11 +3398,25 @@ main {
   font-weight: 800;
   line-height: 1.1;
   cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease, color 0.12s ease;
 }
 
 .price-list-note-chip:hover {
   border-color: var(--gold);
   background: var(--gold-soft);
+}
+
+.price-list-note-chip--paid {
+  border-color: rgba(191, 140, 47, 0.6);
+  background: rgba(255, 244, 220, 0.94);
+}
+
+.price-list-note-chip-price {
+  color: #a2691c;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.01em;
 }
 
 .price-list-note-chip--selected {
@@ -3392,9 +3426,27 @@ main {
   box-shadow: inset 0 0 0 1px rgba(143, 31, 23, 0.12);
 }
 
+.price-list-note-chip--selected .price-list-note-chip-price {
+  color: var(--red-deep);
+}
+
 .price-list-note-chip:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
+}
+
+.price-list-line-money {
+  margin-left: auto;
+  display: grid;
+  justify-items: end;
+  gap: 1px;
+}
+
+.price-list-line-addon {
+  color: #a2691c;
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .price-list-note-input {
@@ -6627,5 +6679,262 @@ main {
     font-style: italic;
     color: #7a6d66;
     text-align: center;
+  }
+}
+
+/* =====================================================================
+   v37 desktop refinements — seamless hero, aligned price columns,
+   premium add buttons, receipt-style summary card (mobile untouched)
+   ===================================================================== */
+@media (min-width: 641px) {
+  /* ---- Hero: paint the backdrop in the artwork's own parchment tone and
+     feather the panel edges so the photo reads as part of the page ---- */
+  .menu-hero {
+    border-bottom: 1px solid rgba(203, 172, 134, 0.48);
+    background: linear-gradient(180deg, #f1dcc4 0%, #eed8bd 100%);
+  }
+
+  .hero-dishes-img {
+    filter: none;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  .hero-facts .fact-ico {
+    border-color: rgba(143, 31, 23, 0.3);
+    background: rgba(255, 251, 242, 0.96);
+  }
+
+  /* ---- Alignment: fixed number column so wrapped names stay in line ---- */
+  .item-line {
+    display: grid;
+    grid-template-columns: minmax(34px, max-content) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .menu-item--unnumbered .item-line {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .item-name-zh,
+  .item-note,
+  .review-badge {
+    margin-left: 42px;
+  }
+
+  .menu-item--unnumbered .item-name-zh,
+  .menu-item--unnumbered .item-note,
+  .menu-item--unnumbered .review-badge {
+    margin-left: 0;
+  }
+
+  .item-note {
+    max-width: 58ch;
+  }
+
+  /* ---- Alignment: identical money columns in every option list ---- */
+  .opt-price,
+  .option-cell-price,
+  .rice-choice-price {
+    min-width: 3.7em;
+    text-align: right;
+    justify-content: flex-end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .option-cell {
+    min-height: 46px;
+  }
+
+  .rice-choice {
+    min-height: 34px;
+  }
+
+  .rice-choice-action,
+  .opt-price-wrap,
+  .option-cell-action {
+    gap: 7px;
+  }
+
+  /* ---- Add-to-list buttons: quiet gold ring, unmistakable red on hover ---- */
+  .price-add-btn {
+    border-width: 1.5px;
+    border-color: rgba(191, 140, 47, 0.66);
+    background: linear-gradient(180deg, #fffdf7 0%, #fcf1da 100%);
+    color: var(--gt-wine-deep, #711014);
+    box-shadow:
+      0 1px 2px rgba(82, 35, 22, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease,
+      transform 0.12s ease, box-shadow 0.14s ease;
+  }
+
+  .price-add-btn:hover {
+    border-color: var(--gt-wine, #8f1718);
+    background: linear-gradient(180deg, #a92a22 0%, #8f1718 100%);
+    color: #fffaf1;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 16px rgba(143, 23, 24, 0.3);
+  }
+
+  .price-add-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 2px 6px rgba(143, 23, 24, 0.24);
+  }
+
+  /* ---- Right price card: quiet receipt, not a hanging ribbon ---- */
+  .price-summary-card {
+    overflow: hidden;
+    padding: 20px 20px 22px;
+  }
+
+  .price-summary-card::before {
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 7px;
+    margin-left: 0;
+    border-radius: 0;
+    background:
+      linear-gradient(180deg, #a51d1d 0%, #8f1718 72%, #bf8c2f 72%, #bf8c2f 100%);
+    box-shadow: none;
+    opacity: 1;
+  }
+
+  .price-summary-card::after {
+    opacity: 0.1;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .price-summary-header {
+    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    margin-top: 8px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid rgba(191, 140, 47, 0.4);
+  }
+
+  img.price-summary-icon {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid rgba(143, 23, 24, 0.2);
+    border-radius: 9px;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(82, 35, 22, 0.12);
+  }
+
+  .price-summary-header h2 {
+    font-size: 1.02rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .price-summary-collapse {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(191, 140, 47, 0.38);
+    border-radius: 9px;
+    background: rgba(255, 248, 234, 0.94);
+    color: var(--gt-wine, #8f1718);
+    font-size: 1rem;
+    transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+  }
+
+  .price-summary-collapse:hover {
+    border-color: var(--gt-wine, #8f1718);
+    background: var(--gt-wine, #8f1718);
+    color: #fffaf1;
+  }
+
+  .price-summary-lines {
+    gap: 0;
+    padding: 12px 0 14px;
+  }
+
+  .price-summary-line {
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px dotted rgba(199, 176, 151, 0.58);
+  }
+
+  .price-summary-line:last-of-type {
+    border-bottom: 0;
+  }
+
+  .price-summary-qty {
+    border-color: rgba(191, 140, 47, 0.5);
+    background: rgba(255, 244, 220, 0.9);
+    color: #9a6d1f;
+  }
+
+  .price-summary-more {
+    margin: 8px 0 0;
+    text-align: center;
+  }
+
+  .price-summary-total-row {
+    align-items: baseline;
+    margin-bottom: 14px;
+    font-size: 0.95rem;
+  }
+
+  .price-summary-total-row strong {
+    font-size: 1.62rem;
+    letter-spacing: 0.01em;
+  }
+
+  .price-summary-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .price-summary-actions button {
+    min-height: 40px;
+    border: 1px solid rgba(150, 95, 40, 0.32);
+    border-radius: 8px;
+    background: transparent;
+    color: #6b421e;
+    font-size: 0.86rem;
+    transition: background 0.14s ease, border-color 0.14s ease;
+  }
+
+  .price-summary-actions button:hover {
+    border-color: rgba(191, 140, 47, 0.66);
+    background: rgba(255, 243, 218, 0.9);
+  }
+
+  .price-summary-main {
+    min-height: 46px;
+    border-radius: 8px;
+  }
+
+  /* ---- Wing-priced rows (FCW): span the full row so name, note and
+     stepper each get proper space ---- */
+  .item-list .menu-item--wing-pricing {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 44%);
+    align-items: center;
+  }
+
+  .menu-item--wing-pricing .item-note {
+    max-width: 58ch;
+  }
+
+  /* ---- Slide-out panel notes: group titles + paid chips ---- */
+  .price-list-note-row {
+    gap: 7px;
+    padding: 10px;
+    border: 1px solid rgba(199, 176, 151, 0.4);
+    border-radius: 10px;
+    background: rgba(255, 253, 248, 0.72);
   }
 }
