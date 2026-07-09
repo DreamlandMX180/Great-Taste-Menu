@@ -6309,3 +6309,323 @@ main {
     white-space: normal;
   }
 }
+
+/* =====================================================================
+   v36 desktop menu refinement — printed-menu polish (mobile untouched)
+   ===================================================================== */
+@media (min-width: 641px) {
+  :root {
+    --gt-v36-line: rgba(199, 176, 151, 0.5);
+    --gt-v36-shadow: 0 14px 34px rgba(82, 35, 22, 0.07);
+  }
+
+  /* ---- Hide stray scrollbars (keep edge fade) ---- */
+  .category-tabs {
+    scrollbar-width: none;
+  }
+
+  .category-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-rail {
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 calc(100% - 28px), transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0, #000 calc(100% - 28px), transparent 100%);
+  }
+
+  .category-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ---- Unified card surfaces ---- */
+  .category-rail-card,
+  .price-summary-card,
+  .featured-specials,
+  .menu-section {
+    border-color: var(--gt-v36-line);
+    box-shadow: var(--gt-v36-shadow);
+  }
+
+  /* ---- Left rail ---- */
+  .category-rail-title {
+    font-family: "Noto Serif SC", Georgia, serif;
+    letter-spacing: 0.02em;
+  }
+
+  .category-rail-btn {
+    position: relative;
+    border-radius: 8px;
+  }
+
+  .category-rail-btn[aria-current="true"] {
+    background: rgba(255, 244, 220, 0.88);
+    box-shadow: none;
+  }
+
+  .category-rail-btn[aria-current="true"]::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--gt-wine, #8f1718);
+    box-shadow: 0 0 0 2px rgba(143, 23, 24, 0.18);
+    transform: translateY(-50%);
+  }
+
+  .category-rail-btn[aria-current="true"] {
+    padding-left: 14px;
+  }
+
+  .category-rail-no {
+    border-color: rgba(191, 140, 47, 0.32);
+    background: rgba(255, 248, 230, 0.9);
+    color: #b8892e;
+    font-weight: 700;
+  }
+
+  .category-rail-text strong {
+    font-family: "Noto Serif SC", Georgia, serif;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---- Section headers — chapter ornament ---- */
+  .section-header {
+    border-bottom-color: rgba(191, 140, 47, 0.28);
+  }
+
+  .section-title {
+    position: relative;
+    padding-bottom: 14px;
+  }
+
+  .section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(168px, 42%);
+    height: 7px;
+    background:
+      linear-gradient(90deg, transparent 0, transparent 46%, #bf8c2f 46%, #bf8c2f 54%, transparent 54%),
+      linear-gradient(#bf8c2f, #bf8c2f) left 0 top 3px / 100% 1px no-repeat,
+      linear-gradient(#bf8c2f, #bf8c2f) left 0 bottom 3px / 100% 1px no-repeat;
+    opacity: 0.78;
+  }
+
+  .section-subtitle {
+    letter-spacing: 0.04em;
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  .section-count {
+    display: grid;
+    place-items: center;
+    min-width: 36px;
+    height: 36px;
+    margin-top: 4px;
+    border: 1.5px solid rgba(191, 140, 47, 0.55);
+    border-radius: 999px;
+    background: rgba(255, 250, 240, 0.88);
+    color: #a77423;
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-align: center;
+    box-shadow: inset 0 0 0 3px rgba(255, 248, 230, 0.9);
+  }
+
+  /* ---- Dish rows ---- */
+  .menu-item {
+    position: relative;
+    border-bottom-color: rgba(199, 176, 151, 0.22);
+    transition: background 0.15s ease;
+  }
+
+  .menu-item:hover {
+    background: rgba(255, 248, 232, 0.55);
+  }
+
+  .menu-item:hover::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    border-radius: 2px;
+    background: rgba(191, 140, 47, 0.72);
+  }
+
+  .item-number {
+    border: 1.5px solid rgba(191, 140, 47, 0.42);
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 55%),
+      #fff3d6;
+    color: #9a6d1f;
+    font-weight: 800;
+    box-shadow: inset 0 0 0 2px rgba(255, 250, 240, 0.85);
+  }
+
+  .item-name-en {
+    font-family: "Noto Serif SC", Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: 850;
+    letter-spacing: 0.01em;
+    color: #1a1416;
+    transition: color 0.15s ease;
+  }
+
+  .menu-item:hover .item-name-en {
+    color: var(--gt-wine, #8f1718);
+  }
+
+  .item-name-zh {
+    color: #5a4e48;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---- Prices: de-box, keep + size/position ---- */
+  .price-value,
+  .opt-price,
+  .rice-choice-price,
+  .option-cell-price {
+    font-family: "Noto Serif SC", Georgia, serif;
+    font-weight: 900;
+    color: var(--gt-wine, #8f1718);
+  }
+
+  .price-value {
+    font-size: 1.1rem;
+  }
+
+  .option-cell-price {
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 0;
+    font-size: 0.98rem;
+    justify-content: flex-end;
+  }
+
+  .rice-choice-price {
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+
+  .price-add-btn {
+    border-width: 1.5px;
+    border-color: rgba(191, 140, 47, 0.55);
+    background: rgba(255, 252, 245, 0.96);
+    color: var(--gt-wine-deep, #711014);
+    box-shadow: none;
+    transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease, transform 0.12s ease;
+  }
+
+  .price-add-btn:hover {
+    border-color: #bf8c2f;
+    background: #f0c56a;
+    color: #5a220f;
+  }
+
+  .option-cell .price-add-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* ---- SMALL / LARGE rice matrix: paper price table ---- */
+  .menu-item--rice-options .rice-size-group,
+  .menu-item--rice-options .rice-choice,
+  .menu-item--rice-options .rice-meat-choices .rice-choice,
+  .menu-section--rice-options .rice-size-group,
+  .menu-section--rice-options .rice-choice {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .menu-item--rice-options .rice-size-group,
+  .menu-section--rice-options .rice-size-group {
+    border-top: 1px solid rgba(191, 140, 47, 0.34) !important;
+    padding: 10px 4px 4px;
+  }
+
+  .menu-item--rice-options .rice-size-heading,
+  .menu-section--rice-options .rice-size-heading {
+    border-bottom: 0;
+    padding-bottom: 8px;
+  }
+
+  .menu-item--rice-options .rice-size-heading span,
+  .menu-section--rice-options .rice-size-heading span {
+    color: #a77423;
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+  }
+
+  .menu-item--rice-options .rice-choice + .rice-choice,
+  .menu-item--rice-options .rice-basic-choices .rice-choice + .rice-choice {
+    border-top: 1px dotted rgba(199, 176, 151, 0.4) !important;
+  }
+
+  .menu-item--rice-options {
+    border: 0 !important;
+    border-bottom: 1px solid rgba(199, 176, 151, 0.22) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .option-table {
+    border: 0;
+  }
+
+  .option-cell {
+    border-bottom-color: rgba(199, 176, 151, 0.32);
+  }
+
+  /* ---- Right price card: full hanging ribbon ---- */
+  .price-summary-card {
+    overflow: visible;
+    padding-top: 28px;
+  }
+
+  .price-summary-card::before {
+    top: -10px;
+    left: 50%;
+    right: auto;
+    width: 72px;
+    height: 68px;
+    margin-left: -36px;
+    border-radius: 0 0 14px 14px;
+    background:
+      url("assets/logo-mark.webp") center 10px / 40px 40px no-repeat,
+      linear-gradient(180deg, #b01d1e 0%, #8f1718 100%);
+    box-shadow:
+      0 10px 18px rgba(120, 20, 18, 0.28),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.22);
+    opacity: 1;
+  }
+
+  .price-summary-card::after {
+    border-radius: 0 0 8px 8px;
+  }
+
+  .price-summary-header {
+    margin-top: 52px;
+  }
+
+  .price-summary-empty {
+    font-style: italic;
+    color: #7a6d66;
+    text-align: center;
+  }
+}
