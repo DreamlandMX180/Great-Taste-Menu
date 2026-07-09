@@ -6075,7 +6075,7 @@ main {
 
   .menu-hero {
     isolation: isolate;
-    grid-template-columns: minmax(390px, 42%) minmax(0, 58%);
+    grid-template-columns: minmax(390px, 45%) minmax(0, 55%);
     width: 100vw;
     min-height: clamp(420px, 31vw, 560px);
     margin-left: calc(50% - 50vw);
@@ -6106,8 +6106,8 @@ main {
   }
 
   .menu-hero h1::after {
-    left: clamp(292px, 23.4vw, 390px);
-    top: 44%;
+    left: clamp(238px, 21vw, 330px);
+    top: 40%;
     width: 42px;
     min-height: 62px;
   }
@@ -6117,8 +6117,8 @@ main {
   }
 
   .hero-facts {
-    grid-template-columns: minmax(210px, 1fr) minmax(230px, 1fr);
-    max-width: 620px;
+    grid-template-columns: minmax(210px, 1fr) auto;
+    max-width: 640px;
   }
 
   .hero-facts div {
@@ -6135,21 +6135,31 @@ main {
     min-width: 0;
   }
 
+  .hero-facts div:last-child dd {
+    white-space: nowrap;
+  }
+
   .hero-media {
     align-self: center;
     min-height: clamp(360px, 30vw, 520px);
-    justify-content: flex-end;
+    justify-content: center;
     overflow: visible;
   }
 
   .hero-dishes-img {
-    width: min(100%, 760px);
-    max-height: clamp(330px, 29vw, 500px);
+    width: min(100%, 820px);
+    max-height: clamp(350px, 31vw, 540px);
     object-fit: contain;
     object-position: center;
     transform: none;
-    -webkit-mask-image: none;
-    mask-image: none;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 6%, #000 93%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 6%, #000 93%, transparent 100%);
+    mask-composite: intersect;
   }
 
   .menu-hero .plum-branch {
@@ -6180,6 +6190,16 @@ main {
   .menu-hero {
     grid-template-columns: minmax(300px, 46%) minmax(0, 54%);
     min-height: 284px;
+  }
+}
+
+/* 641-1080px: hero stacks image-left / copy-right and the title renders on one
+   line, so the seal must clear the full "Great Taste" width. */
+@media (min-width: 641px) and (max-width: 1080px) {
+  .menu-hero h1::after {
+    left: auto;
+    right: clamp(8px, 3vw, 40px);
+    top: 42%;
   }
 }
 
