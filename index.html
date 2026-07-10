@@ -121,13 +121,43 @@
             <label for="menu-search">Search menu / 搜索菜单</label>
             <div class="search-box">
               <span class="search-icon" aria-hidden="true"></span>
-              <input id="menu-search" type="search" autocomplete="off" placeholder="Search dishes, ingredients...">
+              <input id="menu-search" type="search" autocomplete="off" placeholder="Search all dishes / 搜索全部菜品">
             </div>
           </form>
           <nav class="category-shell" aria-label="Menu categories">
+            <button
+              id="category-picker-toggle"
+              class="category-picker-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="category-picker-panel"
+              aria-haspopup="dialog"
+            >
+              <span>Browse categories / 分类选菜</span>
+              <strong id="category-picker-current">All / 全部</strong>
+            </button>
             <div id="category-tabs" class="category-tabs"></div>
           </nav>
         </div>
+      </section>
+
+      <div id="category-picker-backdrop" class="category-picker-backdrop" hidden></div>
+      <section
+        id="category-picker-panel"
+        class="category-picker-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="category-picker-title"
+        hidden
+      >
+        <header class="category-picker-header">
+          <div>
+            <p>Quick browse / 快速浏览</p>
+            <h2 id="category-picker-title">Choose a menu category / 选择菜单分类</h2>
+          </div>
+          <button id="category-picker-close" type="button" aria-label="Close category picker / 关闭分类选择">×</button>
+        </header>
+        <div id="category-picker-list" class="category-picker-list"></div>
       </section>
 
       <div class="menu-shell">
@@ -235,6 +265,7 @@
     </footer>
 
     <script src="menu-data.js?v=22"></script>
-    <script src="app.js?v=23"></script>
+    <script src="menu-search.js?v=1"></script>
+    <script src="app.js?v=24"></script>
   </body>
 </html>

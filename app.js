@@ -1,6 +1,12 @@
 const menuRoot = document.querySelector("#menu-root");
 const categoryTabs = document.querySelector("#category-tabs");
 const categoryRail = document.querySelector("#category-rail");
+const categoryPickerToggle = document.querySelector("#category-picker-toggle");
+const categoryPickerCurrent = document.querySelector("#category-picker-current");
+const categoryPickerBackdrop = document.querySelector("#category-picker-backdrop");
+const categoryPickerPanel = document.querySelector("#category-picker-panel");
+const categoryPickerList = document.querySelector("#category-picker-list");
+const categoryPickerClose = document.querySelector("#category-picker-close");
 const searchInput = document.querySelector("#menu-search");
 const resultCount = document.querySelector("#result-count");
 const clearSearch = document.querySelector("#clear-search");
@@ -26,6 +32,10 @@ const priceSummaryClear = document.querySelector("[data-price-summary-clear]");
 const priceSummaryCopy = document.querySelector("[data-price-summary-copy]");
 
 let activeCategory = "all";
+let categoryPickerOpen = false;
+
+const menuSearch = window.menuSearch;
+if (!menuSearch) throw new Error("menu-search.js must load before app.js");
 
 const scrollMotionBehavior = () =>
   (window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
@@ -180,22 +190,6 @@ const findMenuItem = ({ categoryId, number, imageSrc, imageFallback, imageAlt })
   const key = String(number ?? "");
   const item = category.items.find((entry) => itemKey(entry) === key || (key && String(entry.number) === key));
   return item ? { item, category, imageSrc, imageFallback, imageAlt } : null;
-};
-
-const matchesSearch = (item, category, query) => {
-  if (!query) return true;
-  const searchable = [
-    item.number,
-    item.nameEn,
-    item.nameZh,
-    item.note,
-    item.groupEn || "",
-    category.categoryEn,
-    category.categoryZh,
-    item.wingPricing ? `${item.wingPricing.minQty} pcs min ${item.wingPricing.maxQty} max ${item.wingPricing.unitPrice} per wing` : "",
-    ...(item.prices || []).map((price) => `${price.labelEn || ""} ${price.labelZh || ""} ${price.amount}`)
-  ].join(" ");
-  return normalize(searchable).includes(query);
 };
 
 const escapeHtml = (value) =>
@@ -1011,7 +1005,7 @@ const setPriceListOpen = (open) => {
 };
 
 const flashMenuItemForButton = (btn) => {
-  const item = btn?.closest?.(".menu-item");
+  const item = btn?.closest?.(".menu-item, .quick-search-result");
   if (!item) return;
   item.classList.add("menu-item--add-flash");
   window.setTimeout(() => item.classList.remove("menu-item--add-flash"), 220);
@@ -1271,17 +1265,101 @@ const renderCategories = () => {
       `;
     }).join("");
   }
+  if (categoryPickerList) {
+    categoryPickerList.innerHTML = tabs.map((category) => {
+      const selected = category.id === activeCategory;
+      const label = category.categoryZh
+        ? `${category.categoryEn} / ${category.categoryZh}`
+        : category.categoryEn;
+      return `
+        <button
+          type="button"
+          class="category-picker-btn"
+          data-category-picker="${escapeHtml(category.id)}"
+          aria-current="${selected ? "true" : "false"}"
+        >${escapeHtml(label)}</button>
+      `;
+    }).join("");
+  }
+  if (categoryPickerCurrent) {
+    const current = tabs.find((category) => category.id === activeCategory) || tabs[0];
+    categoryPickerCurrent.textContent = current.categoryZh
+      ? `${current.categoryEn} / ${current.categoryZh}`
+      : current.categoryEn;
+  }
   categoryTabs.setAttribute("aria-label", "Menu categories / 菜单分类");
+};
+
+const setCategoryPickerOpen = (open) => {
+  categoryPickerOpen = open;
+  if (categoryPickerBackdrop) categoryPickerBackdrop.hidden = !open;
+  if (categoryPickerPanel) categoryPickerPanel.hidden = !open;
+  categoryPickerToggle?.setAttribute("aria-expanded", open ? "true" : "false");
+  if (open) {
+    window.requestAnimationFrame(() => categoryPickerClose?.focus());
+  } else {
+    categoryPickerToggle?.focus();
+  }
+};
+
+const renderQuickSearchResult = ({ category, item }) => {
+  const anchor = itemAnchorId(category.id, itemKey(item));
+  const optionId = `${anchor}-options`;
+  const number = item.number ? `<span class="quick-search-number">#${escapeHtml(item.number)}</span>` : "";
+  const zh = item.nameZh ? `<span class="quick-search-zh">${escapeHtml(item.nameZh)}</span>` : "";
+  const spicy = item.spicy ? `<span class="spicy-mark" title="Spicy / 辣">辣 / Spicy</span>` : "";
+  const categoryLabel = category.categoryZh
+    ? `${category.categoryEn} / ${category.categoryZh}`
+    : category.categoryEn;
+  const isWingPriced = Boolean(item.wingPricing);
+  const isRiceOptionItem = riceOptionCategoryIds.has(category.id) && Boolean(getRiceOptionMatrix(item));
+  const canAddDirectly = !isWingPriced && item.prices.length === 1;
+  const firstPrice = item.prices[0];
+  const optionContent = isWingPriced
+    ? renderWingOrder(category, item, "search")
+    : isRiceOptionItem
+    ? renderRiceOptionMatrix(category, item)
+    : renderOptionTable(category, item);
+  const action = canAddDirectly
+    ? `<span class="quick-search-price">$${escapeHtml(firstPrice.amount)}</span>${priceAddButtonHtml(category.id, itemKey(item), 0)}`
+    : `<span class="quick-search-price">From $${escapeHtml(getLowestPriceAmount(item))}</span>
+      <button type="button" class="quick-search-options-toggle" data-search-result-toggle aria-expanded="false" aria-controls="${optionId}">Options / 选价格</button>`;
+
+  return `
+    <article class="quick-search-result" id="quick-${anchor}">
+      <div class="quick-search-result-main">
+        <div class="quick-search-name-line">
+          ${number}
+          <strong>${escapeHtml(item.nameEn)}</strong>
+          ${spicy}
+        </div>
+        ${zh}
+        <span class="quick-search-category">${escapeHtml(categoryLabel)}</span>
+      </div>
+      <div class="quick-search-action">${action}</div>
+      ${canAddDirectly ? "" : `<div id="${optionId}" class="quick-search-result-options" hidden>${optionContent}</div>`}
+    </article>
+  `;
 };
 
 const renderMenu = () => {
   const query = normalize(searchInput.value);
+  if (query) {
+    const results = menuSearch.searchMenu(window.menuData, query);
+    menuRoot.innerHTML = results.length
+      ? `<div class="quick-search-results">${results.map(renderQuickSearchResult).join("")}</div>`
+      : `<div class="no-results"><strong>No matching menu items / 没有找到匹配菜品</strong></div>`;
+    resultCount.textContent = `${results.length} quick results across all categories / 全菜单找到 ${results.length} 道菜`;
+    clearSearch.hidden = false;
+    return;
+  }
+
   let visibleCount = 0;
 
   const sections = window.menuData.map((category) => {
     if (activeCategory !== "all" && category.id !== activeCategory) return "";
 
-    const items = category.items.filter((item) => matchesSearch(item, category, query));
+    const items = category.items;
     if (!items.length) return "";
 
     visibleCount += items.length;
@@ -1325,7 +1403,10 @@ const renderMenu = () => {
 };
 
 const selectCategory = (categoryId) => {
-  activeCategory = categoryId;
+  const next = menuSearch.stateForCategory(categoryId);
+  activeCategory = next.activeCategory;
+  searchInput.value = next.query;
+  if (categoryPickerOpen) setCategoryPickerOpen(false);
   renderCategories();
   renderMenu();
   syncUrlHashFromFilter();
@@ -1342,6 +1423,15 @@ categoryRail?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-category]");
   if (!button) return;
   selectCategory(button.dataset.category);
+});
+
+categoryPickerToggle?.addEventListener("click", () => setCategoryPickerOpen(!categoryPickerOpen));
+categoryPickerClose?.addEventListener("click", () => setCategoryPickerOpen(false));
+categoryPickerBackdrop?.addEventListener("click", () => setCategoryPickerOpen(false));
+categoryPickerList?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-category-picker]");
+  if (!button) return;
+  selectCategory(button.dataset.categoryPicker);
 });
 
 categoryTabs.addEventListener("keydown", (event) => {
@@ -1377,6 +1467,19 @@ categoryTabs.addEventListener("focusin", (event) => {
 
 menuRoot?.addEventListener("click", (event) => {
   if (handleWingStepperClick(event)) return;
+
+  const searchToggle = event.target.closest("[data-search-result-toggle]");
+  if (searchToggle) {
+    const result = searchToggle.closest(".quick-search-result");
+    const options = result?.querySelector(".quick-search-result-options");
+    if (!options) return;
+    const open = options.hidden;
+    options.hidden = !open;
+    result.classList.toggle("quick-search-result--open", open);
+    searchToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    searchToggle.textContent = open ? "Hide options / 收起" : "Options / 选价格";
+    return;
+  }
 
   const optionToggle = event.target.closest("[data-option-toggle]");
   if (optionToggle) {
@@ -1475,6 +1578,12 @@ featuredRoot?.addEventListener("focusout", (event) => {
 });
 
 searchInput.addEventListener("input", () => {
+  const next = menuSearch.stateForSearch(activeCategory, searchInput.value);
+  if (next.activeCategory !== activeCategory) {
+    activeCategory = next.activeCategory;
+    syncUrlHashFromFilter();
+    renderCategories();
+  }
   renderMenu();
 });
 
@@ -1490,6 +1599,13 @@ clearSearch.addEventListener("click", () => {
 });
 
 window.addEventListener("hashchange", handleRouteFromHash);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && categoryPickerOpen) {
+    event.preventDefault();
+    setCategoryPickerOpen(false);
+  }
+});
 
 window.addEventListener("resize", () => {
   updateScrollMargin();
