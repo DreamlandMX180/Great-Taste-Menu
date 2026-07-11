@@ -262,9 +262,9 @@ window.menuData = [
     categoryZh: "伊面",
     note: "Thick noodles with gravy and onions.",
     items: [
-      { number: "54", nameEn: "Plain Yat", nameZh: "原味伊面", prices: [{ amount: "7.00" }] },
-      { number: "55", nameEn: "Pork Yat", nameZh: "叉烧伊面", prices: [{ amount: "8.00" }] },
-      { number: "56", nameEn: "Chicken Yat", nameZh: "鸡肉伊面", prices: [{ amount: "8.00" }] },
+      { number: "54", nameEn: "Plain Yat", nameZh: "原味伊面", prices: [{ amount: "9.00" }] },
+      { number: "55", nameEn: "Pork Yat", nameZh: "叉烧伊面", prices: [{ amount: "9.00" }] },
+      { number: "56", nameEn: "Chicken Yat", nameZh: "鸡肉伊面", prices: [{ amount: "8.50" }] },
       { number: "57", nameEn: "Shrimp Yat", nameZh: "鲜虾伊面", prices: [{ amount: "9.00" }] },
       { number: "58", nameEn: "Beef Yat", nameZh: "牛肉伊面", prices: [{ amount: "9.00" }] }
     ]
