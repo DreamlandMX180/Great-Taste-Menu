@@ -152,7 +152,7 @@ const scrollToCategory = (categoryId) => {
 const featuredSpecials = [
   {
     categoryId: "seafood",
-    number: "111",
+    number: "110",
     imageSrc: "assets/general-tso-shrimp.webp",
     imageFallback: "assets/general-tso-shrimp.jpg",
     imageAlt: "General Tso's shrimp over rice"
@@ -168,7 +168,7 @@ const featuredSpecials = [
     categoryId: "appetizers",
     number: "14",
     imageSrc: "assets/salt-pepper-wings.webp",
-    imageAlt: "Salt and pepper chicken wings"
+    imageAlt: "Salt & Pepper chicken wings"
   },
   {
     categoryId: "appetizers",

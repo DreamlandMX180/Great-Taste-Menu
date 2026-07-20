@@ -116,15 +116,15 @@ window.menuData = [
       { number: "A", nameEn: "Fried Crab Sticks (5)", nameZh: "炸蟹棒", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.00" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.00" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
       { number: "B", nameEn: "Fried Chicken Gizzards", nameZh: "炸鸡胗", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.00" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.00" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
       { number: "C", nameEn: "Chicken Wings (4)", nameZh: "鸡翅", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
-      { number: "D", nameEn: "Spare Ribs Tips", nameZh: "排骨尖", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
+      { number: "D", nameEn: "Spare Rib Tips", nameZh: "排骨尖", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
       { number: "E", nameEn: "Whiting Fish (2 pcs)", nameZh: "炸鳕鱼", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
-      { number: "F", nameEn: "Chicken Finger (4)", nameZh: "炸鸡柳", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
+      { number: "F", nameEn: "Chicken Fingers (4)", nameZh: "炸鸡柳", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
       { number: "G", nameEn: "Boneless Spare Ribs", nameZh: "无骨排", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "9.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "11.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "12.00" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "12.00" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "11.00" }] },
       { number: "H", nameEn: "Fried Shrimp in Basket", nameZh: "炸虾篮", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
       { number: "I", nameEn: "Pork Chop (2)", nameZh: "炸猪排", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
       { number: "J", nameEn: "Chicken Nuggets (10)", nameZh: "鸡米花", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
       { number: "K", nameEn: "Fried Scallops (8)", nameZh: "炸干贝", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] },
-      { number: "L", nameEn: "Chicken Wing with Garlic Sauce (4)", nameZh: "鱼香鸡翅", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "8.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "9.75" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "11.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "11.50" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "11.00" }], spicy: true },
+      { number: "L", nameEn: "Chicken Wings with Garlic Sauce (4)", nameZh: "鱼香鸡翅", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "8.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "9.75" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "11.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "11.50" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "11.00" }], spicy: true },
       { number: "M", nameEn: "Popcorn Chicken", nameZh: "爆米花鸡", prices: [{ labelEn: "Plain", labelZh: "单点", amount: "6.00" }, { labelEn: "White Rice / Fried Rice / Fries", labelZh: "白饭/炒饭/薯条", amount: "8.00" }, { labelEn: "Chicken/Pork Fried Rice", labelZh: "鸡/叉烧炒饭", amount: "9.50" }, { labelEn: "Beef/Shrimp Fried Rice", labelZh: "牛/虾炒饭", amount: "9.75" }, { labelEn: "Lo Mein", labelZh: "捞面", amount: "9.50" }] }
     ]
   },
@@ -160,7 +160,7 @@ window.menuData = [
       { number: "13", nameEn: "Steamed Shrimp (20)", nameZh: "蒸虾", prices: [{ amount: "7.00" }] },
       {
         number: "14",
-        nameEn: "Salt and Pepper Wings",
+        nameEn: "Salt & Pepper Wings",
         nameZh: "椒盐鸡翅",
         note: "$1 per wing. Minimum 3 wings. / 每只$1，三只起售。",
         prices: [
@@ -190,8 +190,8 @@ window.menuData = [
           { labelEn: "Per wing", labelZh: "每只", amount: "1.00" }
         ]
       },
-      { number: "15", nameEn: "Shrimp on the Stick (5)", nameZh: "串烧虾", prices: [{ amount: "2.00" }] },
-      { number: "16", nameEn: "Jumbo Shrimp on the Stick (5)", nameZh: "串烧大虾", prices: [{ amount: "5.00" }] }
+      { number: "15", nameEn: "Shrimp on a Stick (5)", nameZh: "串烧虾", prices: [{ amount: "2.00" }] },
+      { number: "16", nameEn: "Jumbo Shrimp on a Stick (5)", nameZh: "串烧大虾", prices: [{ amount: "5.00" }] }
     ]
   },
   {
@@ -273,11 +273,11 @@ window.menuData = [
     categoryZh: "伊面",
     note: "Thick noodles with gravy and onions.",
     items: [
-      { number: "54", nameEn: "Plain Yat", nameZh: "原味伊面", prices: [{ amount: "9.00" }] },
-      { number: "55", nameEn: "Pork Yat", nameZh: "叉烧伊面", prices: [{ amount: "9.00" }] },
-      { number: "56", nameEn: "Chicken Yat", nameZh: "鸡肉伊面", prices: [{ amount: "8.50" }] },
-      { number: "57", nameEn: "Shrimp Yat", nameZh: "鲜虾伊面", prices: [{ amount: "9.00" }] },
-      { number: "58", nameEn: "Beef Yat", nameZh: "牛肉伊面", prices: [{ amount: "9.00" }] }
+      { number: "54", nameEn: "Plain Yat Mein", nameZh: "原味伊面", prices: [{ amount: "9.00" }] },
+      { number: "55", nameEn: "Pork Yat Mein", nameZh: "叉烧伊面", prices: [{ amount: "9.00" }] },
+      { number: "56", nameEn: "Chicken Yat Mein", nameZh: "鸡肉伊面", prices: [{ amount: "8.50" }] },
+      { number: "57", nameEn: "Shrimp Yat Mein", nameZh: "鲜虾伊面", prices: [{ amount: "9.00" }] },
+      { number: "58", nameEn: "Beef Yat Mein", nameZh: "牛肉伊面", prices: [{ amount: "9.00" }] }
     ]
   },
   {
@@ -410,13 +410,12 @@ window.menuData = [
       { number: "102", nameEn: "Shrimp with Broccoli", nameZh: "虾西兰花", prices: chickenSeafoodRicePrices },
       { number: "103", nameEn: "Shrimp with Black Bean Sauce", nameZh: "豆豉虾", prices: chickenSeafoodRicePrices },
       { number: "104", nameEn: "Shrimp with Mushrooms", nameZh: "蘑菇虾", prices: chickenSeafoodRicePrices },
-      { number: "105", nameEn: "Shrimp with Black Bean Sauce", nameZh: "豆豉虾", prices: chickenSeafoodRicePrices },
-      { number: "106", nameEn: "Curry Shrimp with Onion", nameZh: "咖喱虾", prices: chickenSeafoodRicePrices, spicy: true },
-      { number: "107", nameEn: "Shrimp in Garlic Sauce", nameZh: "鱼香虾", prices: chickenSeafoodRicePrices, spicy: true },
-      { number: "108", nameEn: "Szechuan Shrimp", nameZh: "四川虾", prices: chickenSeafoodRicePrices, spicy: true },
-      { number: "109", nameEn: "Hunan Shrimp", nameZh: "湖南虾", prices: chickenSeafoodRicePrices, spicy: true },
-      { number: "110", nameEn: "Hot & Spicy Shrimp", nameZh: "香辣虾", prices: chickenSeafoodRicePrices, spicy: true },
-      { number: "111", nameEn: "General Tso's Shrimp", nameZh: "左宗虾", prices: premiumShrimpRicePrices, spicy: true }
+      { number: "105", nameEn: "Curry Shrimp with Onion", nameZh: "咖喱虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "106", nameEn: "Shrimp in Garlic Sauce", nameZh: "鱼香虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "107", nameEn: "Szechuan Shrimp", nameZh: "四川虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "108", nameEn: "Hunan Shrimp", nameZh: "湖南虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "109", nameEn: "Hot & Spicy Shrimp", nameZh: "香辣虾", prices: chickenSeafoodRicePrices, spicy: true },
+      { number: "110", nameEn: "General Tso's Shrimp", nameZh: "左宗虾", prices: premiumShrimpRicePrices, spicy: true }
     ]
   },
   {
@@ -429,13 +428,13 @@ window.menuData = [
       { number: "C2", nameEn: "Roast Pork Egg Foo Young", nameZh: "叉烧芙蓉蛋", prices: [{ amount: "12.00" }] },
       { number: "C3", nameEn: "Pepper Steak with Onion", nameZh: "青椒牛肉", prices: [{ amount: "12.00" }] },
       { number: "C4", nameEn: "Shrimp with Lobster Sauce", nameZh: "龙虾酱虾", prices: [{ amount: "12.00" }] },
-      { number: "C5", nameEn: "Bar-B-Q Spare Ribs", nameZh: "烤排骨", prices: [{ amount: "12.00" }] },
+      { number: "C5", nameEn: "BBQ Spare Ribs", nameZh: "烤排骨", prices: [{ amount: "12.00" }] },
       { number: "C6", nameEn: "Moo Goo Gai Pan", nameZh: "蘑菇鸡片", prices: [{ amount: "12.00" }] },
       { number: "C7", nameEn: "Sweet & Sour Pork or Chicken", nameZh: "甜酸肉或甜酸鸡", prices: [{ amount: "12.00" }] },
       { number: "C8", nameEn: "Roast Pork Lo Mein", nameZh: "叉烧捞面", prices: [{ amount: "12.00" }] },
       { number: "C9", nameEn: "Beef or Shrimp with Broccoli", nameZh: "牛肉或虾西兰花", prices: [{ amount: "12.00" }] },
       { number: "C10", nameEn: "Chicken or Roast Pork with Broccoli", nameZh: "鸡肉或叉烧西兰花", prices: [{ amount: "12.00" }] },
-      { number: "C11", nameEn: "Sweet Spare Rib Tips", nameZh: "甜酸排骨尖", prices: [{ amount: "12.00" }] },
+      { number: "C11", nameEn: "Sweet & Sour Spare Rib Tips", nameZh: "甜酸排骨尖", prices: [{ amount: "12.00" }] },
       { number: "C12", nameEn: "Chicken with Garlic Sauce", nameZh: "鱼香鸡", prices: [{ amount: "12.00" }], spicy: true },
       { number: "C13", nameEn: "Kung Po Chicken", nameZh: "宫保鸡丁", prices: [{ amount: "12.00" }], spicy: true },
       { number: "C14", nameEn: "General Tso's Chicken", nameZh: "左宗鸡", prices: [{ amount: "12.00" }], spicy: true }
@@ -458,7 +457,7 @@ window.menuData = [
       { number: "9", nameEn: "Beef & Scallops", nameZh: "干贝牛", note: "Tender beef with fresh scallops & vegetables in mild brown sauce, served sizzling.", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "10", nameEn: "Seafood Delight", nameZh: "海鲜大会", note: "Lobster, jumbo shrimp, scallops, crab meat with Chinese vegetables.", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }] },
       { number: "11", nameEn: "Sesame Shrimp", nameZh: "芝麻虾", note: "Jumbo shrimp in large chunks, marinated, fried crispy, sauteed with red peppers & sesame seeds in tangy sauce.", prices: sesameShrimpRicePrices },
-      { number: "12", nameEn: "Kamphon Delight", nameZh: "炒三鲜", note: "Beef, chicken, roast pork with vegetables in hot pepper sauce.", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
+      { number: "12", nameEn: "Stir-Fried Three Delights", nameZh: "炒三鲜", note: "Beef, chicken, roast pork with vegetables in hot pepper sauce.", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
       { number: "13", nameEn: "Hunan Triple Crown", nameZh: "湖南三样", note: "Jumbo shrimp, beef, chicken with vegetables in hot garlic sauce.", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true },
       { number: "14", nameEn: "Orange Chicken", nameZh: "陈皮鸡", note: "Sliced chicken dry-sauteed with orange peel in chef's special hot sauce.", prices: [{ labelEn: "Pt", labelZh: "小", amount: "10.00" }, { labelEn: "Qt", labelZh: "大", amount: "15.00" }], spicy: true }
     ]
