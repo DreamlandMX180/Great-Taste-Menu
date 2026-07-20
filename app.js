@@ -175,6 +175,12 @@ const featuredSpecials = [
     number: "FCW",
     imageSrc: "assets/chicken wings.png",
     imageAlt: "Fried chicken wings"
+  },
+  {
+    categoryId: "appetizers",
+    number: "BBW",
+    imageSrc: "assets/bbq-wing.png",
+    imageAlt: "BBQ chicken wings"
   }
 ];
 

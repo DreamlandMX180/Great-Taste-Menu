@@ -179,6 +179,17 @@ window.menuData = [
           { labelEn: "Per wing", labelZh: "每只", amount: "1.50" }
         ]
       },
+      {
+        number: "BBW",
+        nameEn: "BBQ Wings",
+        nameZh: "BBQ鸡翅",
+        note: "$1 per wing. Minimum 3 wings; maximum 66 wings. / 每只$1，三只起售，最多66只。",
+        wingPricing: { unitPrice: 1, minQty: 3, maxQty: 66 },
+        prices: [
+          { labelEn: "3 pcs min", labelZh: "三只起", amount: "3.00" },
+          { labelEn: "Per wing", labelZh: "每只", amount: "1.00" }
+        ]
+      },
       { number: "15", nameEn: "Shrimp on the Stick (5)", nameZh: "串烧虾", prices: [{ amount: "2.00" }] },
       { number: "16", nameEn: "Jumbo Shrimp on the Stick (5)", nameZh: "串烧大虾", prices: [{ amount: "5.00" }] }
     ]
