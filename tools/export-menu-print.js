@@ -8,7 +8,7 @@ const { execFileSync } = require("child_process");
 
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "outputs", "great-taste-print-menu");
-const stamp = "2026-07-11";
+const stamp = "2026-07-20";
 const csvName = `Great Taste Menu Data ${stamp}.csv`;
 const xlsxName = `Great Taste Printable Menu ${stamp}.xlsx`;
 
