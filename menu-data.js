@@ -150,7 +150,7 @@ window.menuData = [
       { number: "3", nameEn: "Shrimp Egg Roll", nameZh: "虾蛋卷", prices: [{ amount: "2.00" }] },
       { number: "4", nameEn: "Egg Roll", nameZh: "鸡蛋卷", prices: [{ amount: "2.00" }] },
       { number: "5", nameEn: "Cheese Steak Egg Roll", nameZh: "乳酪牛排蛋卷", prices: [{ amount: "2.00" }] },
-      { number: "6", nameEn: "Chinese Donuts (10)", nameZh: "甜甜圈", prices: [{ amount: "4.00" }] },
+      { number: "6", nameEn: "Chinese Donuts (10)", nameZh: "甜甜圈", prices: [{ amount: "4.50" }] },
       { number: "7", nameEn: "French Fries", nameZh: "炸薯条", prices: [{ labelEn: "Sm", labelZh: "小", amount: "2.25" }, { labelEn: "Lg", labelZh: "大", amount: "4.50" }] },
       { number: "8", nameEn: "Fried Scallops (8)", nameZh: "炸干贝", prices: [{ amount: "6.00" }] },
       { number: "9", nameEn: "Onion Rings (10)", nameZh: "洋葱圈", prices: [{ amount: "3.00" }] },
@@ -218,13 +218,13 @@ window.menuData = [
     categoryEn: "Fried Rice",
     categoryZh: "炒饭",
     items: [
-      { number: "27", nameEn: "Plain Fried Rice", nameZh: "原味炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.00" }] },
+      { number: "27", nameEn: "Plain Fried Rice", nameZh: "原味炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.50" }, { labelEn: "Qt", labelZh: "大", amount: "8.50" }] },
       { number: "28", nameEn: "Vegetable Fried Rice", nameZh: "蔬菜炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "5.50" }, { labelEn: "Qt", labelZh: "大", amount: "9.00" }] },
-      { number: "29", nameEn: "Roast Pork Fried Rice", nameZh: "叉烧炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "31", nameEn: "Shrimp Fried Rice", nameZh: "虾炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "32", nameEn: "Chicken Fried Rice", nameZh: "鸡肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "33", nameEn: "Beef Fried Rice", nameZh: "牛肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "34", nameEn: "House Special Fried Rice", nameZh: "本楼炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.50" }] },
+      { number: "29", nameEn: "Roast Pork Fried Rice", nameZh: "叉烧炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.25" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "31", nameEn: "Shrimp Fried Rice", nameZh: "虾炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.25" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "32", nameEn: "Chicken Fried Rice", nameZh: "鸡肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.25" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
+      { number: "33", nameEn: "Beef Fried Rice", nameZh: "牛肉炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "34", nameEn: "House Special Fried Rice", nameZh: "本楼炒饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "7.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
       { number: "36", nameEn: "White Rice", nameZh: "白饭", prices: [{ labelEn: "Pt", labelZh: "小", amount: "3.00" }, { labelEn: "Qt", labelZh: "大", amount: "5.00" }] },
       { number: "37", nameEn: "White Rice with Gravy", nameZh: "白饭加卤汁", prices: [{ labelEn: "Pt", labelZh: "小", amount: "4.00" }, { labelEn: "Qt", labelZh: "大", amount: "6.00" }] }
     ]
@@ -261,10 +261,10 @@ window.menuData = [
     note: "Soft egg noodles.",
     items: [
       { number: "48", nameEn: "Vegetable Lo Mein", nameZh: "蔬菜捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "6.50" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
-      { number: "49", nameEn: "Roast Pork Lo Mein", nameZh: "叉烧捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
-      { number: "50", nameEn: "Chicken Lo Mein", nameZh: "鸡肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "10.00" }] },
-      { number: "51", nameEn: "Shrimp Lo Mein", nameZh: "虾捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
-      { number: "52", nameEn: "Beef Lo Mein", nameZh: "牛肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "49", nameEn: "Roast Pork Lo Mein", nameZh: "叉烧捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "50", nameEn: "Chicken Lo Mein", nameZh: "鸡肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "8.00" }, { labelEn: "Qt", labelZh: "大", amount: "11.00" }] },
+      { number: "51", nameEn: "Shrimp Lo Mein", nameZh: "虾捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "9.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
+      { number: "52", nameEn: "Beef Lo Mein", nameZh: "牛肉捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "9.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] },
       { number: "53", nameEn: "House Special Lo Mein", nameZh: "本楼捞面", prices: [{ labelEn: "Pt", labelZh: "小", amount: "9.00" }, { labelEn: "Qt", labelZh: "大", amount: "12.00" }] }
     ]
   },
