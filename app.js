@@ -449,7 +449,7 @@ const renderWingOrder = (category, item, context = "menu") => {
   return `
     <div class="wing-order wing-order--${escapeHtml(context)}">
       <div class="wing-order-rate">
-        <span>${pricing.minQty} pcs min / 三只起</span>
+        <span>${pricing.minQty} pcs min / ${pricing.minQty}只起</span>
         <strong>${formatMoney(pricing.unitCents)} each / 每只</strong>
       </div>
       ${renderWingStepper(category, item, context)}
@@ -1162,7 +1162,7 @@ const renderFeaturedWingItem = ({ item, category, imageSrc, imageFallback, image
           <div class="featured-rule" aria-hidden="true"></div>
         </div>
         <div class="featured-wing-mini">
-          <span>${pricing ? `${pricing.minQty} pcs min / 三只起` : ""}</span>
+          <span>${pricing ? `${pricing.minQty} pcs min / ${pricing.minQty}只起` : ""}</span>
           <strong>${pricing ? `${formatMoney(pricing.unitCents)} each / 每只` : total}</strong>
           <button
             type="button"

@@ -162,10 +162,10 @@ window.menuData = [
         number: "14",
         nameEn: "Salt & Pepper Wings",
         nameZh: "椒盐鸡翅",
-        note: "$1 per wing. Minimum 3 wings; maximum 66 wings. / 每只$1，三只起售，最多66只。",
-        wingPricing: { unitPrice: 1, minQty: 3, maxQty: 66 },
+        note: "$1 per wing. Minimum 4 wings; maximum 66 wings. / 每只$1，四只起售，最多66只。",
+        wingPricing: { unitPrice: 1, minQty: 4, maxQty: 66 },
         prices: [
-          { labelEn: "3 pcs min", labelZh: "三只起", amount: "3.00" },
+          { labelEn: "4 pcs min", labelZh: "四只起", amount: "4.00" },
           { labelEn: "Per wing", labelZh: "每只", amount: "1.00" }
         ]
       },
@@ -184,10 +184,10 @@ window.menuData = [
         number: "BBW",
         nameEn: "BBQ Wings",
         nameZh: "BBQ鸡翅",
-        note: "$1 per wing. Minimum 3 wings; maximum 66 wings. / 每只$1，三只起售，最多66只。",
-        wingPricing: { unitPrice: 1, minQty: 3, maxQty: 66 },
+        note: "$1 per wing. Minimum 4 wings; maximum 66 wings. / 每只$1，四只起售，最多66只。",
+        wingPricing: { unitPrice: 1, minQty: 4, maxQty: 66 },
         prices: [
-          { labelEn: "3 pcs min", labelZh: "三只起", amount: "3.00" },
+          { labelEn: "4 pcs min", labelZh: "四只起", amount: "4.00" },
           { labelEn: "Per wing", labelZh: "每只", amount: "1.00" }
         ]
       },
